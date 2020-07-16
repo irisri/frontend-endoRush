@@ -1,6 +1,8 @@
 <template>
   <div v-if="eventoToShow" class="evento-details">
     <h1>Toy Details:</h1>
+    <h1>Toy Details:</h1>
+    <h1>Toy Details:</h1>
   </div>
 </template>
 
