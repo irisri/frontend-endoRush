@@ -1,4 +1,4 @@
-// import eventService from '../services/ReviewService.js'
+import eventoService from '../services/eventoService.js'
 
 export default {
     state: {

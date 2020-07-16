@@ -1,4 +1,6 @@
 <template>
+<div>
+<p>rendering</p>
   <div class="evento-edit" v-if="evento">
     <div class="img" v-if="evento.img">
       <img width="500" :src="evento.img" />
@@ -12,6 +14,7 @@
       <button>Save</button>
     </form>
   </div>
+</div>
 </template>
 
 <script>
