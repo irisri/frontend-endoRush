@@ -1,21 +1,30 @@
 <template>
-<div>
-<p>rendering</p>
-  <div class="evento-edit" v-if="eventoToEdit">
-    <div class="img" v-if="eventoToEdit.img">
-      <img width="500" :src="eventoToEdit.img" />
+  <div class="evento-edit" v-if="evento">
+    <div class="img" v-if="evento.img">
+      <img width="500" :src="evento.img" />
     </div>
     <form @submit.prevent="saveEvento">
-      <input type="text" v-model="eventoToEdit.name" placeholder="Event name" />
-      <input type="number" v-model="eventoToEdit.capaity" :value="eventoToEdit.capaity">
-      <input type="date" v-model="eventoToEdit.date" value="evento.date" />
-      <el-date-picker v-model="eventoToEdit.startTime" type="datetime" placeholder="Select date and time" @change="setDate"></el-date-picker>
-      <textarea v-model="eventoToEdit.description"></textarea>
+      <input type="text" v-model="evento.title" placeholder="Event name" />
+      <input type="number" v-model="evento.capaity" />
+      <!-- <el-date-picker
+        v-model="eventoToEdit.startTime"
+        type="datetime"
+        placeholder="Select date and time"
+      ></el-date-picker> -->
+
+      <div class="block">
+        <el-date-picker
+          v-model="evento.startTime"
+          type="datetime"
+          placeholder="Select date and time" @change="setDate"
+        ></el-date-picker>
+      </div>
+
+      <textarea v-model="evento.description"></textarea>
       <input type="file" @change="onUploadImg" />
       <button>Save</button>
     </form>
   </div>
-</div>
 </template>
 
 <script>
@@ -24,19 +33,13 @@ const _ = require("lodash");
 
 export default {
   name: "evento-edit",
-  computed: {
-    eventoToEdit() {
-      var evento = _.cloneDeep(this.$store.getters.evento);
-      if (evento) return evento;
-      // return eventoService.getEmptyToy()
-    }
-  },
   data() {
     return {
-      evento: null
+      evento: Date.now()      
+      // picker.$emit('pick', new Date());
     }
   },
-  created() {
+  async created() {
     const eventoId = this.$route.params.id;
     // if (eventoId) {
     //   this.evento = _.cloneDeep(eventoService.getById(eventoId));
@@ -44,9 +47,10 @@ export default {
     //   this.evento = eventoService.getEmpty();
     // }
     if (eventoId) {
-      console.log('crea', eventoId);
-      return this.$store.dispatch({ type: "getById", eventoId });
-    } 
+      await this.$store.dispatch({ type: "getById", eventoId });
+      if (eventoId) return this.evento = _.cloneDeep(this.$store.getters.evento);
+      return eventoService.getEmptyToy()
+    }
   },
   methods: {
     async onUploadImg(ev) {
@@ -54,13 +58,15 @@ export default {
       //   this.evento.img = res.url;
       console.log(ev);
     },
-    setDate(ev) {
-        console.log('date event',ev);
+    setDate(startTime) {
+      console.log("date event", startTime);
     },
-    saveEvent() {
-      this.$store.dispatch({ type: "saveEvento", evento: { ...this.evento } });
-    //   this.$router.push("/event");
+    saveEvento() {
+      console.log(this.eventoToEdit);
+      // this.$store.dispatch({ type: "saveEvento", evento: { ...this.evento } });
+      //   this.$router.push("/event");
     }
-  }
+  },
+  // watched()
 };
 </script>

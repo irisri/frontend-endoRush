@@ -5,9 +5,14 @@ import router from './router'
 import store from './store'
 import './assets/styles/styles.scss'
 import elementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import lang from 'element-ui/lib/locale/lang/en'
+import locale from 'element-ui/lib/locale'
+
 
 
 Vue.use(elementUI);
+locale.use(lang)
 Vue.config.productionTip = false
 
 new Vue({

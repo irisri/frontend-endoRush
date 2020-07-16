@@ -12,6 +12,7 @@ export default {
 
 function getEmpty() {
     return {
+        title: null,
         description: null,
         location: {
           name: "null",
