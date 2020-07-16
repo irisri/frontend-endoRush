@@ -1,32 +1,32 @@
 <template>
-  <div class="event-app">
+  <div class="evento-app">
     <evento-filter @setFilter="setFilter"></evento-filter>
-    <event-list :events="events"></event-list>
+    <evento-list :eventos="eventos"></evento-list>
   </div>
 </template>
 
 <script>
-import eventList from "../components/event-list.cmp.vue";
+import eventoList from "../components/evento-list.cmp.vue";
 import eventoFilter from "../components/evento-filter.cmp.vue";
 
 export default {
   computed: {
-    events() {
-      return this.$store.getters.events;
+    eventos() {
+      return this.$store.getters.eventos;
     }
   },
   methods: {
     setFilter(filterBy) {
       this.$store.commit({ type: "updateFilterBy", filter: filterBy });
-      this.$store.dispatch({ type: "loadEvents" });
+      this.$store.dispatch({ type: "loadEventos" });
     }
   },
   components: {
-    eventList,
+    eventoList,
     eventoFilter
   },
   created() {
-    this.$store.dispatch({ type: "loadEvents" });
+    this.$store.dispatch({ type: "loadEventos" });
   }
 };
 </script>
