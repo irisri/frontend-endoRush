@@ -7,9 +7,10 @@
 }
 
 html {
-    font-family: JosefinSansLight;
+    font-family: JosefinSansLight,  Helvetica, Arial;
     line-height: 2;
     color: $clr2;
+    text-align: center;
 }
 
 body {
@@ -32,5 +33,5 @@ h1 {
 }
 
 p {
-    max-width: 48ch;
+    margin: 0px;
 }
