@@ -1,4 +1,4 @@
-import { userService } from '@/services/user.service.js';
+import { userService } from '@/services/userService.js';
 
 var localLoggedinUser = null;
 if (sessionStorage.user) localLoggedinUser = JSON.parse(sessionStorage.user);

@@ -21,7 +21,7 @@ export default {
         time: "Any day"
       },
       dates: ["Any day", "Today", "Tomorrow", "This week", "Next week"],
-      tags: ["Yoga", ""]
+      tags: ["Yoga", "Yoga"]
     };
   },
   methods: {
