@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import eventApp from '@/views/event-app.cmp.vue'
-import eventDetails from '@/views/event-details.cmp.vue'
-import eventEdit from '@/views/event-edit.cmp.vue'
+import eventoApp from '@/views/evento-app.cmp.vue'
+import eventoDetails from '@/views/evento-details.cmp.vue'
+import eventoEdit from '@/views/evento-edit.cmp.vue'
 import loginPage from '@/views/login-page.cmp.vue'
 import aboutPage from '@/views/about-page.cmp.vue'
 
@@ -13,7 +13,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: eventApp
+    component: eventoApp
   },
   {
     path: '/login',
@@ -21,14 +21,14 @@ const routes = [
     component: loginPage
   },
   {
-    path: '/event/details/:id',
-    name: 'EventDetails',
-    component: eventDetails
+    path: '/evento/details/:id',
+    name: 'EventoDetails',
+    component: eventoDetails
   },
   {
-    path: '/event/edit/:id?',
-    name: 'EventEdit',
-    component: eventEdit
+    path: '/evento/edit/:id?',
+    name: 'EventoEdit',
+    component: eventoEdit
   },
   {
     path: '/about',

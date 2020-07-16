@@ -1,13 +1,13 @@
 <template>
   <div class="event-app">
-    <event-filter @setFilter="setFilter"></event-filter>
+    <evento-filter @setFilter="setFilter"></evento-filter>
     <event-list :events="events"></event-list>
   </div>
 </template>
 
 <script>
 import eventList from "../components/event-list.cmp.vue";
-import eventFilter from "../components/event-filter.cmp.vue";
+import eventoFilter from "../components/evento-filter.cmp.vue";
 
 export default {
   computed: {
@@ -23,7 +23,7 @@ export default {
   },
   components: {
     eventList,
-    eventFilter
+    eventoFilter
   },
   created() {
     this.$store.dispatch({ type: "loadEvents" });

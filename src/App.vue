@@ -18,14 +18,7 @@
 
 <script>
 // @ is an alias to /src
-import eventFilter from "@/components/event-filter.cmp.vue";
 
-export default {
-  name: "App",
-  components: {
-    eventFilter
-  }
-};
 </script>
 
 
