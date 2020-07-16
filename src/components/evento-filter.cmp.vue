@@ -1,5 +1,5 @@
 <template>
-  <div class="toy-filter">
+  <div class="evento-filter">
     <el-input @input="setFilter" v-model="filterBy.title" placeholder="find your next event"></el-input>
     <el-select v-model="filterBy.time" @change="setFilter">
       <el-option v-for="item in dates" :key="item" :label="item" :value="item"></el-option>
