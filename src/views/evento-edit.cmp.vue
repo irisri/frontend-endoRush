@@ -6,12 +6,6 @@
     <form @submit.prevent="saveEvento">
       <input type="text" v-model="evento.title" placeholder="Event name" />
       <input type="number" v-model="evento.capaity" />
-      <!-- <el-date-picker
-        v-model="eventoToEdit.startTime"
-        type="datetime"
-        placeholder="Select date and time"
-      ></el-date-picker> -->
-
       <div class="block">
         <el-date-picker
           v-model="evento.startTime"

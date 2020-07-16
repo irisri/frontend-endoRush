@@ -1,5 +1,6 @@
 <template>
   <div class="evento-list">
+    <p>evento-list</p>
       <div title="Add New event" @click="$router.push('/evento/add')">create new event!</div>
       <section v-for="evento in eventos" :key="evento._id" @click.stop="$router.push('/evento/details/' + evento._id)">
           <evento-preview :evento="evento" />

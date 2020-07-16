@@ -50,3 +50,7 @@ function update(evento) {
 function remove(id) {
     return HttpService.delete(`evento/${id}`)
 }
+
+// return axios.put(`http://localhost:3000/toyes/${toy._id}`, toy)
+//         .then(res => res.data)
+//         .catch(err => err);
