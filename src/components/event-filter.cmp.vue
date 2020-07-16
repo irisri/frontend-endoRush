@@ -4,6 +4,9 @@
     <el-select v-model="filterBy.time" @change="setFilter">
       <el-option v-for="item in dates" :key="item" :label="item" :value="item"></el-option>
     </el-select>
+    <el-select v-model="filterBy.tags" multiple @change="setFilter">
+      <el-option v-for="item in tags" :key="item" :label="item" :value="item"></el-option>
+    </el-select>
   </div>
 </template>
 
@@ -14,7 +17,7 @@ export default {
       filterBy: {
         title: "",
         location: "",
-        tag: "",
+        tags: [],
         time: "Any day"
       },
       dates: ["Any day", "Today", "Tomorrow", "This week", "Next week"],
