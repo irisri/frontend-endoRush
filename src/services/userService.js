@@ -1,4 +1,4 @@
-import HttpService from './http.service'
+import HttpService from './HttpService'
 
 export const userService = {
     login,
