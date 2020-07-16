@@ -5,7 +5,8 @@
         word-spacing: rem(8px);
 
         span {
-            text-transform: uppercase; 
+            text-transform: capitalize; 
+            color: $clr1;
         }
     }
 

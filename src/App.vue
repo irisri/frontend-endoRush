@@ -2,8 +2,9 @@
   <div id="app">
     <header class="main-header">
       <h1 class="logo">
-        Endorophin <span>r</span>ush
+        Endorophin <span>rush</span>
       </h1>
+      <h3>Take charge of your body and you're life!</h3>
       <nav>
         <router-link to="/">Home</router-link>|
         <router-link to="/event">Event</router-link>|
