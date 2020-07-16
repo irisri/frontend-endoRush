@@ -7,7 +7,7 @@
     </div>
     <form @submit.prevent="saveEvento">
       <input type="text" v-model="eventoToEdit.name" placeholder="Event name" />
-      <input type="number" v-model="eventoToEdit.capaity" :value="eventoToEdit.capaity">
+      <input type="number" v-model="eventoToEdit.capaity">
       <input type="date" v-model="eventoToEdit.date" value="evento.date" />
       <el-date-picker v-model="eventoToEdit.startTime" type="datetime" placeholder="Select date and time" @change="setDate"></el-date-picker>
       <textarea v-model="eventoToEdit.description"></textarea>
