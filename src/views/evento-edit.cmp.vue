@@ -29,7 +29,7 @@ export default {
   name: "evento-edit",
   data() {
     return {
-      evento: Date.now()      
+      evento: null     
       // picker.$emit('pick', new Date());
     }
   },
@@ -54,6 +54,8 @@ export default {
     },
     setDate(startTime) {
       console.log("date event", startTime);
+      const updatedTime = new Date(startTime)
+      console.log(updatedTime)
     },
     saveEvento() {
       console.log(this.eventoToEdit);
