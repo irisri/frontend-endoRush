@@ -2,7 +2,7 @@
   <div class="event-app">
     <h1>Event App</h1>
     <event-filter @setFilter="setFilter"></event-filter>
-    <event-list :toys="toys"></event-list>
+    <event-list :events="events"></event-list>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import eventFilter from "../components/event-filter.cmp.vue";
 export default {
   computed: {
     events() {
-      return this.$store.getters.toys;
+      return this.$store.getters.events;
     }
   },
   methods: {
