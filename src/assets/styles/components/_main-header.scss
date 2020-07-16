@@ -1,0 +1,27 @@
+.main-header {
+    .logo {
+        font-family: RanchersRegular;
+        font-size: rem(54px);
+        word-spacing: rem(8px);
+
+        span {
+            text-transform: uppercase; 
+        }
+    }
+
+    nav {
+        a {
+            color: $clr2;
+            text-decoration: none;
+            font-family: JosefinSansMedium;
+        }
+
+        a:hover {
+            color: $clr1;
+        }
+
+        a.router-link-exact-active {
+            color: $clr1;
+        }
+    }
+}

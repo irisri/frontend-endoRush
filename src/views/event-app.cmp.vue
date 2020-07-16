@@ -1,6 +1,5 @@
 <template>
   <div class="event-app">
-    <h1>Event App</h1>
     <event-filter @setFilter="setFilter"></event-filter>
     <event-list :events="events"></event-list>
   </div>
