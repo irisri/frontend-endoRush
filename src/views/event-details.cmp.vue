@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     loadEvent() {
-      let { toyId } = this.$route.params;
+      let { eventId } = this.$route.params;
       eventService.getById(eventId).then(event => (this.eventToShow = event));
     }
   },

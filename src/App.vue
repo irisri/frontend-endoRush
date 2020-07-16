@@ -4,7 +4,7 @@
       <h1>Endorophin rush</h1>
       <router-link to="/">Home</router-link> |
       <router-link to="/event">Event</router-link> |
-      <router-link to="/logon">Login</router-link> |
+      <router-link to="/login">Login</router-link> |
       <router-link to="/about">About</router-link>
     </nav>
     <router-view/>
