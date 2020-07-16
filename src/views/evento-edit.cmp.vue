@@ -1,15 +1,16 @@
 <template>
 <div>
 <p>rendering</p>
-  <div class="evento-edit" v-if="evento">
-    <div class="img" v-if="evento.img">
-      <img width="500" :src="evento.img" />
+  <div class="evento-edit" v-if="eventoToEdit">
+    <div class="img" v-if="eventoToEdit.img">
+      <img width="500" :src="eventoToEdit.img" />
     </div>
     <form @submit.prevent="saveEvento">
-      <input type="text" v-model="evento.name" placeholder="Event name" />
-      <input type="date" v-model="evento.date" value="evento.date" />
-      <el-date-picker v-model="value1" type="datetime" placeholder="Select date and time" @change="setDate"></el-date-picker>
-      <textarea v-model="evento.description"></textarea>
+      <input type="text" v-model="eventoToEdit.name" placeholder="Event name" />
+      <input type="number" v-model="eventoToEdit.capaity" :value="eventoToEdit.capaity">
+      <input type="date" v-model="eventoToEdit.date" value="evento.date" />
+      <el-date-picker v-model="eventoToEdit.startTime" type="datetime" placeholder="Select date and time" @change="setDate"></el-date-picker>
+      <textarea v-model="eventoToEdit.description"></textarea>
       <input type="file" @change="onUploadImg" />
       <button>Save</button>
     </form>
@@ -23,16 +24,29 @@ const _ = require("lodash");
 
 export default {
   name: "evento-edit",
-  data: {
-    evento: null
+  computed: {
+    eventoToEdit() {
+      var evento = _.cloneDeep(this.$store.getters.evento);
+      if (evento) return evento;
+      // return eventoService.getEmptyToy()
+    }
+  },
+  data() {
+    return {
+      evento: null
+    }
   },
   created() {
-    let eventoId = this.$route.params.id;
+    const eventoId = this.$route.params.id;
+    // if (eventoId) {
+    //   this.evento = _.cloneDeep(eventoService.getById(eventoId));
+    // } else {
+    //   this.evento = eventoService.getEmpty();
+    // }
     if (eventoId) {
-      this.evento = _.cloneDeep(eventoService.getById(eventoId));
-    } else {
-      this.evento = eventoService.getEmpty();
-    }
+      console.log('crea', eventoId);
+      return this.$store.dispatch({ type: "getById", eventoId });
+    } 
   },
   methods: {
     async onUploadImg(ev) {

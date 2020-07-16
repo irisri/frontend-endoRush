@@ -1,6 +1,7 @@
 import HttpService from './HttpService'
+import axios from 'axios';
 
-export const eventoService = {
+export default {
     query,
     remove,
     save,
@@ -11,19 +12,30 @@ export const eventoService = {
 
 function getEmpty() {
     return {
-        name: '',
-        price: 0,
-        type: '',
-        inStock: false
+        description: null,
+        location: {
+          name: "null",
+          lat: null,
+          lng: null
+        },
+        startTime: null,
+        tags: [],
+        capaity: null
     }
 }
 
 function query() {
-    return HttpService.get("evento");
+    return axios.get(`http://localhost:3000/evento/`)
+        .then(res => res.data)
+        .catch(err => err)     
+    // return HttpService.get("evento");
 }
 
 async function getById(id) {
-    return await HttpService.get(`evento/${id}`)
+    return axios.get(`http://localhost:3000/evento/${id}`)
+        .then(res => res.data)
+        .catch(err => err)
+    // return await HttpService.get(`evento/${id}`)
 }
 
 function save(evento) {
