@@ -20,7 +20,7 @@
           <input type="text" v-model="signupCred.userNmae" placeholder="Username" />
           <input type="text" v-model="signupCred.password" placeholder="Password" />
           <input type="file" @change="onUploadImg" />
-          <img :src="signupCred.imgUrl" />
+          <img :src="signupCred.src" />
           <button>Signup</button>
         </form>
       </div>
