@@ -18,8 +18,9 @@ function getEmpty() {
     }
 }
 
-function query() {
-    return HttpService.get("evento");
+async function query(filterBy) {
+    console.log('query in eventoService');
+    return await HttpService.get("evento");
 }
 
 async function getById(id) {

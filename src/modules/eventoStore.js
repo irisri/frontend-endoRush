@@ -54,7 +54,7 @@ export default {
             }
         },
         async loadEventos(context) {
-            const eventos = await eventoService.query(state.filterBy);
+            const eventos = await eventoService.query();
             context.commit({ type: 'setEventos', eventos })
         },
         async removeEvent(context, { eventoId }) {
