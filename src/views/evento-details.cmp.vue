@@ -1,26 +1,26 @@
 <template>
-  <div v-if="eventToShow" class="event-details">
+  <div v-if="eventoToShow" class="evento-details">
     <h1>Toy Details:</h1>
   </div>
 </template>
 
 <script>
-import { eventService } from "../services/eventService.js";
+import { eventoService } from "../services/eventoService.js";
 
 export default {
   data() {
     return {
-      eventToShow: null
+      eventoToShow: null
     };
   },
   methods: {
-    loadEvent() {
-      let { eventId } = this.$route.params;
-      eventService.getById(eventId).then(event => (this.eventToShow = event));
+    loadEvento() {
+      let { eventoId } = this.$route.params;
+      eventoService.getById(eventoId).then(evento => (this.eventoToShow = evento));
     }
   },
   created() {
-    this.loadEvent();
+    this.loadEvento();
   }
 };
 </script>

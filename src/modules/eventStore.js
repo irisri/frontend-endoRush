@@ -2,7 +2,7 @@
 
 export default {
     state: {
-        events: [],
+        eventos: [],
         filterBy: {
             title: "",
             location: "",
@@ -12,54 +12,54 @@ export default {
     },
 
     getters: {
-        events(state) {
-            return state.events;
+        eventos(state) {
+            return state.eventos;
         },
 
     },
     mutations: {
-        setEvents(state, { events }) {
-            state.events = events;
+        setEventos(state, { eventos }) {
+            state.eventos = eventos;
         },
-        addEvent(state, { events }) {
-            state.events.push(events)
+        addEvento(state, { eventos }) {
+            state.eventos.push(eventos)
         },
-        removeEvent(state, { EventId }) {
-            state.events = state.events.filter(event => event._id !== EventId)
+        removeEvento(state, { EventId }) {
+            state.eventos = state.eventos.filter(evento => evento._id !== EventoId)
         },
-        updateEvent(state, { event }) {
-            console.log("update", event);
-            const index = state.events.findIndex(
-              (currEvent) => currEvent._id === event._id
+        updateEvent(state, { evento }) {
+            console.log("update", evento);
+            const index = state.eventos.findIndex(
+              (currEvento) => currEvento._id === evento._id
             );
-            state.event.splice(index, 1, event);
-            return event;
+            state.evento.splice(index, 1, evento);
+            return evento;
         },
         setFilter(state, { filterBy }) {
             state.filterBy = filterBy
         },
     },
     actions: {
-        async addEvent(context, { event }) {
-            event = await eventService.add(event)
-            context.commit({ type: 'addEvent', event })
-            return event;
+        async addEvento(context, { evento }) {
+            event = await eventoService.add(evento)
+            context.commit({ type: 'addEvento', evento })
+            return evento;
         },
-        async saveEvent({ commit }, { event }) {
-            if (event._id) {
-              const updatedToy = await eventService.update(event);
-              commit({ type: "updateEvent", toy: updatedToy });
+        async saveEvento({ commit }, { evento }) {
+            if (evento._id) {
+              const updatedEvento = await eventoService.update(evento);
+              commit({ type: "updateEvento", toy: updatedEvento });
             } else {
-              return await eventService.save(event);
+              return await eventoService.save(evento);
             }
         },
-        async loadEvents(context) {
-            const events = await eventService.query(state.filterBy);
-            context.commit({ type: 'setEvents', events })
+        async loadEventos(context) {
+            const eventos = await eventoService.query(state.filterBy);
+            context.commit({ type: 'setEventos', eventos })
         },
-        async removeEvent(context, { eventId }) {
-            await eventService.remove(eventId);
-            context.commit({ type: 'removeEvent', eventId })
+        async removeEvent(context, { eventoId }) {
+            await eventService.remove(eventoId);
+            context.commit({ type: 'removeEvento', eventoId })
         },
 
     }
