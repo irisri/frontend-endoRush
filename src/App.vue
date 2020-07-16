@@ -6,10 +6,23 @@
       <router-link to="/event">Event</router-link> |
       <router-link to="/login">Login</router-link> |
       <router-link to="/about">About</router-link>
-    </nav>
+    </nav>  
     <router-view/>
   </div>
 </template>
+
+<script>
+// @ is an alias to /src
+import eventFilter from '@/components/event-filter.cmp.vue'
+
+export default {
+  name: 'App',
+  components: {
+    eventFilter
+  }
+}
+</script>
+
 
 
 
