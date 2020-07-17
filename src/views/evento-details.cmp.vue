@@ -1,15 +1,17 @@
 <template>
   <div v-if="eventoToShow" class="evento-details">
-    <img v-if="eventoToShow.imgUrls[0]" :src="eventoToShow.imgUrls[0]"/>
+    <!-- <img v-if="eventoToShow.imgUrls[0]" :src="eventoToShow.imgUrls[0]"/> -->
     <!-- <img :src="http//res.cloudinary.com/do8gnvlal/image/upload/v1594639483/samples/landscapes/beach-boat.jpg"/> -->
     <h1>Toy Details:</h1>
+    <p>{{eventoToShow.imgUrls}}</p>
     <p>{{eventoToShow.title}}</p>
-    <p>{{eventoToShow.description}}</p>
-    <p>{{eventoToShow.location.name}}</p>
+    <p>{{eventoToShow.members}}</p>
+    <p>{{eventoToShow.location}}</p>
+    <!-- <p>{{eventoToShow.location.name}}</p> -->
     <p>{{eventoToShow.starttime}}</p>
-    <div v-for="member in participants" :key="evento.member.id">
+    <!-- <div v-for="member in members" :key="evento.member.id">
       <span>{{evento.member.id}}</span>
-      </div> 
+      </div>  -->
   </div>
 </template>
 
@@ -34,6 +36,7 @@ export default {
     const eventoId = this.$route.params.id;
     await this.$store.dispatch({ type: "getById", eventoId });
     this.eventoToShow = this.$store.getters.evento;
+    console.log('this.eventoToShow', this.eventoToShow);
   }
 };
 </script>
