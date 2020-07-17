@@ -1,15 +1,14 @@
 <template>
   <div class="evento-preview flex-row">
+    <h3>{{ evento.title }}</h3>
     <carousel-slide :evento="evento"  />
     <!-- <img style="width:200px;height:150px;" :src="img" /> -->
-    <h3>{{ evento.title }}</h3>
-    <p>location: {{ evento.location.name }}</p>
-    <!-- <div>at: {{evento.starttime | relativeTime}}</div> -->
-    <div>at: {{timeToShow}}</div>
     
-    <p>orgenised by {{ evento.owner }}</p>
+    <p>location: {{ evento.location.name }}</p>
+    <h4>at: {{timeToShow}}</h4> 
+    <h4>orgenised by {{ evento.owner }}</h4>
 
-    <div class="rate" @click.stop="updateRate">
+    <div class="rate flex justify-center" @click.stop="updateRate">
       <input type="radio" id="star5" name="rate" value="5" />
       <label for="star5" title="text">5 stars</label>
       <input type="radio" id="star4" name="rate" value="4" />
@@ -65,11 +64,19 @@ export default {
   margin: 0;
   padding: 0;
 }
+div{
+  width: 230px;
+  height: 260px;
+}
+div,h4,p{
+
+  background-color: #FFF8F0;
+}
 .rate {
-  float: left;
+
   height: 46px;
-  /* padding: 0 10px; */
-  margin-left: 30px;
+  
+ 
 }
 .rate:not(:checked) > input {
   position: absolute;
