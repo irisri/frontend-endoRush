@@ -1,6 +1,7 @@
 <template>
   <div class="evento-preview flex-row">
-    <img style="width:200px;height:150px;" :src="img" />
+    <carousel-slide :evento="evento"  />
+    <!-- <img style="width:200px;height:150px;" :src="img" /> -->
     <h3>{{ evento.title }}</h3>
     <p>location: {{ evento.location.name }}</p>
     <!-- <div>at: {{evento.starttime | relativeTime}}</div> -->
@@ -23,8 +24,11 @@
   </div>
 </template>
 
-
 <script>
+
+
+import carouselSlide from '@/components/carousel-slide.cmp.vue';
+
 export default {
   name: "evento-preview",
   props: {
@@ -49,7 +53,10 @@ export default {
     updateRate() {
       console.log("rateunrate");
     }
-  }
+  },
+ components: {
+  carouselSlide
+ },
 };
 </script>
 
