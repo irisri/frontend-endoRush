@@ -17,9 +17,8 @@ export default {
       return state.eventos;
     },
     evento(state) {
-        console.log('curr',state.currEvento);
-        return state.currEvento
-    }
+      return state.currEvento;
+    },
   },
 
   mutations: {
@@ -43,10 +42,9 @@ export default {
     setFilter(state, { filterBy }) {
       state.filterBy = filterBy;
     },
-    setCurrEvento(state, {evento}) {
-        state.currEvento = evento;
-        console.log(state.currEvento);
-    }
+    setCurrEvento(state, { evento }) {
+      state.currEvento = evento;
+    },
   },
 
   actions: {
@@ -56,16 +54,18 @@ export default {
       return evento;
     },
     async saveEvento({ commit }, { evento }) {
-      if (evento._id) {
-        const updatedEvento = await eventoService.update(evento);
-        commit({ type: "updateEvento", evento: updatedEvento });
+      console.log(evento);
+      if (evento.id) {
+        return await eventoService.update(evento);
+        // const updatedEvento = await eventoService.update(evento);
+        // commit({ type: "updateEvento", evento: updatedEvento });
       } else {
         return await eventoService.save(evento);
       }
     },
     async getById({ commit }, { eventoId }) {
-        const evento = await eventoService.getById(eventoId);
-        commit({ type: "setCurrEvento", evento });
+      const evento = await eventoService.getById(eventoId);
+      commit({ type: "setCurrEvento", evento });
     },
     async loadEventos(context) {
       const eventos = await eventoService.query();

@@ -1,37 +1,27 @@
 <template>
   <div class="evento-edit" v-if="evento">
-    <div class="img" v-if="evento.img">
-      <img width="500" :src="evento.img" />
+    <div class="img" v-if="evento.imgUrls">
+      <img width="500" :src="evento.imgUrls[0]" />
     </div>
-    <form @submit.prevent="saveEvento">
-      <input type="text" v-model="evento.title" placeholder="Event name" />
-      <input type="number" v-model="evento.capaity" />
-      <div class="block">
-        <el-date-picker
-          v-model="evento.startTime"
-          type="datetime"
-          placeholder="Select date and time" @change="setDate"
-        ></el-date-picker>
-      </div>
-
-      <textarea v-model="evento.description"></textarea>
-      <input type="file" @change="onUploadImg" />
-      <button>Save</button>
-    </form>
+    <form-evento :evento="evento" @saveEvento="saveEvento" @updatedImg="onUploadImg" />
   </div>
 </template>
 
 <script>
-import { eventoService } from "../services/eventoService.js";
+import eventoService from "../services/eventoService.js";
+import { uploadImg } from "../services/img-upload.service.js";
+import formEvento from "../components/form-evento.cmp.vue";
 const _ = require("lodash");
 
 export default {
   name: "evento-edit",
+  components: {
+    formEvento
+  },
   data() {
     return {
-      evento: null     
-      // picker.$emit('pick', new Date());
-    }
+      evento: null
+    };
   },
   async created() {
     const eventoId = this.$route.params.id;
@@ -42,27 +32,23 @@ export default {
     // }
     if (eventoId) {
       await this.$store.dispatch({ type: "getById", eventoId });
-      if (eventoId) return this.evento = _.cloneDeep(this.$store.getters.evento);
-      return eventoService.getEmptyToy()
+      return (this.evento = _.cloneDeep(this.$store.getters.evento));
+    } else {
+      console.log("no id");
+      return (this.evento = eventoService.getEmpty());
     }
   },
   methods: {
     async onUploadImg(ev) {
-      //   const res = await uploadImg(ev);
-      //   this.evento.img = res.url;
       console.log(ev);
+      const res = await uploadImg(ev);
+      this.evento.imgUrls.splice(0, 1, res.url);
     },
-    setDate(startTime) {
-      console.log("date event", startTime);
-      const updatedTime = new Date(startTime)
-      console.log(updatedTime)
-    },
-    saveEvento() {
-      console.log(this.eventoToEdit);
-      // this.$store.dispatch({ type: "saveEvento", evento: { ...this.evento } });
-      //   this.$router.push("/event");
+    saveEvento(evento) {
+      console.log(evento);
+      this.$store.dispatch({ type: "saveEvento", evento });
+      this.$router.push("/event");
     }
-  },
-  // watched()
+  }
 };
 </script>
