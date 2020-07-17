@@ -40,17 +40,37 @@ async function getById(id) {
 }
 
 function save(evento) {
-    return HttpService.post(`evento`, evento);
+    //Front or oin server?
+    evento.createdAt = Date.now();
+    evento.id = makeId();
+    evento.members = [];
+    evento.owner = '';
+    console.log('saveing', evento);
+    
+    return axios.post(`http://localhost:3000/evento/`, evento)
+        .then(res => res.data)
+        .catch(err => err);
+    // return HttpService.post(`evento`, evento);
 }
 
 function update(evento) {
-    return HttpService.put(`evento/${evento._id}`, evento)
+    return axios.put(`http://localhost:3000/evento/${evento.id}`, evento)
+    .then(res => res.data)
+    .catch(err => err);
+    // return HttpService.put(`evento/${evento._id}`, evento)
 }
 
 function remove(id) {
     return HttpService.delete(`evento/${id}`)
 }
 
-// return axios.put(`http://localhost:3000/toyes/${toy._id}`, toy)
-//         .then(res => res.data)
-//         .catch(err => err);
+
+// delete after mongo
+function makeId(length = 5) {
+    var txt = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for(let i=0; i < length; i++) {
+        txt += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return txt;
+}
