@@ -1,10 +1,11 @@
 <template>
-  <div class="evento-list">
-    <p>evento-list</p>
+  <div class="evento-list">   
       <div title="Add New event" @click="$router.push('/evento/add')">create new event!</div>
-      <section v-for="evento in eventos" :key="evento._id" @click.stop="$router.push('/evento/details/' + evento._id)">
+      <div class="flex space-around">
+      <section v-for="evento in eventos" :key="evento.id" @click.stop="$router.push('/evento/details/' + evento.id)">
           <evento-preview :evento="evento" />
       </section>
+      </div>
   </div>
 </template>
 

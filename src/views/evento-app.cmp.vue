@@ -27,6 +27,8 @@ export default {
   },
   created() {
     this.$store.dispatch({ type: "loadEventos" });
+    console.log('app')
+
   }
 };
 </script>
