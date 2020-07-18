@@ -12,13 +12,13 @@
     <div class="details-content flex">
       <div class="info">
         <h3>{{ eventoToShow.title }}</h3>
-        <h4>orgenised by {{ eventoToShow.owner }}</h4>
+        <h4>orgenised by {{ eventoToShow.owner.fullName }}</h4>
         <p>{{eventoToShow.title}}</p>
         <p>{{eventoToShow.description}}</p>
         <p>{{eventoToShow.description}}</p>
         <p>{{eventoToShow.description}}</p>
         <member-list :members="eventoToShow.members"></member-list>
-        <!-- <review-list :reviews="eventoToShow.reviews"></review-list> -->
+        <!-- <review-list :reviews="reviews"></review-list> -->
         <review-list :reviews="[1,2,3]"></review-list>
       </div>
       <div class="join">
@@ -36,7 +36,9 @@ import reviewList from "../components/review-list.cmp.vue";
 export default {
   data() {
     return {
-      eventoToShow: null
+      eventoToShow: null,
+      owner: null,
+      reviews: []
     };
   },
   computed: {
@@ -48,6 +50,10 @@ export default {
     const eventoId = this.$route.params.id;
     await this.$store.dispatch({ type: "getById", eventoId });
     this.eventoToShow = this.$store.getters.evento;
+    const ownerId = this.eventoToShow.owner.id;
+    this.owner = ownerId;
+    // await this.$store.dispatch({ type: "getReviewById", ownerId });
+    this.reviews = this.$store.getters.reviews;
     // console.log('this.eventoToShow', this.eventoToShow);
   },
   methods: {

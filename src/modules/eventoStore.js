@@ -10,6 +10,7 @@ export default {
       tag: "",
       time: "",
     },
+    reviews: []
   },
 
   getters: {
@@ -45,6 +46,9 @@ export default {
     setCurrEvento(state, { evento }) {
       state.currEvento = evento;
     },
+    setReviews(state, {reviews}) {
+      state.reviews = reviews;
+    }
   },
 
   actions: {
@@ -75,5 +79,10 @@ export default {
       await eventoService.remove(eventoId);
       context.commit({ type: "removeEvento", eventoId });
     },
+    async getReviewById(context, { ownerId }) {
+      await eventoService.getReviewById(eventoId);
+      context.commit({ type: "setReviews", eventoId });
+    }
+    
   },
 };

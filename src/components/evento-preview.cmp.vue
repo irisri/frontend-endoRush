@@ -6,7 +6,7 @@
 
     <p>location: {{ evento.location.name }}</p>
     <h4>at: {{timeToShow}}</h4>
-    <h4>orgenised by {{ evento.owner }}</h4>
+    <h4>orgenised by {{ evento.owner.fullName }}</h4>
 
     <div class="rate flex justify-center" @click.stop="updateRate">
       <input type="radio" id="star5" name="rate" value="5" />
@@ -66,9 +66,10 @@ export default {
   margin: 0;
   padding: 0;
 }
-div {
+.evento-preview {
   width: 230px;
-  height: 260px;
+  /* height: 260px; */
+  border-radius: 15px;
 }
 div,
 h4,

@@ -7,7 +7,7 @@
 
     >
       <slide v-for="img in imgs" :key="img">
-        <img :src="img" style="width:200px;height:150px;" />
+        <img :src="img" style="width:100%;height:150px;" />
       </slide>
       <!-- <slide>Slide 1 Content</slide>
       <slide>Slide 2 Content</slide>-->
