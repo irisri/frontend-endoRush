@@ -6,7 +6,6 @@
     <div v-for="img in eventoToShow.imgUrls" :key="img">
       <img :src="img" />
     </div>
-    <p>{{eventoToShow.imgUrls[0]}}</p>
     <p>{{eventoToShow.title}}</p>
     <p>{{eventoToShow.members}}</p>
     <p>{{eventoToShow.location}}</p>
