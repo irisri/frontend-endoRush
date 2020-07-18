@@ -1,0 +1,8 @@
+.evento-details {
+    .imgs-details {
+        display: grid;
+        &:first-child {
+            height: 100%;
+        }
+    }
+}
