@@ -9,8 +9,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 import VueCarousel from 'vue-carousel';
+import Gallery from "vue-cover-gallery";
 
 
+Vue.use(Gallery);
 Vue.use(VueCarousel);
 Vue.use(elementUI);
 locale.use(lang)

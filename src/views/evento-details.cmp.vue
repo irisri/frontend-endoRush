@@ -1,30 +1,38 @@
 <template>
   <div v-if="eventoToShow" class="evento-details">
-    <div class="imgs-details" >
-      <img v-for="img in eventoToShow.imgUrls" :key="img" style="width:200px;height:150px;" :src="img" />
+    <div class="imgs-details">
+      <img
+        v-for="(img, index) in eventoToShow.imgUrls"
+        :key="img"
+        style="width:200px;height:150px;"
+        :src="img"
+        :class="`image-${index+1}`"
+      />
     </div>
-    <h3>{{ eventoToShow.title }}</h3>
-    <div class="info">
-      <p>location: {{ eventoToShow.location.name }}</p>
-      <h4>at: {{timeToShow}}</h4>
-      <h4>orgenised by {{ eventoToShow.owner }}</h4>
-      <p>{{eventoToShow.title}}</p>
-      <p>{{eventoToShow.members}}</p>
-    </div>
-    <div class="members">
-    </div>
-    <div class="join">
-      <button @click="addMember()">Join</button>
-    <!-- <img v-if="eventoToShow.imgUrls[0]" :src="eventoToShow.imgUrls[0]"/> -->
-    <!-- <img :src="http//res.cloudinary.com/do8gnvlal/image/upload/v1594639483/samples/landscapes/beach-boat.jpg"/> -->
-    <h1>Toy Details:</h1>
-    <div v-for="img in eventoToShow.imgUrls" :key="img">
-      <img :src="img" width="500"/>
+    <div class="details-content flex">
+      <div class="info">
+        <h3>{{ eventoToShow.title }}</h3>
+        <h4>orgenised by {{ eventoToShow.owner }}</h4>
+        <p>{{eventoToShow.title}}</p>
+        <p>{{eventoToShow.description}}</p>
+        <p>{{eventoToShow.description}}</p>
+        <p>{{eventoToShow.description}}</p>
+        <member-list :members="eventoToShow.members"></member-list>
+        <!-- <review-list :reviews="eventoToShow.reviews"></review-list> -->
+        <review-list :reviews="[1,2,3]"></review-list>
+      </div>
+      <div class="join">
+        <i class="el-icon-time">{{timeToShow}}</i>
+        <i class="el-icon-map-location">{{ eventoToShow.location.name }}</i>
+        <button @click="addMember()">Join</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import memberList from "../components/member-list.cmp.vue";
+import reviewList from "../components/review-list.cmp.vue";
 export default {
   data() {
     return {
@@ -40,12 +48,17 @@ export default {
     const eventoId = this.$route.params.id;
     await this.$store.dispatch({ type: "getById", eventoId });
     this.eventoToShow = this.$store.getters.evento;
-    console.log("this.eventoToShow", this.eventoToShow);
+    // console.log('this.eventoToShow', this.eventoToShow);
   },
   methods: {
-   addMember() {
-     this.$store.dispatch({ type: "addMember", evento });
-   }
+    addMember() {
+      console.log("add member");
+      // this.$store.dispatch({ type: "addMember", evento });
+    }
+  },
+  components: {
+    memberList,
+    reviewList
   }
 };
 </script>

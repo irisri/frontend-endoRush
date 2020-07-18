@@ -1,0 +1,20 @@
+.member-list {
+    flex-wrap: wrap;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    .member-card {
+        padding: 5px;
+        margin: 5px;
+        text-align: center;
+        img{
+            border-radius: 999px;
+            height: 72px;
+            width: 72px;
+            size: cover;
+            border: 1px solid gray;
+        }
+        
+    }
+}

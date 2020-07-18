@@ -1,7 +1,7 @@
 <template>
   <div class="evento-preview flex-row">
-    <h3>{{ evento.title }}</h3>
     <carousel-slide :evento="evento" />
+    <h3>{{ evento.title }}</h3>
     <!-- <img style="width:200px;height:150px;" :src="img" /> -->
 
     <p>location: {{ evento.location.name }}</p>
@@ -52,7 +52,7 @@ export default {
       console.log("rateunrate");
     },
     removeEvento() {
-      this.$emit('removeEvento', this.evento.id)
+      this.$emit("removeEvento", this.evento.id);
     }
   },
   components: {

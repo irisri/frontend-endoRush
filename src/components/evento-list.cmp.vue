@@ -2,7 +2,7 @@
   <div class="evento-list">
     <el-button title="Add New event" @click="$router.push('/evento/edit')">create new event!</el-button>
     <div class="flex space-around">
-      <section v-for="evento in eventos" :key="evento.id" @click.stop="$router.push('/evento/details/' + evento.id)">
+      <section v-for="evento in eventos" :key="evento.id" @click.stop="$router.push(`/evento/details/${evento.id}`)">
         <evento-preview :evento="evento" @removeEvento="removeEvento" />
       </section>
     </div>
