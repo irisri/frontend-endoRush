@@ -46,7 +46,23 @@ export default {
   methods: {
     onUploadImg(ev) {
       uploadImg(ev).then(res => (this.signupCred.src = res.url));
-    }
+    },
+        async doLogin() {
+      const cred = this.loginCred
+      if(!cred.email || !cred.password) return this.msg = 'Please enter user/password'
+      await this.$store.dispatch({type :'login', userCred:cred})
+      this.loginCred = {};
+      
+    },   
+    doSignup() {
+      const cred = this.signupCred
+      if(!cred.email || !cred.password ||!cred.username) return this.msg = 'Please fill up the form';
+      this.signupCred.favColor = '#000000';
+      this.signupCred.gender = 'unknown';
+      this.signupCred.reminderTime = '6:55AM';
+      this.signupCred.isAdmin = false;
+      this.$store.dispatch({type: 'signup', userCred: this.signupCred})
+    },
   }
 };
 </script>

@@ -4,6 +4,8 @@
       :per-page="1"
       :navigate-to="evento.imgUrls"
       :mouse-drag="false"
+      :navigationEnabled="true"
+      :paginationEnabled="false"
 
     >
       <slide v-for="img in imgs" :key="img">
@@ -38,3 +40,16 @@ export default {
 
 };
 </script>
+
+
+<style scoped>
+
+data-v-438fd353
+
+.VueCarousel-pagination{
+  margin: 0;
+  height: 0px;
+}
+
+
+</style>
