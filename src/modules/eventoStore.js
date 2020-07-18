@@ -28,8 +28,8 @@ export default {
     addEvento(state, { eventos }) {
       state.eventos.push(eventos);
     },
-    removeEvento(state, { EventId }) {
-      state.eventos = state.eventos.filter((evento) => evento._id !== EventoId);
+    removeEvento(state, { eventoId }) {
+      state.eventos = state.eventos.filter((evento) => evento._id !== eventoId);
     },
     updateEvent(state, { evento }) {
       console.log("update", evento);
@@ -71,8 +71,8 @@ export default {
       const eventos = await eventoService.query();
       context.commit({ type: "setEventos", eventos });
     },
-    async removeEvent(context, { eventoId }) {
-      await eventService.remove(eventoId);
+    async removeEvento(context, { eventoId }) {
+      await eventoService.remove(eventoId);
       context.commit({ type: "removeEvento", eventoId });
     },
   },

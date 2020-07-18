@@ -2,7 +2,7 @@
   <div id="app">
     <header class="main-header">
       <h1 class="logo">
-        Endorophin <span>rush</span>
+        Endorphin <span>rush</span>
       </h1>
       <h3>Take charge of your body and you're life!</h3>
       <nav>
