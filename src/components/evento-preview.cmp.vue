@@ -1,11 +1,11 @@
 <template>
   <div class="evento-preview flex-row">
     <h3>{{ evento.title }}</h3>
-    <carousel-slide :evento="evento"  />
+    <carousel-slide :evento="evento" />
     <!-- <img style="width:200px;height:150px;" :src="img" /> -->
-    
+
     <p>location: {{ evento.location.name }}</p>
-    <h4>at: {{timeToShow}}</h4> 
+    <h4>at: {{timeToShow}}</h4>
     <h4>orgenised by {{ evento.owner }}</h4>
 
     <div class="rate flex justify-center" @click.stop="updateRate">
@@ -20,13 +20,13 @@
       <input type="radio" id="star1" name="rate" value="1" />
       <label for="star1" title="text">1 star</label>
     </div>
+
+    <el-button size="small" @click="removeEvento()">Delete event</el-button>
   </div>
 </template>
 
 <script>
-
-
-import carouselSlide from '@/components/carousel-slide.cmp.vue';
+import carouselSlide from "@/components/carousel-slide.cmp.vue";
 
 export default {
   name: "evento-preview",
@@ -42,20 +42,22 @@ export default {
     };
   },
   computed: {
-     timeToShow() {
-    //   return new Date(this.evento.starttime.getTime());
-     return new Date(this.evento.starttime).toLocaleString()
-
-     }
+    timeToShow() {
+      //   return new Date(this.evento.starttime.getTime());
+      return new Date(this.evento.starttime).toLocaleString();
+    }
   },
   methods: {
     updateRate() {
       console.log("rateunrate");
+    },
+    removeEvento() {
+      this.$emit('removeEvento', this.evento.id)
     }
   },
- components: {
-  carouselSlide
- },
+  components: {
+    carouselSlide
+  }
 };
 </script>
 
@@ -64,19 +66,17 @@ export default {
   margin: 0;
   padding: 0;
 }
-div{
+div {
   width: 230px;
   height: 260px;
 }
-div,h4,p{
-
-  background-color: #FFF8F0;
+div,
+h4,
+p {
+  background-color: #fff8f0;
 }
 .rate {
-
   height: 46px;
-  
- 
 }
 .rate:not(:checked) > input {
   position: absolute;

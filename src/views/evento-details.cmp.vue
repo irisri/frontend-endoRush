@@ -4,7 +4,7 @@
     <!-- <img :src="http//res.cloudinary.com/do8gnvlal/image/upload/v1594639483/samples/landscapes/beach-boat.jpg"/> -->
     <h1>Toy Details:</h1>
     <div v-for="img in eventoToShow.imgUrls" :key="img">
-      <img :src="img" />
+      <img :src="img" width="500"/>
     </div>
     <p>{{eventoToShow.imgUrls[0]}}</p>
     <p>{{eventoToShow.title}}</p>

@@ -40,7 +40,7 @@ async function getById(id) {
 }
 
 function save(evento) {
-    //Front or oin server?
+    //Front or in server?
     evento.createdAt = Date.now();
     evento.id = makeId();
     evento.members = [];
@@ -61,7 +61,10 @@ function update(evento) {
 }
 
 function remove(id) {
-    return HttpService.delete(`evento/${id}`)
+    return axios.delete(`http://localhost:3000/evento/${id}`)
+        .then(res => res.data)
+        .catch(err => err);
+    // return HttpService.delete(`evento/${id}`)
 }
 
 

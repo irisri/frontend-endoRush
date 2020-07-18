@@ -1,7 +1,7 @@
 <template>
   <div class="evento-app">
     <evento-filter @setFilter="setFilter"></evento-filter>
-    <evento-list :eventos="eventos"></evento-list>
+    <evento-list :eventos="eventos" @removeEvento="removeEvento"></evento-list>
   </div>
 </template>
 
@@ -18,8 +18,12 @@ export default {
   methods: {
     setFilter(filterBy) {
       this.$store.commit({ type: "updateFilterBy", filter: filterBy });
-      this.$store.dispatch({ type: "loadEventos" });
-    }
+      this.$store.dispatch({ type: "removeEvent" });
+    },
+    removeEvento(eventoId) {
+      console.log({type: 'removeEvento', eventoId});
+      this.$store.dispatch({type: 'removeEvento', eventoId});
+    },
   },
   components: {
     eventoList,
