@@ -25,17 +25,20 @@
     .time-date,
     .img-upload {
       margin: rem(15px) auto;
+      *:focus {
+        color: $clr1;
+        border-color: $clr2;
+      }
       label {
         margin-right: 15px;
       }
     }
-    * {
-      outline: $clr1;
-      font-family: JosefinSansLight;
-    }
-    .el-input__inner {
-      font-size: 1rem;
-    }
+    // * {
+    //   font-family: JosefinSansLight;
+    // }
+    // .el-input__inner {
+    //   font-size: 1rem;
+    // }
     .title,
     .descritprion {
       input,
@@ -44,11 +47,11 @@
         margin: 0 auto;
       }
     }
-    input:hover,
-    textarea:hover {
-      cursor: pointer;
-      color: $clr1;
-    }
+    // input:hover,
+    // textarea:hover {
+    //   cursor: pointer;
+    //   color: $clr1;
+    // }
 
     .tags {
       .el-icon-close {

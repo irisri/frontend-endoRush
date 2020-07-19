@@ -6,6 +6,7 @@ import eventoDetails from '@/views/evento-details.cmp.vue'
 import eventoEdit from '@/views/evento-edit.cmp.vue'
 import loginPage from '@/views/login-page.cmp.vue'
 import aboutPage from '@/views/about-page.cmp.vue'
+import homePage from '@/views/home-page.cmp.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,11 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    component: homePage
+  },
+  {
+    path: '/evento',
+    name: 'evento',
     component: eventoApp
   },
   {

@@ -4,10 +4,10 @@
       <h1 class="logo">
         Endorphin <span>rush</span>
       </h1>
-      <h3>Take charge of your body and you're life!</h3>
+      <!-- <h3>Take charge of your body and you're life!</h3> -->
       <nav>
         <router-link to="/">Home</router-link>|
-        <!-- <router-link to="/evento">Events</router-link>| -->
+        <router-link to="/evento">Events</router-link>|
         <router-link to="/login">Login</router-link>|
         <router-link to="/about">About</router-link>
       </nav>

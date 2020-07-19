@@ -20,6 +20,9 @@ export default {
     evento(state) {
       return state.currEvento;
     },
+    topThree(state) {
+      return state.eventos.slice(0, 3);
+    }
   },
 
   mutations: {

@@ -6,9 +6,10 @@
     </div>
 
     <div class="descritprion">
-      <label for="description">Event description:</label>
+      <label for="descript">Event description:</label>
       <el-input
-        type="textarea"
+        type="textarea" 
+        id="descript"
         :autosize="{ minRows: 2, maxRows: 6}"
         placeholder="Event description"
         v-model="evento.description"
@@ -16,14 +17,14 @@
     </div>
 
     <div class="capaity">
-      <label for="capaity">Number of maximum participants:</label>
+      <label for="cap">Number of maximum participants:</label>
       <!-- <input type="number" id="participants" v-model="evento.capaity" /> -->
-      <el-input-number
-        id="capaity"
+      <el-input-number 
         size="small"
         v-model="evento.capaity"
         controls-position="right"
         @change="changeCapaity"
+        id="cap"
         :min="1"
         :max="50"
       ></el-input-number>
@@ -67,6 +68,7 @@
       <input type="file" @change="onUploadImg" id="upload" />
     </div>
 
+    <!-- Add location -->
     <el-button>Save event</el-button>
   </form>
 </template>
