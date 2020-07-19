@@ -94,15 +94,17 @@ export default {
   padding: 0;
 }
 .evento-preview {
+   
   width: 230px;
   /* height: 260px; */
-  border-radius: 15px;
+ 
   cursor: pointer;
 }
 div,
 h4,
 p {
   background-color: #fff8f0;
+  border-radius: 20px;
 }
 .star{
   color: #FF4000;

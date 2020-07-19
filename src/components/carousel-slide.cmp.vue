@@ -1,3 +1,4 @@
+
 <template>
   <div class="carousel-slide" @click.stop>
     <carousel
@@ -5,15 +6,16 @@
       :navigate-to="evento.imgUrls"
       :mouse-drag="false"
       :navigationEnabled="true"
-      :paginationEnabled="false"
+      :paginationEnabled="true"
+      >
 
-    >
-      <slide v-for="img in imgs" :key="img">
-        <img :src="img" style="width:100%;height:150px;" />
+      <slide class = "slide" v-for="img in imgs" :key="img">
+        <img :src="img" style="width:100%;height:150px;border-radius:10px" />
       </slide>
-      <!-- <slide>Slide 1 Content</slide>
-      <slide>Slide 2 Content</slide>-->
+
     </carousel>
+
+
   </div>
 </template>
 
@@ -35,6 +37,9 @@ export default {
   data() {
     return {
       imgs: this.evento.imgUrls
+        //  data: ['<div class="example-slide">Slide 1</div>',
+        //   '<div class="example-slide">Slide 2</div>',
+        //   '<div class="example-slide">Slide 3</div>']
     };
   },
 
@@ -50,6 +55,10 @@ data-v-438fd353
   margin: 0;
   height: 0px;
 }
+.slide{
+  border-radius: 20px;
+}
 
 
 </style>
+
