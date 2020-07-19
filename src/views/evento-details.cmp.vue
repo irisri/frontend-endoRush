@@ -13,14 +13,17 @@
       <div class="info">
         <h3>{{ eventoToShow.title }}</h3>
         <h4>orgenised by {{ eventoToShow.owner.fullName }}</h4>
+        
+        <el-button size="small" @click="$router.push(`/evento/edit/${eventoToShow.id}`)">Edit event</el-button>
+        <el-button size="small" @click="removeEvento()">Delete event</el-button>
+
         <p>{{eventoToShow.title}}</p>
         <p>{{eventoToShow.description}}</p>
-        <p>{{eventoToShow.description}}</p>
-        <p>{{eventoToShow.description}}</p>
         <member-list :members="eventoToShow.members"></member-list>
-        <!-- <review-list :reviews="reviews"></review-list> -->
-        <review-list :reviews="[1,2,3]"></review-list>
+        <review-list :reviews="reviews"></review-list>
+        <!-- <review-list :reviews="[1,2,3]"></review-list> -->
       </div>
+      
       <div class="join">
         <i class="el-icon-time">{{timeToShow}}</i>
         <i class="el-icon-map-location">{{ eventoToShow.location.name }}</i>
@@ -47,19 +50,24 @@ export default {
     }
   },
   async created() {
+    // evento
     const eventoId = this.$route.params.id;
     await this.$store.dispatch({ type: "getById", eventoId });
     this.eventoToShow = this.$store.getters.evento;
-    const ownerId = this.eventoToShow.owner.id;
-    this.owner = ownerId;
-    // await this.$store.dispatch({ type: "getReviewById", ownerId });
-    this.reviews = this.$store.getters.reviews;
-    // console.log('this.eventoToShow', this.eventoToShow);
+    // reviews by owner
+    const userId = this.eventoToShow.owner.id;
+    this.owner = userId;
+    await this.$store.dispatch({ type: "getUserById", userId });
+    this.reviews = this.$store.getters.user.reviews;
   },
   methods: {
     addMember() {
       console.log("add member");
       // this.$store.dispatch({ type: "addMember", evento });
+    },
+    removeEvento(eventoId) {
+      this.$store.dispatch({type: 'removeEvento', eventoId: this.eventoToShow.id});
+      this.$router.push(`/`)
     }
   },
   components: {

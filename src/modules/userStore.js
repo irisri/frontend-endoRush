@@ -7,7 +7,7 @@ export default {
     state: {
         loggedinUser: localLoggedinUser,
         users: [],
-        user:null
+        user:''
 
     },
     getters: {
@@ -33,6 +33,7 @@ export default {
         },
         setUserToShow(state, { user }){
             state.user=user
+            console.log('userservice', user);
         }
     },
     actions: {
@@ -42,7 +43,6 @@ export default {
             return user;
         },
         async getUserById({ commit }, { userId }) {
-   
             const user = await userService.getById(userId);
             commit({ type: "setUserToShow", user });
             console.log('user',user)

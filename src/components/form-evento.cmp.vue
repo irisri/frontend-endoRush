@@ -72,6 +72,7 @@
 </template>
 
 <script>
+
 export default {
   name: "title-description",
   props: ["evento"],
@@ -96,7 +97,7 @@ export default {
       });
     },
     async onUploadImg(ev) {
-      this.$emit("updatedImg", ev);
+      this.$emit("onUploadImg", ev);
     },
     handleInputConfirm() {
       let inputValue = this.inputValue;
