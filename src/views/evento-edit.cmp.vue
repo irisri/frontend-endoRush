@@ -1,9 +1,10 @@
 <template>
   <div class="evento-edit" v-if="evento">
-    <div class="img" v-if="evento.imgUrls">
-      <img width="500" :src="evento.imgUrls[0]" />
+    <div class="img-container" v-for="img in evento.imgUrls" :key="img">
+      <img v-if="img" :src="img"/>
+      <button @click="removeImg(img)">X</button>
     </div>
-    <form-evento :evento="evento" @saveEvento="saveEvento" @updatedImg="onUploadImg" />
+    <form-evento :evento="evento" @saveEvento="saveEvento" @onUploadImg="onUploadImg" />
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import eventoService from "../services/eventoService.js";
 import { uploadImg } from "../services/img-upload.service.js";
 import formEvento from "../components/form-evento.cmp.vue";
+import imgService from "../services/img-upload.service.js";
 const _ = require("lodash");
 
 export default {
@@ -41,13 +43,18 @@ export default {
   methods: {
     async onUploadImg(ev) {
       console.log(ev);
-      const res = await uploadImg(ev);
-      this.evento.imgUrls.splice(0, 1, res.url);
+      const res = await imgService.uploadImg(ev);
+      this.evento.imgUrls.unshift(res.url);
     },
     saveEvento(evento) {
       console.log(evento);
       this.$store.dispatch({ type: "saveEvento", evento });
       this.$router.push("/event");
+    },
+    removeImg(imgUrl) {
+      console.log(imgUrl);
+      const index = this.evento.imgUrls.findIndex(img => img === imgUrl);
+      this.evento.imgUrls.splice(index, 1)
     }
   }
 };

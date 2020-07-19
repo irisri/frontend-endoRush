@@ -9,8 +9,6 @@
     <h4>orgenised by {{ evento.owner.fullName }}</h4>
 
     <star-rating v-if="rate" :rate="this.rate"/>
-
-    <el-button size="small" @click="removeEvento()">Delete event</el-button>
   </div>
 </template>
 
@@ -51,9 +49,6 @@ export default {
   methods: {
     updateRate() {
       console.log("rateunrate", this.rateAvg); //this.rateAvg);
-    },
-    removeEvento() {
-      this.$emit("removeEvento", this.evento.id);
     }
   },
   async created() {

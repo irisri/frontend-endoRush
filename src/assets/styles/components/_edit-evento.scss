@@ -1,4 +1,22 @@
 .evento-edit {
+  .img-container {
+    display: flex;
+    flex-direction: row;
+    display: inline;
+
+    img {
+      width: 200px;
+      margin: 10px;
+    }
+
+    button {
+      // position: relative;
+      width: fit-content;
+      top: 3px;
+      right: 3px;
+    }
+  }
+
   .form-container {
     .title,
     .descritprion,
@@ -74,7 +92,7 @@
 
     .img-upload {
       .custom-file-upload {
-        border: 1px solid #DCDFE6;
+        border: 1px solid #dcdfe6;
         color: #606266;
         border-radius: 4px;
         font-size: 0.9375rem;
@@ -83,9 +101,9 @@
         margin: 0;
         cursor: pointer;
         &:hover {
-            background-color: $clr1;
-            color: $clr2;
-            border-color: $clr2;
+          background-color: $clr1;
+          color: $clr2;
+          border-color: $clr2;
         }
       }
       input[type="file"] {

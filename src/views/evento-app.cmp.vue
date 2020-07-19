@@ -1,4 +1,4 @@
-<template>
+<template class="main-layout">
   <div class="evento-app">
     <evento-filter @setFilter="setFilter"></evento-filter>
     <evento-list :eventos="eventos" @removeEvento="removeEvento"></evento-list>
@@ -22,7 +22,7 @@ export default {
     },
     removeEvento(eventoId) {
       console.log({type: 'removeEvento', eventoId});
-      this.$store.dispatch({type: 'removeEvento', eventoId});
+      // this.$store.dispatch({type: 'removeEvento', eventoId});
     },
   },
   components: {
