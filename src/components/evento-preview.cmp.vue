@@ -1,32 +1,33 @@
 <template>
-  <div class="evento-preview flex-row">
-    <carousel-slide :evento="evento" />
-    
+  <div class="evento-preview">
+    <!-- <carousel-slide :evento="evento" /> -->
+    <el-carousel indicator-position="outside">
+      <el-carousel-item v-for="url in evento.imgUrls" :key="url">
+        <img :src="url" />
+      </el-carousel-item>
+      <!-- <el-carousel-item v-for="item in 4" :key="item">
+        <h3>{{ item }}</h3>
+      </el-carousel-item>-->
+    </el-carousel>
+
     <h3>{{ evento.title }}</h3>
-    <!-- <img style="width:200px;height:150px;" :src="img" /> -->
 
     <p>location: {{ evento.location.name }}</p>
     <h4>at: {{timeToShow}}</h4>
     <h4>orgenised by {{ evento.owner.fullName }}</h4>
-    
-    <div class="rate-container flex align-center" @click.stop>
-       <span class="star">★</span>
-       <!-- <el-rate v-if="rate" v-model="this.rate" disabled  ></el-rate> -->
-       <p v-if="rate"> {{this.rate}}</p>
-       <p v-if="rate"> ({{this.ownerUsr.reviews.length}})</p>
-       
-       
+
+    <div class="rate-container" @click.stop v-if="rate">
+      <span class="star">&#9733; <span class="rate">{{this.rate}}</span></span>
+      <!-- <p ></p> -->
     </div>
-    <!-- <star-rating v-if="rate" :rate="this.rate"/> -->
   </div>
 </template>
 
 
 
 <script>
-import carouselSlide from "@/components/carousel-slide.cmp.vue";
+// import carouselSlide from "@/components/carousel-slide.cmp.vue";
 import starRating from "@/components/star-rating.cmp.vue";
-
 
 export default {
   name: "evento-preview",
@@ -68,28 +69,20 @@ export default {
       this.ownerUsr = _.cloneDeep(this.$store.getters.user);
       this.rate = this.rateAvg;
       console.log("crate", this.rate);
-      console.log('len:',this.ownerUsr.reviews.length)
-      
+      console.log("len:", this.ownerUsr.reviews.length);
+
       // return (this.ownerUsr = _.cloneDeep(this.$store.getters.user));
     } else {
       console.log("no id");
     }
   },
   components: {
-    carouselSlide,
-    starRating,
+    // carouselSlide,
+    starRating
   }
 };
-///
 
-// (async () => {
-//   const client = new GitHubApiClient();
-//   const user = await client.fetchUser("vyaron");
-//   console.log(user.name);
-//   console.log(user.location);
-// })();
 
-///
 </script>
 
 <style scoped>
@@ -98,10 +91,9 @@ export default {
   padding: 0;
 }
 .evento-preview {
-   
   width: 230px;
   /* height: 260px; */
- 
+
   cursor: pointer;
 }
 div,
@@ -110,8 +102,8 @@ p {
   background-color: #fff8f0;
   border-radius: 20px;
 }
-.star{
-  color: #FF4000;
+.star {
+  color: #ff4000;
   font-size: 25px;
 }
 /* .rate {

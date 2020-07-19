@@ -7,9 +7,7 @@
       :mouse-drag="false"
       :navigationEnabled="true"
       :paginationEnabled="true"
-    
-      paginationActiveColor="#42b983" paginationColor="#b2ebd1"
-      >
+      paginationActiveColor="#42b983" paginationColor="#b2ebd1">
 
       <slide class = "slide" v-for="img in imgs" :key="img">
         <img :src="img" style="width:100%;height:150px;border-radius:10px" />

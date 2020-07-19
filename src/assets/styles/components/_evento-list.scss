@@ -4,4 +4,39 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
   grid-gap: 6px;
+
+  .evento-preview {
+    margin: 15px auto;
+    transform: box-shadow 100s;
+    
+    &:hover {
+      box-shadow: -1px 1px 7px 1px rgba(0,0,0,0.27);
+    }
+
+    .el-carousel__container {
+      height: 140px;
+    }
+
+    img {
+      width: 230px;
+      border-radius: 20px;
+    }
+
+    h3 {
+      margin: 5px;
+    }
+
+    .rate-container {
+      margin: 0 auto;
+      span {
+        margin: 0;
+      }
+      .star {
+        font-size: 1.2rem;
+      }
+      .rate {
+        font-size: 1rem;
+      }
+    }
+  }
 }
