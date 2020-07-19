@@ -1,8 +1,10 @@
 <template>
   <div id="app" class="main-layout">
     <evento-header />
-    <router-view />
-    <evento-footer class="footer-container"/>
+    <transition name="fade" mode="out-in">
+      <router-view />
+    </transition>
+    <evento-footer class="footer-container" />
   </div>
 </template>
 
