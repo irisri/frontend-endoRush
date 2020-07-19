@@ -12,7 +12,10 @@ import VueCarousel from 'vue-carousel';
 import Gallery from "vue-cover-gallery";
 import VModal from 'vue-js-modal'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+// import { VueFlux, Transitions } from 'vue-flux';
 
+
+// Vue.use(VueFlux)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(Gallery);

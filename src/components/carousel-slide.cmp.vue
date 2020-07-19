@@ -7,6 +7,8 @@
       :mouse-drag="false"
       :navigationEnabled="true"
       :paginationEnabled="true"
+    
+      paginationActiveColor="#42b983" paginationColor="#b2ebd1"
       >
 
       <slide class = "slide" v-for="img in imgs" :key="img">
@@ -37,9 +39,6 @@ export default {
   data() {
     return {
       imgs: this.evento.imgUrls
-        //  data: ['<div class="example-slide">Slide 1</div>',
-        //   '<div class="example-slide">Slide 2</div>',
-        //   '<div class="example-slide">Slide 3</div>']
     };
   },
 
@@ -51,14 +50,9 @@ export default {
 
 data-v-438fd353
 
-.VueCarousel-pagination{
-  margin: 0;
-  height: 0px;
-}
 .slide{
   border-radius: 20px;
 }
 
 
 </style>
-
