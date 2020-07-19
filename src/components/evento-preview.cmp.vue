@@ -10,7 +10,7 @@
 
     <star-rating v-if="rate" :rate="this.rate"/>
 
-    <el-button size="small" @click="removeEvento()">Delete event</el-button>
+    <!-- <el-button size="small" @click="removeEvento()">Delete event</el-button> -->
   </div>
 </template>
 
@@ -73,7 +73,16 @@ export default {
     starRating
   }
 };
+///
 
+// (async () => {
+//   const client = new GitHubApiClient();
+//   const user = await client.fetchUser("vyaron");
+//   console.log(user.name);
+//   console.log(user.location);
+// })();
+
+///
 </script>
 
 <style scoped>
@@ -85,11 +94,45 @@ export default {
   width: 230px;
   /* height: 260px; */
   border-radius: 15px;
+   cursor: pointer;
 }
 div,
 h4,
 p {
   background-color: #fff8f0;
 }
+/* .rate {
+  height: 46px;
+}
+.rate:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+}
+.rate:not(:checked) > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #ccc;
+}
+.rate:not(:checked) > label:before {
+  content: "★ ";
+}
+.rate > input:checked ~ label {
+  color: #ffc700;
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #deb217;
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+} */
 
 </style>

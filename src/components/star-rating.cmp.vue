@@ -1,18 +1,33 @@
 <template>
   <div class="star-rating">
-    <form class="rating"  @click.stop>
-
+    <form class="rating" @click.stop>
       <label>
         <input type="radio" name="stars" value="5" />
-        <span v-if ="this.rate>1" class="icon">★</span>
-        <span v-if ="this.rate>2" class="icon">★</span>
-        <span v-if ="this.rate>3" class="icon">★</span>
-        <span v-if ="this.rate>4" class="icon">★</span>
-        <span v-if ="this.rate>5" class="icon">★</span>
+        <span v-if="this.rate>0" class="icon">★</span>
+        <span v-if="this.rate>1" class="icon">★</span>
+        <span v-if="this.rate>2" class="icon">★</span>
+        <span v-if="this.rate>3" class="icon">★</span>
+        <span v-if="this.rate>4" class="icon">★</span>
       </label>
     </form>
+
+    <!-- <div class="rate">
+      <input type="radio" id="star5" name="rate" value="5" />
+      <label for="star5" title="text">5 stars</label>
+      <input type="radio" id="star4" name="rate" value="4" />
+      <label for="star4" title="text">4 stars</label>
+      <input type="radio" id="star3" name="rate" value="3" />
+      <label for="star3" title="text">3 stars</label>
+      <input type="radio" id="star2" name="rate" value="2" />
+      <label for="star2" title="text">2 stars</label>
+      <input type="radio" id="star1" name="rate" value="1" />
+      <label for="star1" title="text">1 star</label>
+    </div> -->
   </div>
 </template>
+
+
+
 
 
 <script>
@@ -23,7 +38,7 @@ export default {
       type: Number,
       required: true
     }
-  },
+  }
 };
 </script>
 
@@ -41,7 +56,6 @@ export default {
   top: 0;
   left: 0;
   height: 100%;
-  cursor: pointer;
 }
 
 .rating label:last-child {
@@ -81,7 +95,7 @@ export default {
 }
 
 .rating label:last-child .icon {
-   color: #deb217;
+  color: #deb217;
 }
 
 /* .rating:not(:hover) label input:checked ~ .icon,
