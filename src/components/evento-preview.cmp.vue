@@ -7,8 +7,11 @@
     <p>location: {{ evento.location.name }}</p>
     <h4>at: {{timeToShow}}</h4>
     <h4>orgenised by {{ evento.owner.fullName }}</h4>
-
-    <star-rating v-if="rate" :rate="this.rate"/>
+    
+    <div @click.stop>
+       <el-rate v-if="rate" v-model="this.rate" disabled  ></el-rate>
+    </div>
+    <!-- <star-rating v-if="rate" :rate="this.rate"/> -->
   </div>
 </template>
 
@@ -56,8 +59,8 @@ export default {
     if (userId) {
       await this.$store.dispatch({ type: "getUserById", userId });
       this.ownerUsr = _.cloneDeep(this.$store.getters.user);
-      this.rate= this.rateAvg
-      console.log('crate',this.rate)
+      this.rate = this.rateAvg;
+      console.log("crate", this.rate);
       // return (this.ownerUsr = _.cloneDeep(this.$store.getters.user));
     } else {
       console.log("no id");
@@ -89,7 +92,7 @@ export default {
   width: 230px;
   /* height: 260px; */
   border-radius: 15px;
-   cursor: pointer;
+  cursor: pointer;
 }
 div,
 h4,
@@ -129,5 +132,4 @@ p {
 .rate > label:hover ~ input:checked ~ label {
   color: #c59b08;
 } */
-
 </style>
