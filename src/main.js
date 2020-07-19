@@ -17,7 +17,7 @@ import VModal from 'vue-js-modal'
 
 // Vue.use(VueFlux)
 // Vue.use(BootsstrapVue)
-Vue.use(IconsPlugin)
+// Vue.use(IconsPlugin)
 Vue.use(Gallery);
 Vue.use(VueCarousel);
 Vue.use(elementUI);
