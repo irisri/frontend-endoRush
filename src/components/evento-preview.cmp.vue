@@ -1,6 +1,7 @@
 <template>
   <div class="evento-preview flex-row">
     <carousel-slide :evento="evento" />
+    
     <h3>{{ evento.title }}</h3>
     <!-- <img style="width:200px;height:150px;" :src="img" /> -->
 
@@ -11,8 +12,8 @@
     <div class="rate-container flex align-center" @click.stop>
        <span class="star">★</span>
        <!-- <el-rate v-if="rate" v-model="this.rate" disabled  ></el-rate> -->
-       <p> {{this.rate}}</p>
-       <p> ({{this.ownerUsr.reviews.length}})</p>
+       <p v-if="rate"> {{this.rate}}</p>
+       <p v-if="rate"> ({{this.ownerUsr.reviews.length}})</p>
        
        
     </div>
@@ -25,6 +26,7 @@
 <script>
 import carouselSlide from "@/components/carousel-slide.cmp.vue";
 import starRating from "@/components/star-rating.cmp.vue";
+
 
 export default {
   name: "evento-preview",
@@ -66,6 +68,8 @@ export default {
       this.ownerUsr = _.cloneDeep(this.$store.getters.user);
       this.rate = this.rateAvg;
       console.log("crate", this.rate);
+      console.log('len:',this.ownerUsr.reviews.length)
+      
       // return (this.ownerUsr = _.cloneDeep(this.$store.getters.user));
     } else {
       console.log("no id");
@@ -73,7 +77,7 @@ export default {
   },
   components: {
     carouselSlide,
-    starRating
+    starRating,
   }
 };
 ///
