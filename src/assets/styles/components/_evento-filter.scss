@@ -1,0 +1,15 @@
+.evento-filter {
+    margin: 1rem auto;
+    .search-erea {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 1rem auto;
+        justify-content: center;
+        >*{
+            margin-right: 10px;
+        }
+       
+    }
+
+}

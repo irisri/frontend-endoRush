@@ -1,13 +1,16 @@
 <template>
-  <section class>
+  <section class="review">
     <h3>Reviews ({{countReviews}})</h3>
     <ul class="review-list flex column">
       <li class="review-card" v-for="(review, index) in reviews" :key="index">
-        <!-- <h5>{{review.rate}} / 5 - {{review.txt}}</h5> -->
+        <img :src="review.imgUrl"/>
+        <div class="review-detail">
+        <h2>{{review.fullName}}</h2>
         <h5>
           <el-rate v-model="review.rate" disabled></el-rate>
           {{review.txt}}
         </h5>
+        </div>
       </li>
     </ul>
     <button
@@ -15,15 +18,6 @@
       class="show-add-review-btn"
       @click="showAddReview=!showAddReview"
     >Add Review</button>
-    <!-- <modal v-else class="add-review" name="example" :width="300" :height="300" >
-      <el-rate
-        v-model="newReview.rate"
-        :texts="['oops', 'disappointed', 'normal', 'good', 'great']"
-        show-text
-      ></el-rate>
-      <input v-model="newReview.txt" placeholder="Type here..." />
-      <button class="add-review-btn" @click="addReview()">Add</button>
-    </modal> -->
     <div v-else class="add-review">
       <el-rate
         v-model="newReview.rate"
@@ -31,7 +25,7 @@
         show-text
       ></el-rate>
       <input v-model="newReview.txt" placeholder="Type here..." />
-    <button class="add-review-btn" @click="addReview()">Add</button>
+      <button class="add-review-btn" @click="addReview()">Add</button>
     </div>
   </section>
 </template>
@@ -60,6 +54,9 @@ export default {
       this.showAddReview = false;
       this.$emit("addReview", this.newReview);
     }
+  },
+  created(){
+    console.log(this.reviews);
   }
 };
 </script>

@@ -1,32 +1,34 @@
 <template>
-  <div v-if="eventoToShow" class="evento-details">
-    <div class="imgs-details">
-      <img
-        v-for="(img, index) in eventoToShow.imgUrls"
-        :key="img"
-        style="width:200px;height:150px;"
-        :src="img"
-        :class="`image-${index+1}`"
-      />
+  <div v-if="evento" class="evento-details">
+    <div class="img-wrapper">
+      <div class="imgs-details">
+        <img
+          v-for="(img, index) in evento.imgUrls"
+          :key="img"
+          :src="img"
+          :class="`image-${index+1}`"
+        />
+      </div>
     </div>
     <div class="details-content flex">
       <div class="info">
-        <h3>{{ eventoToShow.title }}</h3>
-        <h4>orgenised by {{ eventoToShow.owner.fullName }}</h4>
+        <h3>{{ evento.title }}</h3>
+        <h4>orgenised by {{ evento.owner.fullName }}</h4>
 
-        <el-button size="small" @click="$router.push(`/evento/edit/${eventoToShow.id}`)">Edit event</el-button>
+        <el-button size="small" @click="$router.push(`/evento/edit/${evento.id}`)">Edit event</el-button>
         <el-button size="small" @click="removeEvento()">Delete event</el-button>
 
-        <p>{{eventoToShow.title}}</p>
-        <p>{{eventoToShow.description}}</p>
-        <member-list :members="eventoToShow.members"></member-list>
-        <review-list :reviews="reviews" @addReview="addReview"></review-list>
+        <p>{{evento.title}}</p>
+        <p>{{evento.description}}</p>
+        <member-list :members="evento.members"></member-list>
+        <review-list v-if="owner.reviews" :reviews="owner.reviews" @addReview="addReview"></review-list>
         <!-- <review-list :reviews="[1,2,3]"></review-list> -->
       </div>
 
       <div class="join">
-        <i class="el-icon-time">{{timeToShow}}</i>
-        <i class="el-icon-map-location">{{ eventoToShow.location.name }}</i>
+        <i class="el-icon-time">  {{timeToShow}}</i>
+        <i class="el-icon-map-location">  {{ evento.location.name }}</i>
+        <i class="el-icon-star-on" v-if="owner.reviews">  {{rateAvg()}} ({{owner.reviews.length}})</i>
         <button @click="addMember()">Join</button>
       </div>
     </div>
@@ -39,42 +41,51 @@ import reviewList from "../components/review-list.cmp.vue";
 export default {
   data() {
     return {
-      eventoToShow: null,
-      owner: null,
-      reviews: []
+      evento: null,
+      owner: ''
     };
   },
   computed: {
     timeToShow() {
-      return new Date(this.eventoToShow.starttime).toLocaleString();
+      return new Date(this.evento.starttime).toLocaleString();
     }
   },
   async created() {
     // evento
     const eventoId = this.$route.params.id;
     await this.$store.dispatch({ type: "getById", eventoId });
-    this.eventoToShow = this.$store.getters.evento;
+    this.evento = this.$store.getters.evento;
     // reviews by owner
-    const userId = this.eventoToShow.owner.id;
-    this.owner = userId;
+    console.log('this.evento', this.evento);
+    const userId = this.evento.owner.id;
+    console.log('userId - cmpdetails', userId);
     await this.$store.dispatch({ type: "getUserById", userId });
-    this.reviews = this.$store.getters.user.reviews;
+    this.owner = this.$store.getters.user;
   },
   methods: {
     addMember() {
       console.log("add member");
-      // this.$store.dispatch({ type: "addMember", evento });
+      const user = this.$store.getters.currUser;
+      this.evento.member.push(user);
+      this.$store.dispatch({ type: "addMember", evento: this.evento });
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
         type: "removeEvento",
-        eventoId: this.eventoToShow.id
+        eventoId: this.evento.id
       });
       this.$router.push(`/`);
     },
     addReview(newReview) {
-      const owner = this.owner
-      this.$store.commit({ type: "addReview", newReview , owner});
+      this.owner.review.push(newReview);
+      this.$store.commit({ type: "addReview", user: this.owner });
+    },
+    rateAvg() {
+      if (!this.owner) return;
+      return (
+        this.owner.reviews.reduce((a, b) => a.rate + b.rate) /
+        this.owner.reviews.length
+      );
     }
   },
   components: {

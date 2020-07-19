@@ -1,18 +1,27 @@
 <template>
   <div class="evento-filter">
-    <el-input
-      size="large"
-      @input="setFilter"
-      v-model="filterBy.title"
-      placeholder="find your next event"
-    ></el-input>
+    <div class="search-erea">
+    <p>
+      <el-input
+        size="large"
+        @input="setFilter"
+        v-model="filterBy.title"
+        placeholder="find your next event"
+      ></el-input>
+    </p>
     <el-select v-model="filterBy.time" @change="setFilter">
       <el-option v-for="item in dates" :key="item" :label="item" :value="item"></el-option>
     </el-select>
     <el-select v-model="filterBy.tags" multiple @change="setFilter" placeholder>
       <el-option v-for="item in tags" :key="item" :label="item" :value="item"></el-option>
     </el-select>
-    <el-button title="Add New event" @click="$router.push('/evento/edit')">create new event!</el-button>
+    <!-- <el-button class="search-btn" title="search" @click="setFilter">Search</el-button> -->
+    </div>
+    <el-button
+      class="new-evento"
+      title="Add New event"
+      @click="$router.push('/evento/edit')"
+    >create new event!</el-button>
   </div>
 </template>
 

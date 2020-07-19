@@ -7,7 +7,7 @@ export default {
     state: {
         loggedinUser: localLoggedinUser,
         users: [],
-        user:''
+        user: ''
 
     },
     getters: {
@@ -17,7 +17,7 @@ export default {
         loggedInUser(state) {
             return state.loggedinUser
         },
-        user(state){
+        user(state) {
             return state.user
         }
     },
@@ -31,8 +31,8 @@ export default {
         removeUser(state, { userId }) {
             state.users = state.users.filter(user => user._id !== userId)
         },
-        setUserToShow(state, { user }){
-            state.user=user
+        setUserToShow(state, { user }) {
+            state.user = user
             console.log('userservice', user);
         }
     },
@@ -45,8 +45,8 @@ export default {
         async getUserById({ commit }, { userId }) {
             const user = await userService.getById(userId);
             commit({ type: "setUserToShow", user });
-            console.log('user',user)
-          },
+            console.log('user', user)
+        },
         async signup(context, { userCred }) {
             const user = await userService.signup(userCred)
             context.commit({ type: 'setUser', user })
@@ -70,8 +70,8 @@ export default {
             user = await userService.update(user);
             context.commit({ type: 'setUser', user })
         },
-        async addReview(context, {newReview, owner}) {
-            await userService.addReview(newReview, owner);
+        async addReview(context, { user }) {
+            await userService.update(user);
         }
     }
 }

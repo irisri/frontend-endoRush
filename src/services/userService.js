@@ -18,7 +18,7 @@ function addReview(newReview, owner) {
 
 function getById(userId) {
     // return HttpService.get(`user/${userId}`)
-
+    console.log('userId - service', userId);
     return axios.get(`http://localhost:3000/user/${userId}`)
         .then(res => res.data)
         .catch(err => err)
