@@ -11,17 +11,13 @@ import locale from 'element-ui/lib/locale'
 import VueCarousel from 'vue-carousel';
 import Gallery from "vue-cover-gallery";
 import VModal from 'vue-js-modal'
-<<<<<<< HEAD
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+//import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 // import { VueFlux, Transitions } from 'vue-flux';
 
 
 // Vue.use(VueFlux)
-Vue.use(BootstrapVue)
+// Vue.use(BootsstrapVue)
 Vue.use(IconsPlugin)
-=======
-
->>>>>>> 57ab9e4ba30dacede52cd3d93e53ee51164ceff5
 Vue.use(Gallery);
 Vue.use(VueCarousel);
 Vue.use(elementUI);
