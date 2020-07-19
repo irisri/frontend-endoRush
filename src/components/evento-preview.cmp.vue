@@ -8,8 +8,13 @@
     <h4>at: {{timeToShow}}</h4>
     <h4>orgenised by {{ evento.owner.fullName }}</h4>
     
-    <div @click.stop>
-       <el-rate v-if="rate" v-model="this.rate" disabled  ></el-rate>
+    <div class="rate-container flex align-center" @click.stop>
+       <span class="star">★</span>
+       <!-- <el-rate v-if="rate" v-model="this.rate" disabled  ></el-rate> -->
+       <p> {{this.rate}}</p>
+       <p> ({{this.ownerUsr.reviews.length}})</p>
+       
+       
     </div>
     <!-- <star-rating v-if="rate" :rate="this.rate"/> -->
   </div>
@@ -98,6 +103,10 @@ div,
 h4,
 p {
   background-color: #fff8f0;
+}
+.star{
+  color: #FF4000;
+  font-size: 25px;
 }
 /* .rate {
   height: 46px;
