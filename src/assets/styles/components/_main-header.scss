@@ -1,6 +1,12 @@
 .main-header {
+    display: flex;
+    justify-content: space-between ;
+    align-items: center;
+    margin: 0 65px;
+
     .logo {
         font-family: RanchersRegular;
+        margin: 25px  0;
         font-size: rem(54px);
         word-spacing: rem(8px);
 
@@ -11,10 +17,22 @@
     }
 
     nav {
+
         a {
             color: $clr2;
             text-decoration: none;
             font-family: JosefinSansMedium;
+            padding: 15px 0;
+            margin: 10px;
+            transform: color 150;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+            
+            &:hover {
+                color: $clr1;
+            }
         }
 
         a:hover {

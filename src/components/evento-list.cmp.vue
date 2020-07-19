@@ -1,12 +1,12 @@
 <template>
-  <div class="evento-list">
-
-    <div class="flex space-around">
-      <section v-for="evento in eventos" :key="evento.id" @click.stop="$router.push(`/evento/details/${evento.id}`)">
-        <evento-preview :evento="evento"/>
-      </section>
-    </div>
-  </div>
+  <section class="evento-list">
+    <evento-preview
+      v-for="evento in eventos"
+      :evento="evento"
+      :key="evento.id"
+      @click.stop="$router.push(`/evento/details/${evento.id}`)"
+    />
+  </section>
 </template>
 
 
@@ -29,8 +29,7 @@ export default {
       return this.loggedInUser && this.loggedInUser.isOwner;
     }
   },
-  methods: {
-  },
+  methods: {},
   components: {
     eventoPreview
   }
