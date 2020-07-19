@@ -8,7 +8,12 @@ export const userService = {
     query,
     getById,
     remove,
-    update
+    update,
+    addReview
+}
+
+function addReview(newReview, owner) {
+    
 }
 
 function getById(userId) {

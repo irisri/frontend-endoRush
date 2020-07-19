@@ -69,6 +69,9 @@ export default {
         async updateUser(context, { user }) {
             user = await userService.update(user);
             context.commit({ type: 'setUser', user })
+        },
+        async addReview(context, {newReview, owner}) {
+            await userService.addReview(newReview, owner);
         }
     }
 }
