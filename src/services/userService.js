@@ -1,4 +1,5 @@
 import HttpService from './HttpService'
+import axios from 'axios';
 
 export const userService = {
     login,
@@ -12,7 +13,7 @@ export const userService = {
 
 function getById(userId) {
     // return HttpService.get(`user/${userId}`)
-    
+
     return axios.get(`http://localhost:3000/user/${userId}`)
         .then(res => res.data)
         .catch(err => err)

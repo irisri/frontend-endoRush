@@ -6,7 +6,9 @@ if (sessionStorage.user) localLoggedinUser = JSON.parse(sessionStorage.user);
 export default {
     state: {
         loggedinUser: localLoggedinUser,
-        users: []
+        users: [],
+        user:null
+
     },
     getters: {
         users(state) {
@@ -14,6 +16,9 @@ export default {
         },
         loggedInUser(state) {
             return state.loggedinUser
+        },
+        user(state){
+            return state.user
         }
     },
     mutations: {
@@ -26,6 +31,9 @@ export default {
         removeUser(state, { userId }) {
             state.users = state.users.filter(user => user._id !== userId)
         },
+        setUserToShow(state, { user }){
+            state.user=user
+        }
     },
     actions: {
         async login(context, { userCred }) {
@@ -33,6 +41,12 @@ export default {
             context.commit({ type: 'setUser', user })
             return user;
         },
+        async getUserById({ commit }, { userId }) {
+   
+            const user = await userService.getById(userId);
+            commit({ type: "setUserToShow", user });
+            console.log('user',user)
+          },
         async signup(context, { userCred }) {
             const user = await userService.signup(userCred)
             context.commit({ type: 'setUser', user })
