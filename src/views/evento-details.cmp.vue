@@ -13,17 +13,17 @@
       <div class="info">
         <h3>{{ eventoToShow.title }}</h3>
         <h4>orgenised by {{ eventoToShow.owner.fullName }}</h4>
-        
+
         <el-button size="small" @click="$router.push(`/evento/edit/${eventoToShow.id}`)">Edit event</el-button>
         <el-button size="small" @click="removeEvento()">Delete event</el-button>
 
         <p>{{eventoToShow.title}}</p>
         <p>{{eventoToShow.description}}</p>
         <member-list :members="eventoToShow.members"></member-list>
-        <review-list :reviews="reviews"></review-list>
+        <review-list :reviews="reviews" @addReview="addReview"></review-list>
         <!-- <review-list :reviews="[1,2,3]"></review-list> -->
       </div>
-      
+
       <div class="join">
         <i class="el-icon-time">{{timeToShow}}</i>
         <i class="el-icon-map-location">{{ eventoToShow.location.name }}</i>
@@ -66,8 +66,15 @@ export default {
       // this.$store.dispatch({ type: "addMember", evento });
     },
     removeEvento(eventoId) {
-      this.$store.dispatch({type: 'removeEvento', eventoId: this.eventoToShow.id});
-      this.$router.push(`/`)
+      this.$store.dispatch({
+        type: "removeEvento",
+        eventoId: this.eventoToShow.id
+      });
+      this.$router.push(`/`);
+    },
+    addReview(newReview) {
+      const owner = this.owner
+      this.$store.commit({ type: "addReview", newReview , owner});
     }
   },
   components: {
