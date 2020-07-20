@@ -28,8 +28,6 @@
       left: -1%;
       color: $clr4;
       margin-left: 20px;
-      // transform: translate(-50%, -50%);
-      // z-index: 1;
     }
 
   }
@@ -39,10 +37,14 @@
   span:first-of-type {
     margin-right: 10px;
   }
+  p:first-of-type {
+    margin-top: 20px;
+  }
   p:last-of-type {
     margin-bottom: 20px;
   }
   .el-tag {
     cursor: pointer;
   }
+
 }
