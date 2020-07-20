@@ -2,7 +2,7 @@
     margin: 1rem auto;
     .search-erea {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
         margin: 1rem auto;
         justify-content: center;
@@ -12,8 +12,10 @@
     }
 }
 
-// @include for-narrow-layout {
-//     .search-erea {
-//         flex-direction: row;
-//     }
-//   }
+@include for-normal-layout {
+    .evento-filter{
+        .search-erea {
+            flex-direction: row;
+        }
+    }
+}
