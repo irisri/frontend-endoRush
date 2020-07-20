@@ -1,7 +1,7 @@
 <template>
   <section class="login-page main-container">
     <div v-if="loggedInUser">
-      <user-profile />
+      <!-- <user-profile /> -->
     </div>
     <div v-else>
       <div v-if="!signUp">
