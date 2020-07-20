@@ -16,12 +16,12 @@
       ></el-input>
     </div>
 
-    <div class="capaity">
+    <div class="capacity">
       <label for="cap">Number of maximum participants:</label>
       <!-- <input type="number" id="participants" v-model="evento.capaity" /> -->
       <el-input-number 
         size="small"
-        v-model="evento.capaity"
+        v-model="evento.capacity"
         controls-position="right"
         @change="changeCapaity"
         id="cap"
@@ -55,7 +55,7 @@
     <div class="time-date">
       <label for="startTime">Select time and date:</label>
       <el-date-picker
-        v-model="evento.starttime"
+        v-model="evento.startTime"
         type="datetime"
         placeholder="Select date and time"
         id="startTime"

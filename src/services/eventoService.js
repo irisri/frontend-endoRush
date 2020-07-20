@@ -21,7 +21,7 @@ function getEmpty() {
         },
         startTime: null,
         tags: [],
-        capaity: null
+        capacity: null
     }
 }
 

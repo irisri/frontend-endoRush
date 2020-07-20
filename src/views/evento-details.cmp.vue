@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     timeToShow() {
-      return new Date(this.evento.starttime).toLocaleString();
+      return new Date(this.evento.startTime).toLocaleString();
     }
   },
   async created() {
