@@ -26,54 +26,42 @@ function getEmpty() {
 }
 
 function query() {
-    return axios.get(`http://localhost:3000/evento/`)
-        .then(res => res.data)
-        .catch(err => err)     
-    // return HttpService.get("evento");
+    // return axios.get(`http://localhost:3000/evento/`)
+    //     .then(res => res.data)
+    //     .catch(err => err)     
+    return HttpService.get("evento");
 }
 
 async function getById(id) {
-    return axios.get(`http://localhost:3000/evento/${id}`)
-        .then(res => res.data)
-        .catch(err => err)
-    // return await HttpService.get(`evento/${id}`)
+    // return axios.get(`http://localhost:3000/evento/${id}`)
+    //     .then(res => res.data)
+    //     .catch(err => err)
+    return await HttpService.get(`evento/${id}`)
 }
 
 function save(evento) {
     //Front or in server?
     evento.createdAt = Date.now();
-    evento.id = makeId();
     evento.members = [];
     evento.owner = '';
     console.log('saveing', evento);
     
-    return axios.post(`http://localhost:3000/evento/`, evento)
-        .then(res => res.data)
-        .catch(err => err);
-    // return HttpService.post(`evento`, evento);
+    // return axios.post(`http://localhost:3000/evento/`, evento)
+    //     .then(res => res.data)
+    //     .catch(err => err);
+    return HttpService.post(`evento`, evento);
 }
 
 function update(evento) {
-    return axios.put(`http://localhost:3000/evento/${evento.id}`, evento)
-    .then(res => res.data)
-    .catch(err => err);
-    // return HttpService.put(`evento/${evento._id}`, evento)
+    // return axios.put(`http://localhost:3000/evento/${evento.id}`, evento)
+    // .then(res => res.data)
+    // .catch(err => err);
+    return HttpService.put(`evento/${evento._id}`, evento)
 }
 
 function remove(id) {
-    return axios.delete(`http://localhost:3000/evento/${id}`)
-        .then(res => res.data)
-        .catch(err => err);
-    // return HttpService.delete(`evento/${id}`)
-}
-
-
-// delete after mongo
-function makeId(length = 5) {
-    var txt = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for(let i=0; i < length; i++) {
-        txt += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return txt;
+    // return axios.delete(`http://localhost:3000/evento/${id}`)
+    //     .then(res => res.data)
+    //     .catch(err => err);
+    return HttpService.delete(`evento/${id}`)
 }

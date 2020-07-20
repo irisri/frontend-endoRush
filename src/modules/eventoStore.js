@@ -58,7 +58,7 @@ export default {
     },
     async saveEvento({ commit }, { evento }) {
       console.log(evento);
-      if (evento.id) {
+      if (evento._id) {
         return await eventoService.update(evento);
         // const updatedEvento = await eventoService.update(evento);
         // commit({ type: "updateEvento", evento: updatedEvento });

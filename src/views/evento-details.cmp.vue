@@ -18,10 +18,10 @@
           <img :src="evento.owner.imgUrl" />
           <div>
             <p>Orgenised by</p>
-            <h3>{{ evento.owner.fullName }}</h3>
+            <h3>{{ evento.owner.userName }}</h3>
           </div>
         </div>
-        <el-button size="small" @click="$router.push(`/evento/edit/${evento.id}`)">Edit event</el-button>
+        <el-button size="small" @click="$router.push(`/evento/edit/${evento._id}`)">Edit event</el-button>
         <el-button size="small" @click="removeEvento()">Delete event</el-button>
 
         <p>{{evento.title}}</p>
@@ -64,7 +64,8 @@ export default {
     this.evento = this.$store.getters.evento;
     // reviews by owner
     console.log("this.evento", this.evento);
-    const userId = this.evento.owner.id;
+    const userId = this.evento.owner._id;
+    // const userId = this.evento.owner.id;
     console.log("userId - cmpdetails", userId);
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = this.$store.getters.user;
@@ -79,7 +80,7 @@ export default {
     removeEvento(eventoId) {
       this.$store.dispatch({
         type: "removeEvento",
-        eventoId: this.evento.id
+        eventoId: this.evento._id
       });
       this.$router.push(`/`);
     },

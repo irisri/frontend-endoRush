@@ -10,7 +10,7 @@
 
     <p>location: {{ evento.location.name }}</p>
     <h4>at: {{timeToShow}}</h4>
-    <h4 @click.stop="$router.push(`/user/details/${evento.owner.id}`)">orgenised by {{ evento.owner.fullName }}</h4>
+    <h4 @click.stop="$router.push(`/user/details/${evento.owner._id}`)">orgenised by {{ evento.owner.userName }}</h4>
 
     <div class="rate-container" @click.stop v-if="rate">
       <span class="star">&#9733; <span class="rate">{{this.rate}}</span></span>
@@ -57,7 +57,7 @@ export default {
     }
   },
   async created() {
-    const userId = this.evento.owner.id;
+    const userId = this.evento.owner._id;
     if (userId) {
       await this.$store.dispatch({ type: "getUserById", userId });
       this.ownerUsr = _.cloneDeep(this.$store.getters.user);
