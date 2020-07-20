@@ -4,15 +4,13 @@
     header {
         height: 20vh;
     }
-
+    .main-container {
+        min-height: 65vh;
+        padding-bottom: 30px;
+    }
     footer {
         height: 15vh;
     }
-
-    .main-container {
-        min-height: 65vh;
-    }
-
 }
 
 

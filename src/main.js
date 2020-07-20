@@ -18,6 +18,8 @@ Vue.use(elementUI);
 Vue.use(VModal)
 locale.use(lang)
 Vue.config.productionTip = false
+// navigator.serviceWorker.register('./registerServiceWorker.js');
+
 
 new Vue({
   router,

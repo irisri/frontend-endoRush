@@ -1,6 +1,6 @@
 <template>
   <div class="evento-list">
-      <section v-for="evento in eventos" :key="evento.id" @click.stop="$router.push(`/evento/details/${evento.id}`)">
+      <section v-for="evento in eventos" :key="evento._id" @click.stop="$router.push(`/evento/details/${evento._id}`)">
         <evento-preview :evento="evento"/>
       </section>
   </div>
