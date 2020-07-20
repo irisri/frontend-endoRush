@@ -8,7 +8,7 @@
     <p>You can find and arrenge any fiteness activety that can cross you'r mind</p>
     <span>Trending</span>
     <el-tag v-for="tag in tags" :key="tag" effect="plain" @click="filterByTag(tag)">{{ tag }}</el-tag>
-    <h3>Chack out our top Three events!</h3>
+    <h3>Chack out our top Three events</h3>
     <evento-list v-if="topThree" :eventos="topThree"></evento-list>
   </section>
 </template>

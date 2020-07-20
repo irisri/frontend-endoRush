@@ -1,46 +1,67 @@
 .main-header {
-    display: flex;
-    justify-content: space-between ;
-    align-items: center;
-    margin: 0 65px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 65px;
 
+  .logo {
+    font-family: RanchersRegular;
+    margin: 25px 0;
+    word-spacing: rem(8px);
+
+    span {
+      text-transform: capitalize;
+      color: $clr1;
+    }
+  }
+
+  nav {
+    a {
+      color: $clr2;
+      text-decoration: none;
+      font-family: JosefinSansMedium;
+      padding: 15px 0;
+      margin: 10px;
+      transform: color 150;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      &:hover {
+        color: $clr1;
+      }
+    }
+
+    a:hover {
+      color: $clr1;
+    }
+
+    a.router-link-exact-active {
+      color: $clr1;
+    }
+  }
+
+  @include for-narrow-layout {
+    // background-color: green;
+    flex-direction: column;
     .logo {
-        font-family: RanchersRegular;
-        margin: 25px  0;
-        font-size: rem(54px);
-        word-spacing: rem(8px);
-
-        span {
-            text-transform: capitalize; 
-            color: $clr1;
-        }
+      font-size: rem(40px);
     }
-
-    nav {
-
-        a {
-            color: $clr2;
-            text-decoration: none;
-            font-family: JosefinSansMedium;
-            padding: 15px 0;
-            margin: 10px;
-            transform: color 150;
-
-            &:last-of-type {
-                margin-right: 0;
-            }
-            
-            &:hover {
-                color: $clr1;
-            }
-        }
-
-        a:hover {
-            color: $clr1;
-        }
-
-        a.router-link-exact-active {
-            color: $clr1;
-        }
+  }
+  
+  @include for-normal-layout {
+    flex-direction: row;
+    .logo {
+      font-size: rem(40px);
     }
+  }
+  
+  @include for-wide-layout {
+    .logo {
+      font-size: rem(54px);
+    }
+  }
+
 }
+
