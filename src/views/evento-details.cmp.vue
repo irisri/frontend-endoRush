@@ -13,15 +13,17 @@
     <div class="details-content flex">
       <div class="info">
         <h3>{{ evento.title }}</h3>
+        <p class="capacity"> {{spotsLeft()}} spots left</p>
         <h4>orgenised by {{ evento.owner.fullName }}</h4>
 
         <el-button size="small" @click="$router.push(`/evento/edit/${evento.id}`)">Edit event</el-button>
         <el-button size="small" @click="removeEvento()">Delete event</el-button>
 
         <p>{{evento.title}}</p>
-        <p>{{evento.description}}</p>
+        <p class="desc">{{evento.description}}</p>
         <member-list :members="evento.members"></member-list>
         <review-list v-if="owner.reviews" :reviews="owner.reviews" @addReview="addReview"></review-list>
+        <p v-else> Be the first to comment..</p>
         <!-- <review-list :reviews="[1,2,3]"></review-list> -->
       </div>
 
@@ -85,7 +87,12 @@ export default {
       return (
         this.owner.reviews.reduce((a, b) => a.rate + b.rate) /
         this.owner.reviews.length
-      );
+      )
+    },
+    spotsLeft() {
+      console.log('members',this.evento.members.length);
+      console.log('capacity',this.evento.capacity);
+      return this.evento.capacity - this.evento.members.length;
     }
   },
   components: {
