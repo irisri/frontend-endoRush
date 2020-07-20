@@ -1,5 +1,5 @@
 <template>
-  <section class="login-page">
+  <section class="login-page main-container">
     <div v-if="loggedInUser">
       <user-profile />
     </div>

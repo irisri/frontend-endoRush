@@ -1,44 +1,52 @@
 .main-layout {
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto 1fr auto;
-    min-height: 100vh;
-    .home-page{
-    .full {
-        grid-column: 1 /-1;
-    }
-}
-    > * {
-        grid-column: 2;
-
-    }
-    @include for-narrow-layout {
-        grid-template-columns:
-        minmax(2rem, 1fr)
-        minmax(auto, $break-narrow)
-        minmax(2rem, 1fr);
-    }
-    
-    @include for-normal-layout {
-        grid-template-columns:
-        minmax(2rem, 1fr)
-        minmax(auto, $break-normal)
-        minmax(2rem, 1fr);
+    display: flex;
+    flex-direction: column;
+    header {
+        height: 20vh;
     }
 
-    @include for-wide-layout {
-        grid-template-columns:
-        minmax(2rem, 1fr)
-        minmax(auto, $break-wide)
-        minmax(2rem, 1fr);
+    footer {
+        height: 15vh;
+    }
+
+    .main-container {
+        min-height: 65vh;
     }
 
 }
 
-// // CARDS
-// .card-grid {
+
+
 //     display: grid;
-//     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-//     grid-gap: 16px;
+//     grid-template-columns: repeat(3, 1fr);
+//     grid-template-rows: auto 1fr auto;
+//     min-height: 100vh;
+//     .home-page{
+//     .full {
+//         grid-column: 1 /-1;
+//     }
 // }
+//     > * {
+//         grid-column: 2;
+
+//     }
+//     @include for-narrow-layout {
+//         grid-template-columns:
+//         minmax(2rem, 1fr)
+//         minmax(auto, $break-narrow)
+//         minmax(2rem, 1fr);
+//     }
+    
+//     @include for-normal-layout {
+//         grid-template-columns:
+//         minmax(2rem, 1fr)
+//         minmax(auto, $break-normal)
+//         minmax(2rem, 1fr);
+//     }
+
+//     @include for-wide-layout {
+//         grid-template-columns:
+//         minmax(2rem, 1fr)
+//         minmax(auto, $break-wide)
+//         minmax(2rem, 1fr);
+//     }

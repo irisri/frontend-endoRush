@@ -1,5 +1,5 @@
 <template>
-  <section class="about-us app-main">
+  <section class="about-us app-main main-container">
     <div class="team-member flex justify-center">
       <div class="tm-dit">
         <img src="img/team/Ofra.jpg" alt />

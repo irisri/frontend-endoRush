@@ -8,8 +8,12 @@
         justify-content: center;
         >*{
             margin-right: 10px;
-        }
-       
+        } 
     }
-
 }
+
+// @include for-narrow-layout {
+//     .search-erea {
+//         flex-direction: row;
+//     }
+//   }

@@ -1,5 +1,5 @@
 <template>
-  <section class="home-page">
+  <section class="home-page main-container">
     <div class="home-img-container full">
       <div class="parallax"></div>
       <h2>Take charge of your body and you're life!</h2>

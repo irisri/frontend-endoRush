@@ -1,5 +1,5 @@
 <template>
-  <div v-if="evento" class="evento-details">
+  <div v-if="evento" class="evento-details main-container">
     <div class="img-wrapper">
       <div class="imgs-details">
         <img

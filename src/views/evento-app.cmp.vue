@@ -1,5 +1,5 @@
 <template class="main-layout">
-  <div class="evento-app">
+  <div class="evento-app main-container">
     <evento-filter @setFilter="setFilter"></evento-filter>
     <evento-list :eventos="eventos" @removeEvento="removeEvento"></evento-list>
   </div>

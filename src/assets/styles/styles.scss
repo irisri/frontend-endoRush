@@ -9,15 +9,17 @@
 @import 'basics/base';
 @import 'basics/layout';
 
+// VIEws
+@import 'views/_evento-details';
+@import 'views/_evento-app';
+@import 'views/about-page';
+@import 'views/_evento-edit';
+@import 'views/_about-page';
 // COMPONENTS
-@import 'components/main-header';
-@import 'components/evento-list';
-@import 'components/_edit-evento';
+@import 'components/_main-header';
+@import 'components/_evento-list';
 @import 'components/_member-list';
-@import 'components/home-page';
-@import 'views/evento-details.cmp';
-@import 'views/evento-app.cmp';
-@import 'views/about-page.cmp';
+@import 'components/_home-page';
 @import 'components/_evento-filter';
 @import 'components/_review-list';
 @import 'components/_footer';

@@ -1,5 +1,5 @@
 <template>
-  <div class="evento-edit" v-if="evento">
+  <div class="evento-edit main-container" v-if="evento">
     <div class="img-container" v-for="img in evento.imgUrls" :key="img">
       <img v-if="img" :src="img"/>
       <button @click="removeImg(img)">X</button>
