@@ -12,10 +12,15 @@
     </div>
     <div class="details-content flex">
       <div class="info">
-        <h3>{{ evento.title }}</h3>
-        <p class="capacity"> {{spotsLeft()}} spots left</p>
-        <h4>orgenised by {{ evento.owner.fullName }}</h4>
-
+        <h3 class="title">{{ evento.title }}</h3>
+        <p class="capacity">{{spotsLeft()}} spots left</p>
+        <div class="owner flex">
+          <img :src="evento.owner.imgUrl" />
+          <div>
+            <p>Orgenised by</p>
+            <h3>{{ evento.owner.fullName }}</h3>
+          </div>
+        </div>
         <el-button size="small" @click="$router.push(`/evento/edit/${evento.id}`)">Edit event</el-button>
         <el-button size="small" @click="removeEvento()">Delete event</el-button>
 
@@ -23,14 +28,14 @@
         <p class="desc">{{evento.description}}</p>
         <member-list :members="evento.members"></member-list>
         <review-list v-if="owner.reviews" :reviews="owner.reviews" @addReview="addReview"></review-list>
-        <p v-else> Be the first to comment..</p>
+        <p v-else>Be the first to comment..</p>
         <!-- <review-list :reviews="[1,2,3]"></review-list> -->
       </div>
 
       <div class="join">
         <i class="el-icon-time">  {{timeToShow}}</i>
         <i class="el-icon-map-location">  {{ evento.location.name }}</i>
-        <i class="el-icon-star-on" v-if="owner.reviews">  {{rateAvg()}} ({{owner.reviews.length}})</i>
+        <i class="el-icon-star-on" v-if="owner.reviews">  {{rateAvg()}}   ({{owner.reviews.length}})</i>
         <button @click="addMember()">Join</button>
       </div>
     </div>
@@ -44,7 +49,7 @@ export default {
   data() {
     return {
       evento: null,
-      owner: ''
+      owner: ""
     };
   },
   computed: {
@@ -58,9 +63,9 @@ export default {
     await this.$store.dispatch({ type: "getById", eventoId });
     this.evento = this.$store.getters.evento;
     // reviews by owner
-    console.log('this.evento', this.evento);
+    console.log("this.evento", this.evento);
     const userId = this.evento.owner.id;
-    console.log('userId - cmpdetails', userId);
+    console.log("userId - cmpdetails", userId);
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = this.$store.getters.user;
   },
@@ -87,11 +92,11 @@ export default {
       return (
         this.owner.reviews.reduce((a, b) => a.rate + b.rate) /
         this.owner.reviews.length
-      )
+      );
     },
     spotsLeft() {
-      console.log('members',this.evento.members.length);
-      console.log('capacity',this.evento.capacity);
+      console.log("members", this.evento.members.length);
+      console.log("capacity", this.evento.capacity);
       return this.evento.capacity - this.evento.members.length;
     }
   },

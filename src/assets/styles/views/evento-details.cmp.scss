@@ -30,18 +30,31 @@
             >*{
                 margin-top: 2rem;
             }
+            .title {
+                font-size: 25px
+            }
             .capacity {
                 border-radius: 5px;
-                background-color: #afacac6b;
                 font-weight: bold;
                 padding: 5px;
                 color: $clr1;
+                width: fit-content;
+                font-size: 20px;
             }
             .desc {
                 text-align: justify;
             }
+            .owner {
+                img {
+                    border-radius: 50%;
+                    height: 40px;
+                    width: 40px;
+                    margin: auto 15px auto 0;
+                }
+            }
         }
         .join {
+            text-align: left;
             margin-top: 2rem;
             flex: 30%;
             height: 100%;

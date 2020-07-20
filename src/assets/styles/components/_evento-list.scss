@@ -1,7 +1,14 @@
 .evento-list {
-  margin: 0 65px 20px 65px;
   display: grid;
-  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fit, 230px);
+  justify-content: center;
+  grid-gap: 3rem;
+  max-width: 800px;
+  margin: 0 auto;
+  
+  // display: grid;
+  // margin: 0 65px 20px 65px;
+  // grid-template-rows: auto;
 
   .evento-preview {
     cursor: pointer;
@@ -18,7 +25,8 @@
     }
 
     img {
-      width: 230px;
+      width: 100%;
+      border-radius: 20px;
     }
 
     h3 {
@@ -40,36 +48,36 @@
     }
   }
 
-  @include for-narrow-layout {
-    grid-template-columns: repeat(1fr);
-    grid-row-gap: 20px;
-    .evento-preview {
-      margin: 15px auto;
-      img {
-        border-radius: 0;
-      }
-    }
-  }
+  // @include for-narrow-layout {
+  //   grid-template-columns: repeat(1fr);
+  //   grid-row-gap: 20px;
+  //   .evento-preview {
+  //     margin: 15px auto;
+  //     img {
+  //       border-radius: 0;
+  //     }
+  //   }
+  // }
 
-  @include for-normal-layout {
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 6px;
-    .evento-preview {
-      width: 230px;
-      margin: 15px auto;
-      img {
-        border-radius: 20px;
-      }
-    }
-  }
+  // @include for-normal-layout {
+  //   grid-template-columns: repeat(2, 1fr);
+  //   grid-gap: 6px;
+  //   .evento-preview {
+  //     width: 230px;
+  //     margin: 15px auto;
+  //     img {
+  //       border-radius: 20px;
+  //     }
+  //   }
+  // }
   
-  @include for-wide-layout {
-    grid-template-columns: repeat(3, 1fr);
-    .evento-preview {
-      width: 230px;
-      // margin: 15px auto;
-    }
-  }
+  // @include for-wide-layout {
+  //   grid-template-columns: repeat(3, 1fr);
+  //   .evento-preview {
+  //     width: 230px;
+  //     // margin: 15px auto;
+  //   }
+  // }
 
   
 }
