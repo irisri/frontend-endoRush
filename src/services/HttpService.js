@@ -28,7 +28,7 @@ export default {
 
 
 async function ajax(endpoint, method='get', data=null) {
-    console.log('http', data);
+     console.log('http', data, 'method', method);
     try {
         const res = await axios({
             url: `${BASE_URL}${endpoint}`,
@@ -37,6 +37,7 @@ async function ajax(endpoint, method='get', data=null) {
         })
         return res.data;
     } catch (err) {
+        console.log('err-http', err);
         if (err.response.status === 401) {
             router.push('/');
         }

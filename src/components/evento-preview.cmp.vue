@@ -10,11 +10,7 @@
 
     <p>location: {{ evento.location.name }}</p>
     <h4>at: {{timeToShow}}</h4>
-<<<<<<< HEAD
     <h4 class="owner" @click.stop="$router.push(`/user/details/${evento.owner.id}`)">orgenised by {{ evento.owner.fullName }}</h4>
-=======
-    <h4 @click.stop="$router.push(`/user/details/${evento.owner._id}`)">orgenised by {{ evento.owner.userName }}</h4>
->>>>>>> 159dff92fe34409349bb0115930f07b4a0feef57
 
     <div class="rate-container" @click.stop v-if="rate">
       <span class="star">&#9733; <span class="rate">{{this.rate}}</span></span>
@@ -66,8 +62,8 @@ export default {
       await this.$store.dispatch({ type: "getUserById", userId });
       this.ownerUsr = _.cloneDeep(this.$store.getters.user);
       this.rate = this.rateAvg;
-      console.log("crate", this.rate);
-      console.log("len:", this.ownerUsr.reviews.length);
+      // console.log("crate", this.rate);
+      // console.log("len:", this.ownerUsr.reviews.length);
 
       // return (this.ownerUsr = _.cloneDeep(this.$store.getters.user));
     } else {
