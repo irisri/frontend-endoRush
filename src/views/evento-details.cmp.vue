@@ -44,11 +44,15 @@
 <script>
 import memberList from "../components/member-list.cmp.vue";
 import reviewList from "../components/review-list.cmp.vue";
+import SocketService from '@/services/SocketService';
+
 export default {
   data() {
     return {
       evento: null,
-      owner: ""
+      owner: "",
+      title:"",
+       msg: {from: 'Me', txt: `new member just joined: ${this.title} `},
     };
   },
   computed: {
@@ -71,6 +75,9 @@ export default {
     const userId = this.evento.owner._id;
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = _.cloneDeep(this.$store.getters.user);
+    this.title = this.evento.title
+    this.msg= {from: 'Me', txt: `new member just joined: ${this.title} `}
+     SocketService.setup();
   },
   methods: {
     addMember() {
@@ -78,7 +85,9 @@ export default {
       if (this.evento.members.find(member => member._id === user._id))
         return console.log("You are allready rejester to this event!");
       this.evento.members.push(user);
-      this.$store.dispatch({ type: "addMember", evento: this.evento });
+      this.$store.dispatch({ type: "addMember", evento: this.evento });   
+      this.sendMsg()  
+
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -98,7 +107,16 @@ export default {
 
     spotsLeft() {
       return this.evento.capacity - this.evento.members.length;
-    }
+    },
+    sendMsg() {
+      console.log('Sending', this.msg);
+      SocketService.emit('chat newMsg', this.msg)
+      this.msg = {from: 'Me', txt: ''};
+    },
+  },
+    destroyed() {
+    SocketService.off('chat addMsg', this.addMsg)
+    SocketService.terminate();
   },
   components: {
     memberList,
