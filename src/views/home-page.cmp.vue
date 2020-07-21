@@ -7,8 +7,8 @@
     <p>Looking to be active? serch no more!</p>
     <p>You can find and arrenge any fiteness activety that can cross you'r mind</p>
     <span>Trending</span>
-    <el-tag v-for="tag in tags" :key="tag" effect="plain" @click="filterByTag(tag)">{{ tag }}</el-tag>
-    <h3>Chack out our top Three events</h3>
+    <el-tag v-for="tag in tags" :key="tag" effect="plain" @click="setFilterByTag(tag)">{{ tag }}</el-tag>
+    <h3>Chack out our top trending events</h3>
     <evento-list v-if="topThree" :eventos="topThree"></evento-list>
   </section>
 </template>
@@ -21,17 +21,26 @@ export default {
   name: "evento-preview",
   data() {
     return {
-      tags: ["Yoga", "Happy"],
+      tags: null,
       topThree: null
     };
   },
   async created() {
+    const cleanFilter = {
+      txt: "",
+      location: "",
+      tag: "",
+      timeAndDate: ""
+    };
+    this.$store.commit({ type: "updateFilterBy", filter: cleanFilter });
     await this.$store.dispatch({ type: "loadEventos" });
+    this.tags = this.$store.getters.trendingTags;
     this.topThree = this.$store.getters.topThree;
   },
   methods: {
-    filterByTag(tag) {
-      console.log(tag);
+    setFilterByTag(tag) {
+      this.$store.commit({ type: "updateFilterByTag", tag });
+      this.$router.push(`/evento`);
     }
   },
   components: {
