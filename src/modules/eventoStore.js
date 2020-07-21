@@ -8,7 +8,7 @@ export default {
     filterBy: {
       title: "",
       location: "",
-      tag: "",
+      tags: "",
       timeAndDate: "",
     },
   },
@@ -30,6 +30,9 @@ export default {
       });
 
       return new Set(tags);
+    },
+    clickedTag(state) {
+      return state.filterBy.tags
     },
     trendingTags(state) {
       const tags = [];

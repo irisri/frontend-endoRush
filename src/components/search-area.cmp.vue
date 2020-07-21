@@ -8,12 +8,12 @@
       ></el-input>
 
     <div class="search-select">
-      <label>Search By tag:</label>
-      <el-select v-model="filterBy.tags" multiple @change="setFilter" placeholder>
+      <!-- <label>Search by tag:</label> -->
+      <el-select v-model="filterBy.tags" multiple @change="setFilter" placeholder="Tags" :selected="filterBy.tags">
         <el-option v-for="item in tags" :key="item" :label="item" :value="item"></el-option>
       </el-select>
       
-      <el-select v-model="filterBy.time" @change="setFilter">
+      <el-select v-model="filterBy.time" @change="setFilter" placeholder="Day">
         <el-option v-for="item in dates" :key="item" :label="item" :value="item"></el-option>
       </el-select>
 
@@ -39,6 +39,8 @@ export default {
   },
   created() {
     this.tags = this.$store.getters.tags;
+    this.filterBy.tags = this.$store.getters.clickedTag;
+    console.log(this.filterBy.tags);
   },
   methods: {
     setFilter() {
