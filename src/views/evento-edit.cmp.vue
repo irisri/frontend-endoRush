@@ -49,7 +49,7 @@ export default {
     saveEvento(evento) {
       console.log(evento);
       this.$store.dispatch({ type: "saveEvento", evento });
-      this.$router.push("/event");
+      this.$router.push("/");
     },
     removeImg(imgUrl) {
       console.log(imgUrl);

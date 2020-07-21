@@ -20,22 +20,18 @@ function getEmpty() {
           lng: null
         },
         startTime: null,
-        tags: [],
         capacity: null
     }
 }
 
-function query() {
-    // return axios.get(`http://localhost:3000/evento/`)
-    //     .then(res => res.data)
-    //     .catch(err => err)     
-    return HttpService.get("evento");
+function query(filterBy) {
+    console.log(filterBy);
+    const filterUrl = _getParams(filterBy);
+    return HttpService.get(`evento?${filterUrl}`);
+    // return HttpService.get(`evento`);
 }
 
 async function getById(id) {
-    // return axios.get(`http://localhost:3000/evento/${id}`)
-    //     .then(res => res.data)
-    //     .catch(err => err)
     return await HttpService.get(`evento/${id}`)
 }
 
@@ -45,23 +41,36 @@ function save(evento) {
     evento.members = [];
     evento.owner = '';
     console.log('saveing', evento);
-    
-    // return axios.post(`http://localhost:3000/evento/`, evento)
-    //     .then(res => res.data)
-    //     .catch(err => err);
     return HttpService.post(`evento`, evento);
 }
 
 function update(evento) {
-    // return axios.put(`http://localhost:3000/evento/${evento.id}`, evento)
-    // .then(res => res.data)
-    // .catch(err => err);
     return HttpService.put(`evento/${evento._id}`, evento)
 }
 
 function remove(id) {
-    // return axios.delete(`http://localhost:3000/evento/${id}`)
-    //     .then(res => res.data)
-    //     .catch(err => err);
     return HttpService.delete(`evento/${id}`)
+}
+
+function _getParams(filterBy) {
+    var queryParams = new URLSearchParams();
+
+    if (filterBy.txt) queryParams.set('q', filterBy.txt);
+    if (filterBy.tag) queryParams.set('tags', filterBy.tag);
+    if (filterBy.location) queryParams.set(location, filterBy.location)
+    if (filterBy.timeAndDate) {
+        if (filterBy.timeAndDate === 'Any day') {
+            queryParams.set('timeAndDate', 'all');
+        } else if (filterBy.timeAndDate === 'Today') {
+            queryParams.set('timeAndDate', 'Today');
+        } else if (filterBy.timeAndDate === 'Tomorrow') {
+            queryParams.set('timeAndDate', 'Tomorrow');
+        } else if (filterBy.timeAndDate === 'This week') {
+            queryParams.set('timeAndDate', 'This week');
+        } else if (filterBy.timeAndDate === 'Next week') {
+            queryParams.set('timeAndDate', 'Next week');
+        }
+    }
+
+    return queryParams;
 }
