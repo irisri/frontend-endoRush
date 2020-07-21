@@ -1,5 +1,6 @@
 <template>
   <div class="evento-list">
+    <onlie-messages/>
       <section v-for="evento in eventos" :key="evento._id" @click.stop="$router.push(`/evento/details/${evento._id}`)">
         <evento-preview :evento="evento"/>
       </section>
@@ -9,6 +10,7 @@
 
 <script>
 import eventoPreview from "@/components/evento-preview.cmp.vue";
+import onlieMessages from "@/components/online-messages.cmp.vue"
 
 export default {
   name: "evento-list",
@@ -29,7 +31,9 @@ export default {
   methods: {
   },
   components: {
-    eventoPreview
+    eventoPreview,
+    onlieMessages
+    
   }
 };
 </script>

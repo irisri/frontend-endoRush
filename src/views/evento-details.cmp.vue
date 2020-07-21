@@ -45,17 +45,24 @@
 <script>
 import memberList from "../components/member-list.cmp.vue";
 import reviewList from "../components/review-list.cmp.vue";
+import SocketService from '@/services/SocketService';
+
 export default {
   data() {
     return {
       evento: null,
-      owner: ""
+      owner: "",
+      title:"",
+       msg: {from: 'Me', txt: `new member just joined: ${this.title} `},
     };
   },
   computed: {
     timeToShow() {
       return new Date(this.evento.startTime).toLocaleString();
-    }
+    },
+    // title(){
+    //   return this.evento.title
+    // }
   },
   async created() {
     // evento
@@ -64,18 +71,28 @@ export default {
     this.evento = this.$store.getters.evento;
     // reviews by owner
     console.log("this.evento", this.evento);
+    this.title = this.evento.title
+    this.msg= {from: 'Me', txt: `new member just joined: ${this.title} `}
+
     const userId = this.evento.owner._id;
     // const userId = this.evento.owner.id;
     console.log("userId - cmpdetails", userId);
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = this.$store.getters.user;
+    
+    //socket
+    SocketService.setup();
+    // SocketService.emit('chat topic', this.topic)
+    // SocketService.on('chat addMsg', this.addMsg)
   },
   methods: {
     addMember() {
-      console.log("add member");
-      const user = this.$store.getters.currUser;
-      this.evento.member.push(user);
-      this.$store.dispatch({ type: "addMember", evento: this.evento });
+       this.sendMsg() 
+      // console.log("add member");
+      // const user = this.$store.getters.currUser;
+      // this.evento.member.push(user);
+      // this.$store.dispatch({ type: "addMember", evento: this.evento });
+     
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -99,7 +116,16 @@ export default {
       console.log("members", this.evento.members.length);
       console.log("capacity", this.evento.capacity);
       return this.evento.capacity - this.evento.members.length;
-    }
+    },
+    sendMsg() {
+      console.log('Sending', this.msg);
+      SocketService.emit('chat newMsg', this.msg)
+      this.msg = {from: 'Me', txt: ''};
+    },
+  },
+    destroyed() {
+    SocketService.off('chat addMsg', this.addMsg)
+    SocketService.terminate();
   },
   components: {
     memberList,
