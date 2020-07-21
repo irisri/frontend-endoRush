@@ -1,29 +1,26 @@
 <template>
   <section class="login-page main-container">
-    <div v-if="loggedInUser">
-      <!-- <user-profile /> -->
+    <div v-if="!signUp" class="login">
+      <h2>Login</h2>
+      <form class="form flex column align-center" @submit.prevent="doLogin">
+        <el-input type="text" v-model="loginCred.userName" placeholder="Username" />
+        <el-input type="text" v-model="loginCred.password" placeholder="Password" />
+        <el-button @click.prevent="doLogin">Login</el-button>
+      </form>
+      <el-button @click="signUp=!signUp">Signup</el-button>
     </div>
-    <div v-else>
-      <div v-if="!signUp">
-        <h2>Login</h2>
-        <form class="flex column align-center" @submit.prevent="doLogin">
-          <input type="text" v-model="loginCred.userName" placeholder="Username" />
-          <input type="text" v-model="loginCred.password" placeholder="Password" />
-          <button>Login</button>
-        </form>
-        <button @click="signUp=!signUp">Signup</button>
-      </div>
-      <div v-if="signUp">
-        <h2>Signup</h2>
-        <form class="flex column align-center" @submit.prevent="doSignup">
-          <input type="text" v-model="signupCred.fullName" placeholder="Fullname" />
-          <input type="text" v-model="signupCred.userNmae" placeholder="Username" />
-          <input type="text" v-model="signupCred.password" placeholder="Password" />
-          <input type="file" @change="onUploadImg" />
-          <img :src="signupCred.src" />
-          <button>Signup</button>
-        </form>
-      </div>
+    <div v-if="signUp" class="sign-up">
+      <h2>Signup</h2>
+      <form class="form flex column align-center" @submit.prevent="doSignup">
+        <el-input type="text" v-model="signupCred.fullName" placeholder="Fullname" />
+        <el-input type="text" v-model="signupCred.userName" placeholder="Username" />
+        <el-input type="text" v-model="signupCred.password" placeholder="Password" />
+        <el-input type="file" @change="onUploadImg" />
+        <img :src="signupCred.src" />
+        <el-button @click.prevent="doSignup">Signup</el-button>
+        <span style="display:none;"></span>
+        <el-button @click="signUp=!signUp" plain>Login</el-button>
+      </form>
     </div>
   </section>
 </template>
@@ -44,22 +41,27 @@ export default {
     }
   },
   methods: {
-    // onUploadImg(ev) {
-    //   uploadImg(ev).then(res => (this.signupCred.src = res.url));
-    // },
+    onUploadImg(ev) {
+      uploadImg(ev).then(res => (this.signupCred.src = res.url));
+    },
     async doLogin() {
       const cred = this.loginCred;
       if (!cred.userName || !cred.password)
         return (this.msg = "Please enter username/password");
       await this.$store.dispatch({ type: "login", userCred: cred });
-      console.log('cred-login-page', cred);
+      console.log("cred-login-page", cred);
       this.loginCred = {};
-      $router.back();
+      this.$router.back();
+      // this.$router.push(`/`);
     },
-    doSignup() {
+    async doSignup() {
       const cred = this.signupCred;
+      console.log("this.signupCred", this.signupCred);
       if (!cred.fullName || !cred.password || !cred.userName)
-        this.$store.dispatch({ type: "signup", userCred: this.signupCred });
+        return (this.msg = "Please enter username/password");
+      console.log("this.signupCred", this.signupCred);
+      await this.$store.dispatch({ type: "signup", userCred: this.signupCred });
+      this.$router.back();
     }
   }
 };

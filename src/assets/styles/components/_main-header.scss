@@ -3,11 +3,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 65px;
+  // margin: 0 65px;
+  padding: 0 20px;
 
   .logo {
     font-family: RanchersRegular;
-    margin: 25px 0;
+    // padding: 10px 0;
     word-spacing: rem(8px);
 
     span {
@@ -60,7 +61,7 @@
   
   @include for-wide-layout {
     .logo {
-      font-size: rem(54px);
+      font-size: rem(50px);
     }
   }
 
