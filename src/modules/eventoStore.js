@@ -3,13 +3,14 @@ import eventoService from "../services/eventoService.js";
 export default {
   state: {
     eventos: [],
+    tags: [],
     currEvento: null,
     filterBy: {
-      title: "",
+      txt: "",
       location: "",
       tag: "",
-      time: "",
-    }
+      timeAndDate: "",
+    },
   },
 
   getters: {
@@ -21,7 +22,35 @@ export default {
     },
     topThree(state) {
       return state.eventos.slice(0, 3);
-    }
+    },
+    trendingTags(state) {
+      const tags = [];
+      state.eventos.forEach((evento) => {
+        tags.push(...evento.tags);
+      });
+
+      let countTag = {};
+      for (var i = 0; i < tags.length; i++) {
+        var word = tags[i];
+        if (!countTag[word]) countTag[word] = 1;
+        else countTag[word]++;
+      }
+
+      let sortableTag = [];
+      for (let tag in countTag) {
+        sortableTag.push([tag, countTag[tag]]);
+      }
+
+      sortableTag.sort(function(tag1, tag2) {
+        return tag2[1] - tag1[1];
+      });
+
+      const topFiveTagsAndCount = sortableTag.slice(0, 5);
+      const topFiveTags = topFiveTagsAndCount.map(
+        (tagAndNumber) => tagAndNumber[0]
+      );
+      return topFiveTags;
+    },
   },
 
   mutations: {
@@ -34,19 +63,25 @@ export default {
     removeEvento(state, { eventoId }) {
       state.eventos = state.eventos.filter((evento) => evento._id !== eventoId);
     },
-    updateEvent(state, { evento }) {
+    updateEvento(state, { evento }) {
       console.log("update", evento);
       const index = state.eventos.findIndex(
         (currEvento) => currEvento._id === evento._id
       );
-      state.evento.splice(index, 1, evento);
-      return evento;
+      state.eventos.splice(index, 1, evento);
+      // return eventos;
     },
     setFilter(state, { filterBy }) {
       state.filterBy = filterBy;
     },
     setCurrEvento(state, { evento }) {
       state.currEvento = evento;
+    },
+    updateFilterBy(state, { filter }) {
+      state.filterBy = filter;
+    },
+    updateFilterByTag(state, { tag }) {
+      state.filterBy.tag = tag;
     }
   },
 
@@ -70,20 +105,19 @@ export default {
       const evento = await eventoService.getById(eventoId);
       commit({ type: "setCurrEvento", evento });
     },
-    async loadEventos(context) {
-      const eventos = await eventoService.query();
-      context.commit({ type: "setEventos", eventos });
+    async loadEventos({ commit, state }) {
+      console.log(state.filterBy);
+      const eventos = await eventoService.query(state.filterBy);
+      commit({ type: "setEventos", eventos });
     },
     async removeEvento(context, { eventoId }) {
       await eventoService.remove(eventoId);
       context.commit({ type: "removeEvento", eventoId });
     },
     async addMember(context, { evento }) {
-      await eventoService.getReviewById(eventoId);
-      context.commit({ type: "addMember", eventoId });
+      await eventoService.update(evento);
+      context.commit({ type: "updateEvento", evento });
     }
-
-    
     
   },
 };

@@ -1,19 +1,28 @@
 .evento-edit {
-    .img-container {
-      display: flex;
-      flex-direction: row;
-      display: inline;
-  
-      img {
-        width: 200px;
-        margin: 10px;
-      }
-  
-      button {
-        // position: relative;
-        width: fit-content;
-        top: 3px;
-        right: 3px;
+  max-width: 700px;
+  margin: auto;
+    .imgs-container {
+        display: grid;
+
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-gap: 7px;
+        width: 100%;
+        height: 350px;
+        .img-container {
+          position: relative;
+          img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+          }  
+          button {
+            position: absolute;
+            width: fit-content;
+            top: 3px;
+            right: 3px;
+            padding: 10px;
+          }
       }
     }
   

@@ -1,8 +1,10 @@
 <template>
   <div class="evento-edit main-container" v-if="evento">
-    <div class="img-container" v-for="img in evento.imgUrls" :key="img">
-      <img v-if="img" :src="img"/>
-      <button @click="removeImg(img)">X</button>
+    <div class="imgs-container">
+      <div class="img-container" v-for="img in evento.imgUrls" :key="img">
+        <img v-if="img" :src="img" />
+        <el-button icon="el-icon-delete" @click="removeImg(img)"></el-button>
+      </div>
     </div>
     <form-evento :evento="evento" @saveEvento="saveEvento" @onUploadImg="onUploadImg" />
   </div>
@@ -49,12 +51,12 @@ export default {
     saveEvento(evento) {
       console.log(evento);
       this.$store.dispatch({ type: "saveEvento", evento });
-      this.$router.push("/event");
+      this.$router.push("/");
     },
     removeImg(imgUrl) {
       console.log(imgUrl);
       const index = this.evento.imgUrls.findIndex(img => img === imgUrl);
-      this.evento.imgUrls.splice(index, 1)
+      this.evento.imgUrls.splice(index, 1);
     }
   }
 };

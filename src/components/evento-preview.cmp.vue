@@ -45,10 +45,9 @@ export default {
       return new Date(this.evento.startTime).toLocaleString();
     },
     rateAvg() {
-      return (
-        this.ownerUsr.reviews.reduce((a, b) => a.rate + b.rate) /
+      const avg = this.ownerUsr.reviews.reduce(((a,b) => a + b.rate),0) /
         this.ownerUsr.reviews.length
-      );
+      return avg.toFixed(1);
     }
   },
   methods: {

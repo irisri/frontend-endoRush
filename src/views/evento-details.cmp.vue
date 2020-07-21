@@ -29,13 +29,12 @@
         <member-list :members="evento.members"></member-list>
         <review-list v-if="owner.reviews" :reviews="owner.reviews" @addReview="addReview"></review-list>
         <p v-else>Be the first to comment..</p>
-        <!-- <review-list :reviews="[1,2,3]"></review-list> -->
       </div>
 
       <div class="join">
-        <i class="el-icon-time">  {{timeToShow}}</i>
-        <i class="el-icon-map-location">  {{ evento.location.name }}</i>
-        <i class="el-icon-star-on" v-if="owner.reviews">  {{rateAvg()}}   ({{owner.reviews.length}})</i>
+        <i class="el-icon-time">{{timeToShow}}</i>
+        <i class="el-icon-map-location">{{ evento.location.name }}</i>
+        <i class="el-icon-star-on" v-if="owner.reviews">{{rateAvg}} ({{owner.reviews.length}})</i>
         <button @click="addMember()">Join</button>
       </div>
     </div>
@@ -60,39 +59,30 @@ export default {
     timeToShow() {
       return new Date(this.evento.startTime).toLocaleString();
     },
-    // title(){
-    //   return this.evento.title
-    // }
+    rateAvg() {
+      const avg =
+        this.owner.reviews.reduce((a, b) => a + b.rate, 0) /
+        this.owner.reviews.length;
+      return avg.toFixed(1);
+    }
   },
   async created() {
     // evento
     const eventoId = this.$route.params.id;
     await this.$store.dispatch({ type: "getById", eventoId });
-    this.evento = this.$store.getters.evento;
+    this.evento = _.cloneDeep(this.$store.getters.evento);
     // reviews by owner
-    console.log("this.evento", this.evento);
-    this.title = this.evento.title
-    this.msg= {from: 'Me', txt: `new member just joined: ${this.title} `}
-
     const userId = this.evento.owner._id;
-    // const userId = this.evento.owner.id;
-    console.log("userId - cmpdetails", userId);
     await this.$store.dispatch({ type: "getUserById", userId });
-    this.owner = this.$store.getters.user;
-    
-    //socket
-    SocketService.setup();
-    // SocketService.emit('chat topic', this.topic)
-    // SocketService.on('chat addMsg', this.addMsg)
+    this.owner = _.cloneDeep(this.$store.getters.user);
   },
   methods: {
     addMember() {
-       this.sendMsg() 
-      // console.log("add member");
-      // const user = this.$store.getters.currUser;
-      // this.evento.member.push(user);
-      // this.$store.dispatch({ type: "addMember", evento: this.evento });
-     
+      const user = this.$store.getters.loggedInUser;
+      if (this.evento.members.find(member => member._id === user._id))
+        return console.log("You are allready rejester to this event!");
+      this.evento.members.push(user);
+      this.$store.dispatch({ type: "addMember", evento: this.evento });
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -102,19 +92,15 @@ export default {
       this.$router.push(`/`);
     },
     addReview(newReview) {
-      this.owner.review.push(newReview);
-      this.$store.commit({ type: "addReview", user: this.owner });
+      const user = this.$store.getters.loggedInUser;
+      newReview.userId = user._id;
+      newReview.userName = user.userName;
+      newReview.imgUrl = user.imgUrl;
+      this.owner.reviews.push(newReview);
+      this.$store.dispatch({ type: "addReview", user: this.owner });
     },
-    rateAvg() {
-      if (!this.owner) return;
-      return (
-        this.owner.reviews.reduce((a, b) => a.rate + b.rate) /
-        this.owner.reviews.length
-      );
-    },
+
     spotsLeft() {
-      console.log("members", this.evento.members.length);
-      console.log("capacity", this.evento.capacity);
       return this.evento.capacity - this.evento.members.length;
     },
     sendMsg() {

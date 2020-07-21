@@ -24,7 +24,7 @@ export default {
     mutations: {
         setUser(state, { user }) {
             state.loggedinUser = user;
-            // console.log('setUser-store', state.loggedinUser);
+            console.log('setUser-store', state.loggedinUser);
         },
         setUsers(state, { users }) {
             state.users = users;
@@ -73,6 +73,7 @@ export default {
         },
         async addReview(context, { user }) {
             await userService.update(user);
+            context.commit({ type: 'setUserToShow', user })
         }
     }
 }
