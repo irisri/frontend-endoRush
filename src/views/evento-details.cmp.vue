@@ -52,6 +52,7 @@ export default {
       evento: null,
       owner: "",
       title:"",
+      _userName:"",
        msg: {from: 'Me', txt: `new member just joined: ${this.title} `},
     };
   },
@@ -76,17 +77,22 @@ export default {
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = _.cloneDeep(this.$store.getters.user);
     this.title = this.evento.title
-    this.msg= {from: 'Me', txt: `new member just joined: ${this.title} `}
+    this.msg= {from: 'Me', txt: `${this._userName} just joined: ${this.title} `}
      SocketService.setup();
   },
   methods: {
     addMember() {
+       
       const user = this.$store.getters.loggedInUser;
       if (this.evento.members.find(member => member._id === user._id))
         return console.log("You are allready rejester to this event!");
       this.evento.members.push(user);
       this.$store.dispatch({ type: "addMember", evento: this.evento });   
-      this.sendMsg()  
+      this._userName = user.userName
+      console.log('usename',this._userName)
+      this.msg= {from: 'Me', txt: `${this._userName} just joined: ${this.title} `}
+      this.sendMsg() 
+      
 
     },
     removeEvento(eventoId) {
