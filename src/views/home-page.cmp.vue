@@ -27,7 +27,7 @@ export default {
   },
   async created() {
     const cleanFilter = {
-      txt: "",
+      title: "",
       location: "",
       tag: "",
       timeAndDate: ""

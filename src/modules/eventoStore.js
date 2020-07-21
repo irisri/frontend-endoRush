@@ -6,7 +6,7 @@ export default {
     tags: [],
     currEvento: null,
     filterBy: {
-      txt: "",
+      title: "",
       location: "",
       tag: "",
       timeAndDate: "",
@@ -22,6 +22,14 @@ export default {
     },
     topThree(state) {
       return state.eventos.slice(0, 3);
+    },
+    tags(state) {
+      const tags = [];
+      state.eventos.forEach((evento) => {
+        tags.push(...evento.tags);
+      });
+
+      return new Set(tags);
     },
     trendingTags(state) {
       const tags = [];
@@ -71,9 +79,9 @@ export default {
       state.eventos.splice(index, 1, evento);
       // return eventos;
     },
-    setFilter(state, { filterBy }) {
-      state.filterBy = filterBy;
-    },
+    // setFilter(state, { filterBy }) {
+    //   state.filterBy = filterBy;
+    // },
     setCurrEvento(state, { evento }) {
       state.currEvento = evento;
     },
@@ -81,7 +89,7 @@ export default {
       state.filterBy = filter;
     },
     updateFilterByTag(state, { tag }) {
-      state.filterBy.tag = tag;
+      state.filterBy.tags = [tag];
     }
   },
 
@@ -106,7 +114,6 @@ export default {
       commit({ type: "setCurrEvento", evento });
     },
     async loadEventos({ commit, state }) {
-      console.log(state.filterBy);
       const eventos = await eventoService.query(state.filterBy);
       commit({ type: "setEventos", eventos });
     },
