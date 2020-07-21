@@ -75,6 +75,9 @@ export default {
     const userId = this.evento.owner._id;
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = _.cloneDeep(this.$store.getters.user);
+    this.title = this.evento.title
+    this.msg= {from: 'Me', txt: `new member just joined: ${this.title} `}
+     SocketService.setup();
   },
   methods: {
     addMember() {
@@ -82,7 +85,9 @@ export default {
       if (this.evento.members.find(member => member._id === user._id))
         return console.log("You are allready rejester to this event!");
       this.evento.members.push(user);
-      this.$store.dispatch({ type: "addMember", evento: this.evento });
+      this.$store.dispatch({ type: "addMember", evento: this.evento });   
+      this.sendMsg()  
+
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
