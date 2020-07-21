@@ -6,45 +6,18 @@
     }
     .main-container {
         min-height: 65vh;
-        padding-bottom: 30px;
+        padding: 0 1.5rem;
     }
     footer {
         height: 15vh;
     }
 }
 
-
-
-//     display: grid;
-//     grid-template-columns: repeat(3, 1fr);
-//     grid-template-rows: auto 1fr auto;
-//     min-height: 100vh;
-//     .home-page{
-//     .full {
-//         grid-column: 1 /-1;
-//     }
-// }
-//     > * {
-//         grid-column: 2;
-
-//     }
-//     @include for-narrow-layout {
-//         grid-template-columns:
-//         minmax(2rem, 1fr)
-//         minmax(auto, $break-narrow)
-//         minmax(2rem, 1fr);
-//     }
+@include for-normal-layout {
+    .main-layout{
+        .main-container {
+            padding: 0;
+        }
+    }
+}
     
-//     @include for-normal-layout {
-//         grid-template-columns:
-//         minmax(2rem, 1fr)
-//         minmax(auto, $break-normal)
-//         minmax(2rem, 1fr);
-//     }
-
-//     @include for-wide-layout {
-//         grid-template-columns:
-//         minmax(2rem, 1fr)
-//         minmax(auto, $break-wide)
-//         minmax(2rem, 1fr);
-//     }

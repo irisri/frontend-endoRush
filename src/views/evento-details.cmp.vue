@@ -59,7 +59,7 @@ export default {
       const avg =
         this.owner.reviews.reduce((a, b) => a + b.rate, 0) /
         this.owner.reviews.length;
-      return avg.toFixed(1);
+      return avg.toFixed(0);
     }
   },
   async created() {

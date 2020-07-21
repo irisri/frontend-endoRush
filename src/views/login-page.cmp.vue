@@ -54,6 +54,7 @@ export default {
       await this.$store.dispatch({ type: "login", userCred: cred });
       console.log('cred-login-page', cred);
       this.loginCred = {};
+      $router.back();
     },
     doSignup() {
       const cred = this.signupCred;
