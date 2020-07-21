@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="main-layout">
-    <evento-header />
+    <evento-header :user="loggedInUser"/>
     <transition name="fade" mode="out-in">
       <router-view />
     </transition>
@@ -18,6 +18,11 @@ export default {
   components: {
     eventoHeader,
     eventoFooter
+  },
+  computed: {
+     loggedInUser() {
+       return this.$store.getters.loggedInUser;
+     }
   }
 };
 </script>

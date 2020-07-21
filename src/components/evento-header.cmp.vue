@@ -7,27 +7,23 @@
     <nav>
       <router-link to="/">Home</router-link>|
       <router-link to="/evento">Events</router-link>|
-      <router-link to="/login">Login</router-link>|
-      <router-link to="/about">About</router-link>
-      <!-- <router-link to="`/user/details/{{userId}}`">Profile</router-link> -->
-      
+      <router-link to="/about">About</router-link>|
+      <router-link v-if="user" v-bind:to="`/user/details/${user._id}`">Profile</router-link>
+      <router-link v-else to="/login">Login</router-link>
     </nav>
   </header>
 </template>
 
 <script>
 export default {
-  data(){
-    return {
-      userId: ''
+  props: {
+    user: {
+      type: Object,
+      required: false
     }
-  
-
   }
-
-}
+};
 </script>
 
 <style>
-
 </style>
