@@ -1,13 +1,13 @@
 <template>
   <section class="login-page main-container">
     <div v-if="loggedInUser">
-      <user-profile />
+      <!-- <user-profile /> -->
     </div>
     <div v-else>
       <div v-if="!signUp">
         <h2>Login</h2>
         <form class="flex column align-center" @submit.prevent="doLogin">
-          <input type="text" v-model="loginCred.userNmae" placeholder="Username" />
+          <input type="text" v-model="loginCred.userName" placeholder="Username" />
           <input type="text" v-model="loginCred.password" placeholder="Password" />
           <button>Login</button>
         </form>
@@ -44,25 +44,22 @@ export default {
     }
   },
   methods: {
-    onUploadImg(ev) {
-      uploadImg(ev).then(res => (this.signupCred.src = res.url));
-    },
-        async doLogin() {
-      const cred = this.loginCred
-      if(!cred.email || !cred.password) return this.msg = 'Please enter user/password'
-      await this.$store.dispatch({type :'login', userCred:cred})
+    // onUploadImg(ev) {
+    //   uploadImg(ev).then(res => (this.signupCred.src = res.url));
+    // },
+    async doLogin() {
+      const cred = this.loginCred;
+      if (!cred.userName || !cred.password)
+        return (this.msg = "Please enter username/password");
+      await this.$store.dispatch({ type: "login", userCred: cred });
+      console.log('cred-login-page', cred);
       this.loginCred = {};
-      
-    },   
-    doSignup() {
-      const cred = this.signupCred
-      if(!cred.email || !cred.password ||!cred.username) return this.msg = 'Please fill up the form';
-      this.signupCred.favColor = '#000000';
-      this.signupCred.gender = 'unknown';
-      this.signupCred.reminderTime = '6:55AM';
-      this.signupCred.isAdmin = false;
-      this.$store.dispatch({type: 'signup', userCred: this.signupCred})
     },
+    doSignup() {
+      const cred = this.signupCred;
+      if (!cred.fullName || !cred.password || !cred.userName)
+        this.$store.dispatch({ type: "signup", userCred: this.signupCred });
+    }
   }
 };
 </script>
