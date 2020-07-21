@@ -1,0 +1,24 @@
+.login-page {
+    max-width: 800px;
+    margin: 0 auto;
+    .login, .sign-up{
+        >*{
+            margin-top: 10px;
+        }
+    }
+    // >*{
+    //     margin-top: 10px;
+    // }
+    input{
+        width: 200px;
+    }
+    button{
+        width: 100px;
+    }
+    form {
+        >*{
+            margin-top: 10px;
+            margin-left: 0;
+        }
+    }
+}
