@@ -9,6 +9,25 @@
       <router-link to="/evento">Events</router-link>|
       <router-link to="/login">Login</router-link>|
       <router-link to="/about">About</router-link>
+      <!-- <router-link to="`/user/details/{{userId}}`">Profile</router-link> -->
+      
     </nav>
   </header>
 </template>
+
+<script>
+export default {
+  data(){
+    return {
+      userId: ''
+    }
+  
+
+  }
+
+}
+</script>
+
+<style>
+
+</style>

@@ -34,13 +34,13 @@ export default {
     removeEvento(state, { eventoId }) {
       state.eventos = state.eventos.filter((evento) => evento._id !== eventoId);
     },
-    updateEvent(state, { evento }) {
+    updateEvento(state, { evento }) {
       console.log("update", evento);
       const index = state.eventos.findIndex(
         (currEvento) => currEvento._id === evento._id
       );
-      state.evento.splice(index, 1, evento);
-      return evento;
+      state.eventos.splice(index, 1, evento);
+      // return eventos;
     },
     setFilter(state, { filterBy }) {
       state.filterBy = filterBy;
@@ -79,11 +79,9 @@ export default {
       context.commit({ type: "removeEvento", eventoId });
     },
     async addMember(context, { evento }) {
-      await eventoService.getReviewById(eventoId);
-      context.commit({ type: "addMember", eventoId });
+      await eventoService.update(evento);
+      context.commit({ type: "updateEvento", evento });
     }
-
-    
     
   },
 };

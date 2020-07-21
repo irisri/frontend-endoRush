@@ -3,13 +3,13 @@
     <h3>Reviews ({{countReviews}})</h3>
     <ul class="review-list flex column">
       <li class="review-card" v-for="(review, index) in reviews" :key="index">
-        <img :src="review.imgUrl"/>
+        <img :src="review.imgUrl" />
         <div class="review-detail">
-        <h2>{{review.fullName}}</h2>
-        <h5>
-          <el-rate v-model="review.rate" disabled></el-rate>
-          {{review.txt}}
-        </h5>
+          <h2>{{review.fullName}}</h2>
+          <h5>
+            <el-rate v-model="review.rate" disabled></el-rate>
+            {{review.txt}}
+          </h5>
         </div>
       </li>
     </ul>
@@ -55,7 +55,7 @@ export default {
       this.$emit("addReview", this.newReview);
     }
   },
-  created(){
+  created() {
     console.log(this.reviews);
   }
 };

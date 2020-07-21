@@ -4,7 +4,7 @@
     <ul class="member-list flex">
       <li class="member-card" v-for="member in members" :key="member._id">
         <img :src="member.imgUrl" />
-        <h5>{{member.fullName}}</h5>
+        <h5>{{member.userName}}</h5>
       </li>
     </ul>
   </section>
