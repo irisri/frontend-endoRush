@@ -2,7 +2,7 @@
   <section class="home-page main-container">
     <div class="home-img-container full">
       <div class="parallax"></div>
-      <h2>Take charge of your body and you're life!</h2>
+      <h2>Create and manage your fitness routine with others!</h2>
     </div>
     <p>Looking to be active? serch no more!</p>
     <p>You can find and arrenge any fiteness activety that can cross you'r mind</p>

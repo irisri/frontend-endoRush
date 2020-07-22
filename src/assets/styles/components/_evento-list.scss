@@ -1,63 +1,12 @@
 .evento-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 230px);
+  grid-template-columns: repeat(auto-fit, 250px);
   justify-content: center;
-  grid-gap: 3rem;
-  max-width: 800px;
+  grid-gap: 30px;
+  max-width: 1300px;
   margin: 15px auto;
-  
-  .evento-preview {
-    cursor: pointer;
-    padding: 15px;
-    transform: box-shadow 100s;
-    background-color: #fff8f0;
-    border-radius: 20px;
-    border: 2px solid #dddddd;
 
-    &:hover {
-      box-shadow: -1px 1px 7px 1px rgba(0, 0, 0, 0.27);
-    }
 
-    .el-carousel__container {
-      height: 140px;
-    }
-
-    img {
-      width: 100%;
-      border-radius: 20px;
-    }
-
-    h3 {
-      margin: 5px;
-    }
-
-    .owner:hover{
-
-      color: $clr1;
-
-    }
-
-    .rate-container {
-      margin: 0 auto;
-      span {
-        color: $clr1;
-        margin: 0;
-      }
-      .star {
-        font-size: 1.2rem;
-      }
-      .rate {
-        font-size: 1rem;
-      }
-    }
-  }
-
-  @include for-narrow-layout {
-    .evento-preview {
-      padding: 0px;
-      border: none;
-    }
-  }
 
   // @include for-normal-layout {
   //   grid-template-columns: repeat(2, 1fr);

@@ -1,11 +1,14 @@
 <template>
   <header class="main-header">
-    <h1 class="logo">
-      Endorphin
-      <span>rush</span>
+    <h1 class="logo" @click.prevent="$router.push(`/`).catch(()=>{});">
+    <!-- <h1 class="logo"> -->
+      <!-- <router-link to="/"> -->
+        Endorphin
+        <span>rush</span>
+      <!-- </router-link> -->
     </h1>
     <nav>
-      <router-link to="/">Home</router-link>|
+      <!-- <router-link to="/">Home</router-link>| -->
       <router-link to="/evento">Events</router-link>|
       <router-link to="/about">About</router-link>|
       <router-link v-if="user" :to="`/user/details/${user._id}`">Profile</router-link>

@@ -74,7 +74,7 @@
                 padding: 12px 20px;
                 cursor: pointer;
                 color: $clr4;
-                background-color: $callToAction;
+                background-color: $clr1;
                 border: 1px solid $clr2;
                 border-radius: 4px;
                 text-transform: uppercase;
@@ -82,7 +82,7 @@
                 margin: 0 auto;
             }
             button:hover {
-                background: darken($callToAction, 5%)
+                background: darken($clr1, 5%)
               }
             >*{
                 display: block;

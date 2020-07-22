@@ -1,19 +1,37 @@
 <template>
   <div class="evento-preview">
     <el-carousel indicator-position="outside" :autoplay="false">
-      <el-carousel-item v-for="url in evento.imgUrls" :key="url">
+      <el-carousel-item v-for="(url, index) in evento.imgUrls" :key="index">
         <img :src="url" />
       </el-carousel-item>
     </el-carousel>
-
-    <h3>{{ evento.title }}</h3>
-
-    <p>location: {{ evento.location.name }}</p>
-    <h4>at: {{timeToShow}}</h4>
-    <h4 class="owner" @click.stop="$router.push(`/user/details/${evento.owner._id}`)">orgenised by {{ evento.owner.userName }}</h4>
-
-    <div class="rate-container" @click.stop v-if="rate">
-      <span class="star">&#9733; <span class="rate">{{this.rate}}</span></span>
+    <div class="preview-content flex column justify-start">
+      <div class="owner-rate flex space-between">
+        <div class="owner flex">
+          <img :src="ownerUsr.imgUrl" />
+          <p>{{ ownerUsr.userName }}</p>
+        </div>
+        <div class="rate flex align-center" v-if="ownerUsr.reviews">
+          <p class="star">
+            <i class="el-icon-star-on"></i>
+          </p>
+          <p class="avg">{{rateAvg}}</p>
+          <p class="count">&nbsp;({{ownerUsr.reviews.length}})</p>
+        </div>
+      </div>
+      <div class="details">
+        <h3>{{ evento.title }}</h3>
+        <p>{{ evento.location.name }}</p>
+        <h4>{{timeToShow}}</h4>
+        <!-- <div class="rate flex align-center" v-if="ownerUsr.reviews">
+          <span>
+            <i class="el-icon-star-on"></i>
+          </span>
+          <span class="avg">{{rateAvg}}</span>
+          <span class="count">&nbsp;({{ownerUsr.reviews.length}})</span>
+        </div>-->
+        <p>Attendees: {{evento.members.length}} / {{evento.capacity}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -21,8 +39,7 @@
 
 
 <script>
-import starRating from "@/components/star-rating.cmp.vue";
-
+const moment = require("moment");
 export default {
   name: "evento-preview",
   props: {
@@ -34,44 +51,43 @@ export default {
   data() {
     return {
       img: this.evento.imgUrls[0],
-      ownerUsr: "",
-      rate: this.rateAvg
-      // rate: this.rateAvg
+      ownerUsr: ""
     };
   },
   computed: {
     timeToShow() {
-      //   return new Date(this.evento.starttime.getTime());
-      return new Date(this.evento.startTime).toLocaleString();
+      // return 0;
+      const nextWeek = new Date();
+      nextWeek.setDate(nextWeek.getDate() + 7);
+      const nextYear = new Date();
+      nextYear.setDate(nextYear.getDate() + 365);
+      if (this.evento.startTime < nextWeek)
+        return moment(this.evento.startTime).fromNow();
+      if (this.evento.startTime > nextYear)
+        return moment(this.evento.startTime).format("MMM Do YY");
+      else return moment(this.evento.startTime).format("MMM Do");
     },
     rateAvg() {
-      const avg = this.ownerUsr.reviews.reduce(((a,b) => a + b.rate),0) /
-        this.ownerUsr.reviews.length
+      const avg =
+        this.ownerUsr.reviews.reduce((a, b) => a + b.rate, 0) /
+        this.ownerUsr.reviews.length;
       return avg.toFixed(0);
-    }
-  },
-  methods: {
-    updateRate() {
-      console.log("rateunrate", this.rateAvg); //this.rateAvg);
+    },
+    spotsLeft() {
+      return this.evento.capacity - this.evento.members.length;
     }
   },
   async created() {
     const userId = this.evento.owner._id;
+    console.log("userId", userId);
     if (userId) {
       await this.$store.dispatch({ type: "getUserById", userId });
       this.ownerUsr = _.cloneDeep(this.$store.getters.user);
+      console.log("this.ownerUsr", this.ownerUsr);
       this.rate = this.rateAvg;
-      // console.log("crate", this.rate);
-      // console.log("len:", this.ownerUsr.reviews.length);
-
-      // return (this.ownerUsr = _.cloneDeep(this.$store.getters.user));
     } else {
       console.log("no id");
     }
-  },
-  components: {
-    starRating
   }
 };
-
 </script>

@@ -17,6 +17,7 @@
         <el-input type="text" v-model="signupCred.password" placeholder="Password" />
         <el-input type="file" @change="onUploadImg" />
         <img :src="signupCred.src" />
+        <!-- <el-button >Signup</el-button> -->
         <el-button @click.prevent="doSignup">Signup</el-button>
         <span style="display:none;"></span>
         <el-button @click="signUp=!signUp" plain>Login</el-button>
@@ -58,9 +59,9 @@ export default {
       const cred = this.signupCred;
       console.log("this.signupCred", this.signupCred);
       if (!cred.fullName || !cred.password || !cred.userName)
-        return (this.msg = "Please enter username/password");
+        return (this.msg = "Please enter username & password");
       console.log("this.signupCred", this.signupCred);
-      await this.$store.dispatch({ type: "signup", userCred: this.signupCred });
+      await this.$store.dispatch({ type: "signup", userCred: cred });
       this.$router.back();
     }
   }
