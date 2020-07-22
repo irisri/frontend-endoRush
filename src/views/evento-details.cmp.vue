@@ -57,7 +57,7 @@ export default {
       title: "",
       _userName: "",
       msg: {},
-      alert: ''
+      alert: ""
     };
   },
   computed: {
@@ -81,24 +81,27 @@ export default {
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = _.cloneDeep(this.$store.getters.user);
     this.title = this.evento.title;
-// socket
-     SocketService.setup();
-     SocketService.emit('identify', this.evento.owner._id)
-     SocketService.emit('of evento', this.evento._id)
-     SocketService.on('chat addMsg', _msg=>{this.msg=_msg})
-     console.log(this.msg)
+    // socket
+    SocketService.setup();
+    SocketService.emit("identify", this.evento.owner._id);
+    SocketService.emit("of evento", this.evento._id);
+    SocketService.on("chat addMsg", _msg => {
+      this.msg = _msg;
+    });
+    console.log(this.msg);
   },
   methods: {
     addMember() {
-       
       const user = this.$store.getters.loggedInUser;
-      if (this.evento.members.find(member => member._id === user._id))
+      if (this.evento.members.find(member => member._id === user._id)) {
         this.alert = {
           success: false,
           title: "Error",
           txt: "You are already registered for the event"
         };
-      return console.log("You are already registered for the event");
+        return console.log("You are already registered for the event");
+      }
+      
       this.evento.members.push(user);
       this.$store.dispatch({ type: "addMember", evento: this.evento });
       this.alert = {
@@ -107,11 +110,14 @@ export default {
         txt: "You have successfully registered for the event! "
       };
 
-      this._userName = user.userName
-      console.log('usename',this._userName)
+      this._userName = user.userName;
+      console.log("usename", this._userName);
       //socket msg
-      var sentMsg = {from: 'Me', txt: `${this._userName} just joined: ${this.title} `}
-      this.sendMsg(sentMsg) 
+      var sentMsg = {
+        from: "Me",
+        txt: `${this._userName} just joined: ${this.title} `
+      };
+      this.sendMsg(sentMsg);
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -132,9 +138,9 @@ export default {
     spotsLeft() {
       return this.evento.capacity - this.evento.members.length;
     },
-  sendMsg(sentMsg) {
+    sendMsg(sentMsg) {
       console.log("Sending", sentMsg);
-      SocketService.emit("chat newMsg",sentMsg);
+      SocketService.emit("chat newMsg", sentMsg);
       this.msg = { from: "Me", txt: "" };
     }
   },
