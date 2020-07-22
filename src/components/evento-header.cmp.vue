@@ -4,7 +4,7 @@
       Endorphin
       <span>rush</span>
     </h1>
-    <h1>{{ msg.txt }}</h1>
+    <h1 v-if="user">{{ msg.txt }}</h1>
     <nav>
       <router-link to="/">Home</router-link>|
       <router-link to="/evento">Events</router-link>|
