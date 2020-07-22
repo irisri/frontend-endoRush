@@ -83,6 +83,7 @@ export default {
     this.title = this.evento.title;
 // socket
      SocketService.setup();
+     SocketService.emit('identify', this.evento.owner._id)
      SocketService.emit('of evento', this.evento._id)
      SocketService.on('chat addMsg', _msg=>{this.msg=_msg})
      console.log(this.msg)
