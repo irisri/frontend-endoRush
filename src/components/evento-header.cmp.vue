@@ -1,10 +1,10 @@
 <template>
   <header class="main-header">
     <h1 class="logo" @click.prevent="$router.push(`/`).catch(()=>{});">
-    <!-- <h1 class="logo"> -->
+      <!-- <h1 class="logo"> -->
       <!-- <router-link to="/"> -->
-        Endorphin
-        <span>rush</span>
+      Endorphin
+      <span>rush</span>
       <!-- </router-link> -->
     </h1>
     <h1 v-if="user">{{ msg.txt }}</h1>
@@ -26,22 +26,25 @@ export default {
   props: {
     user: {
       type: Object,
-      required: false,
-      msg: {},
+      required: false
     }
+  },
+  data() {
+    return {
+      msg: {}
+    };
   },
   methods: {
     logout() {
       this.$emit("logout");
     }
   },
-  async created(){
-
-     SocketService.setup();
-     
-     SocketService.on('chat addMsg', _msg=>{this.msg=_msg})
-     console.log(this.msg)
-
+  async created() {
+    SocketService.setup();
+    SocketService.on("chat addMsg", _msg => {
+      this.msg = _msg;
+    });
+    console.log(this.msg);
   }
 };
 </script>
