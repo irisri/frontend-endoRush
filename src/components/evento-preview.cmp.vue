@@ -23,13 +23,6 @@
         <h3>{{ evento.title }}</h3>
         <p>{{ evento.location.name }}</p>
         <h4>{{timeToShow}}</h4>
-        <!-- <div class="rate flex align-center" v-if="ownerUsr.reviews">
-          <span>
-            <i class="el-icon-star-on"></i>
-          </span>
-          <span class="avg">{{rateAvg}}</span>
-          <span class="count">&nbsp;({{ownerUsr.reviews.length}})</span>
-        </div>-->
         <p>Attendees: {{evento.members.length}} / {{evento.capacity}}</p>
       </div>
     </div>
@@ -79,11 +72,9 @@ export default {
   },
   async created() {
     const userId = this.evento.owner._id;
-    console.log("userId", userId);
     if (userId) {
       await this.$store.dispatch({ type: "getUserById", userId });
       this.ownerUsr = _.cloneDeep(this.$store.getters.user);
-      console.log("this.ownerUsr", this.ownerUsr);
       this.rate = this.rateAvg;
     } else {
       console.log("no id");
