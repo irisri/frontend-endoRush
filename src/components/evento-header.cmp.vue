@@ -7,6 +7,7 @@
         <span>rush</span>
       <!-- </router-link> -->
     </h1>
+    <h1 v-if="user">{{ msg.txt }}</h1>
     <nav>
       <!-- <router-link to="/">Home</router-link>| -->
       <router-link to="/evento">Events</router-link>|
@@ -20,17 +21,27 @@
 </template>
 
 <script>
+import SocketService from "@/services/SocketService";
 export default {
   props: {
     user: {
       type: Object,
-      required: false
+      required: false,
+      msg: {},
     }
   },
   methods: {
     logout() {
       this.$emit("logout");
     }
+  },
+  async created(){
+
+     SocketService.setup();
+     
+     SocketService.on('chat addMsg', _msg=>{this.msg=_msg})
+     console.log(this.msg)
+
   }
 };
 </script>

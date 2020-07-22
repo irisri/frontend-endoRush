@@ -1,5 +1,6 @@
 <template>
   <div v-if="evento" class="evento-details main-container">
+    <h1>{{ msg.txt }}</h1>
     <div class="img-wrapper">
       <div class="imgs-details">
         <img
@@ -55,7 +56,7 @@ export default {
       owner: "",
       title: "",
       _userName: "",
-      msg: { from: "Me", txt: `new member just joined: ${this.title} ` },
+      msg: {},
       alert: ''
     };
   },
@@ -80,14 +81,16 @@ export default {
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = _.cloneDeep(this.$store.getters.user);
     this.title = this.evento.title;
-    this.msg = {
-      from: "Me",
-      txt: `${this._userName} just joined: ${this.title} `
-    };
-    SocketService.setup();
+// socket
+     SocketService.setup();
+     SocketService.emit('identify', this.evento.owner._id)
+     SocketService.emit('of evento', this.evento._id)
+     SocketService.on('chat addMsg', _msg=>{this.msg=_msg})
+     console.log(this.msg)
   },
   methods: {
     addMember() {
+       
       const user = this.$store.getters.loggedInUser;
       if (this.evento.members.find(member => member._id === user._id))
         this.alert = {
@@ -103,13 +106,12 @@ export default {
         title: "Success",
         txt: "You have successfully registered for the event! "
       };
-      this._userName = user.userName;
-      console.log("usename", this._userName);
-      this.msg = {
-        from: "Me",
-        txt: `${this._userName} just joined: ${this.title} `
-      };
-      this.sendMsg();
+
+      this._userName = user.userName
+      console.log('usename',this._userName)
+      //socket msg
+      var sentMsg = {from: 'Me', txt: `${this._userName} just joined: ${this.title} `}
+      this.sendMsg(sentMsg) 
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -130,9 +132,9 @@ export default {
     spotsLeft() {
       return this.evento.capacity - this.evento.members.length;
     },
-    sendMsg() {
-      console.log("Sending", this.msg);
-      SocketService.emit("chat newMsg", this.msg);
+  sendMsg(sentMsg) {
+      console.log("Sending", sentMsg);
+      SocketService.emit("chat newMsg",sentMsg);
       this.msg = { from: "Me", txt: "" };
     }
   },
