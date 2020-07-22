@@ -1,5 +1,7 @@
 <template>
   <div v-if="evento" class="evento-details main-container">
+    <!-- <online-msg/> -->
+    <h1>{{ msg.txt }}</h1>
     <div class="img-wrapper">
       <div class="imgs-details">
         <img
@@ -45,6 +47,7 @@
 import memberList from "../components/member-list.cmp.vue";
 import reviewList from "../components/review-list.cmp.vue";
 import SocketService from '@/services/SocketService';
+import onlineMsg from "@/components/online-msg.cmp.vue"
 
 export default {
   data() {
@@ -53,7 +56,7 @@ export default {
       owner: "",
       title:"",
       _userName:"",
-       msg: {from: 'Me', txt: `new member just joined: ${this.title} `},
+       msg: {},
     };
   },
   computed: {
@@ -77,8 +80,13 @@ export default {
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = _.cloneDeep(this.$store.getters.user);
     this.title = this.evento.title
-    this.msg= {from: 'Me', txt: `${this._userName} just joined: ${this.title} `}
+    // socket
      SocketService.setup();
+     SocketService.emit('of evento', this.evento._id)
+     SocketService.on('chat addMsg', _msg=>{this.msg=_msg})
+     console.log(this.msg)
+    //  SocketService.emit('to user', this.evento.owner.userName)
+    
   },
   methods: {
     addMember() {
@@ -90,10 +98,9 @@ export default {
       this.$store.dispatch({ type: "addMember", evento: this.evento });   
       this._userName = user.userName
       console.log('usename',this._userName)
-      this.msg= {from: 'Me', txt: `${this._userName} just joined: ${this.title} `}
-      this.sendMsg() 
-      
-
+      //socket msg
+      var sentMsg = {from: 'Me', txt: `${this._userName} just joined: ${this.title} `}
+      this.sendMsg(sentMsg) 
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -114,19 +121,21 @@ export default {
     spotsLeft() {
       return this.evento.capacity - this.evento.members.length;
     },
-    sendMsg() {
-      console.log('Sending', this.msg);
-      SocketService.emit('chat newMsg', this.msg)
+    sendMsg(msg) {
+      console.log('Sending', msg);
+      SocketService.emit('chat newMsg', msg)
       this.msg = {from: 'Me', txt: ''};
     },
   },
     destroyed() {
     SocketService.off('chat addMsg', this.addMsg)
-    SocketService.terminate();
+    
+    
   },
   components: {
     memberList,
-    reviewList
+    reviewList,
+    onlineMsg
   }
 };
 </script>

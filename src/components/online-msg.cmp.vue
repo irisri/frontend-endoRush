@@ -14,9 +14,9 @@ export default {
  
   data() {
     return {
-      msg: {from: 'Me', txt: ''},
+      msg: {from: 'Me', txt: ''}, 
       msgs: [],
-      topic : 'Love'
+      topic : ''
     }
   },
       created() {

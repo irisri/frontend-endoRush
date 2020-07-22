@@ -1,6 +1,7 @@
 
 <template>
   <section v-if="userToShow" class="user-details" >
+    <online-msg/>
     <h1>{{ userToShow.fullName }}</h1>
     <img :src="userToShow.imgUrl" />
     <h3>About...</h3>
@@ -17,6 +18,8 @@
 </template>
 
 <script>
+import onlineMsg from "@/components/online-msg.cmp.vue"
+
 export default {
   name: "user-details",
   data() {
@@ -35,6 +38,10 @@ export default {
       return this.userToShow
       
     }
+  },
+    components: {
+
+    onlineMsg
   }
 };
 </script>

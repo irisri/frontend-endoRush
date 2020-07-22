@@ -8,6 +8,7 @@
       <router-link to="/">Home</router-link>|
       <router-link to="/evento">Events</router-link>|
       <router-link to="/about">About</router-link>|
+      <!-- <online-msg v-if="user"/> -->
       <router-link v-if="user" v-bind:to="`/user/details/${user._id}`">Profile</router-link>
       <router-link v-else to="/login">Login</router-link>
     </nav>
@@ -15,12 +16,16 @@
 </template>
 
 <script>
+import onlineMsg from "@/components/online-msg.cmp.vue"
 export default {
   props: {
     user: {
       type: Object,
       required: false
     }
+  },
+    components: {
+    onlineMsg
   }
 };
 </script>
