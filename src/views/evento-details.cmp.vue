@@ -38,6 +38,7 @@
         <i class="el-icon-star-on" v-if="owner.reviews">{{rateAvg}} ({{owner.reviews.length}})</i>
         <button @click="addMember()">Join</button>
       </div>
+      <!-- <alert v-if="alert" :alertContent="alert"></alert> -->
     </div>
   </div>
 </template>
@@ -45,16 +46,18 @@
 <script>
 import memberList from "../components/member-list.cmp.vue";
 import reviewList from "../components/review-list.cmp.vue";
-import SocketService from '@/services/SocketService';
+import alert from "../components/alert.cmp.vue";
+import SocketService from "@/services/SocketService";
 
 export default {
   data() {
     return {
       evento: null,
       owner: "",
-      title:"",
-      _userName:"",
-       msg: {},
+      title: "",
+      _userName: "",
+      msg: { from: "Me", txt: `new member just joined: ${this.title} ` },
+      alert: ''
     };
   },
   computed: {
@@ -65,7 +68,7 @@ export default {
       const avg =
         this.owner.reviews.reduce((a, b) => a + b.rate, 0) /
         this.owner.reviews.length;
-      return avg.toFixed(1);
+      return avg.toFixed(0);
     }
   },
   async created() {
@@ -77,30 +80,38 @@ export default {
     const userId = this.evento.owner._id;
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = _.cloneDeep(this.$store.getters.user);
-    this.title = this.evento.title
-    this.msg= {from: 'Me', txt: `${this._userName} just joined: ${this.title} `}
-
- // socket
-     SocketService.setup();
-     SocketService.emit('of evento', this.evento._id)
-     SocketService.on('chat addMsg', _msg=>{this.msg=_msg})
-     console.log(this.msg)
-
+    this.title = this.evento.title;
+    this.msg = {
+      from: "Me",
+      txt: `${this._userName} just joined: ${this.title} `
+    };
+    SocketService.setup();
   },
   methods: {
     addMember() {
        
       const user = this.$store.getters.loggedInUser;
       if (this.evento.members.find(member => member._id === user._id))
-        return console.log("You are allready rejester to this event!");
+        this.alert = {
+          success: false,
+          title: "Error",
+          txt: "You are already registered for the event"
+        };
+      return console.log("You are already registered for the event");
       this.evento.members.push(user);
-      this.$store.dispatch({ type: "addMember", evento: this.evento });   
-      this._userName = user.userName
-      console.log('usename',this._userName)
-      this.msg= {from: 'Me', txt: `${this._userName} just joined: ${this.title} `}
-      this.sendMsg() 
-      
-
+      this.$store.dispatch({ type: "addMember", evento: this.evento });
+      this.alert = {
+        success: false,
+        title: "Success",
+        txt: "You have successfully registered for the event! "
+      };
+      this._userName = user.userName;
+      console.log("usename", this._userName);
+      this.msg = {
+        from: "Me",
+        txt: `${this._userName} just joined: ${this.title} `
+      };
+      this.sendMsg();
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -122,18 +133,19 @@ export default {
       return this.evento.capacity - this.evento.members.length;
     },
     sendMsg() {
-      console.log('Sending', this.msg);
-      SocketService.emit('chat newMsg', this.msg)
-      this.msg = {from: 'Me', txt: ''};
-    },
+      console.log("Sending", this.msg);
+      SocketService.emit("chat newMsg", this.msg);
+      this.msg = { from: "Me", txt: "" };
+    }
   },
-    destroyed() {
-    SocketService.off('chat addMsg', this.addMsg)
+  destroyed() {
+    SocketService.off("chat addMsg", this.addMsg);
     SocketService.terminate();
   },
   components: {
     memberList,
-    reviewList
+    reviewList,
+    alert
   }
 };
 </script>

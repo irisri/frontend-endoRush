@@ -47,7 +47,7 @@ export default {
     rateAvg() {
       const avg = this.ownerUsr.reviews.reduce(((a,b) => a + b.rate),0) /
         this.ownerUsr.reviews.length
-      return avg.toFixed(1);
+      return avg.toFixed(0);
     }
   },
   methods: {

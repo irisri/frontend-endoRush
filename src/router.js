@@ -43,7 +43,7 @@ const routes = [
     component: aboutPage
   },
   {
-    path: '/user/details/:id',
+    path: '/user/details/:id?',
     name: 'userDetails',
     component: userDetails
   },
