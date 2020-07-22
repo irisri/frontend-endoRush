@@ -1,6 +1,6 @@
 .evento-edit {
-  max-width: 700px;
-  margin: auto;
+  // max-width: 700px;
+  margin: auto, 0;
     .imgs-container {
         display: grid;
 
@@ -42,12 +42,7 @@
           margin-right: 15px;
         }
       }
-      // * {
-      //   font-family: JosefinSansLight;
-      // }
-      // .el-input__inner {
-      //   font-size: 1rem;
-      // }
+      
       .title,
       .descritprion {
         input,
@@ -56,11 +51,12 @@
           margin: 0 auto;
         }
       }
-      // input:hover,
-      // textarea:hover {
-      //   cursor: pointer;
-      //   color: $clr1;
-      // }
+
+      .capacity {
+        label {
+          margin-right: 10px;
+        }
+      }
   
       .tags {
         .el-icon-close {
