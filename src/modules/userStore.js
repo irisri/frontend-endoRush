@@ -49,6 +49,7 @@ export default {
             // console.log('user', user)
         },
         async signup(context, { userCred }) {
+            console.log('userCred-store', {userCred});
             const user = await userService.signup(userCred)
             context.commit({ type: 'setUser', user })
             return user;

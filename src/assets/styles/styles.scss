@@ -15,6 +15,9 @@
 @import 'views/about-page';
 @import 'views/_evento-edit';
 @import 'views/_about-page';
+@import 'views/_user-details';
+@import 'views/_login-page';
+
 // COMPONENTS
 @import 'components/_main-header';
 @import 'components/_evento-list';
@@ -23,3 +26,4 @@
 @import 'components/_evento-filter';
 @import 'components/_review-list';
 @import 'components/_footer';
+

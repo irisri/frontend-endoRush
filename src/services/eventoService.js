@@ -59,8 +59,8 @@ function remove(id) {
 function _getParams(filterBy) {
     var queryParams = new URLSearchParams();
 
-    if (filterBy.txt) queryParams.set('q', filterBy.txt);
-    if (filterBy.tag) queryParams.set('tags', filterBy.tag);
+    if (filterBy.title) queryParams.set('title', filterBy.title);
+    if (filterBy.tags) queryParams.set('tags', filterBy.tags);
     if (filterBy.location) queryParams.set(location, filterBy.location)
     if (filterBy.timeAndDate) {
         if (filterBy.timeAndDate === 'Any day') {
@@ -75,6 +75,5 @@ function _getParams(filterBy) {
             queryParams.set('timeAndDate', 'Next week');
         }
     }
-
     return queryParams;
 }
