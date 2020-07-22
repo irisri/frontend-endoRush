@@ -1,5 +1,6 @@
 <template>
   <div v-if="evento" class="evento-details main-container">
+    <h1>{{ msg.txt }}</h1>
     <div class="img-wrapper">
       <div class="imgs-details">
         <img
@@ -52,7 +53,8 @@ export default {
       evento: null,
       owner: "",
       title:"",
-       msg: {from: 'Me', txt: `new member just joined: ${this.title} `},
+      _userName:"",
+       msg: {},
     };
   },
   computed: {
@@ -76,17 +78,28 @@ export default {
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = _.cloneDeep(this.$store.getters.user);
     this.title = this.evento.title
-    this.msg= {from: 'Me', txt: `new member just joined: ${this.title} `}
+    this.msg= {from: 'Me', txt: `${this._userName} just joined: ${this.title} `}
+
+ // socket
      SocketService.setup();
+     SocketService.emit('of evento', this.evento._id)
+     SocketService.on('chat addMsg', _msg=>{this.msg=_msg})
+     console.log(this.msg)
+
   },
   methods: {
     addMember() {
+       
       const user = this.$store.getters.loggedInUser;
       if (this.evento.members.find(member => member._id === user._id))
         return console.log("You are allready rejester to this event!");
       this.evento.members.push(user);
       this.$store.dispatch({ type: "addMember", evento: this.evento });   
-      this.sendMsg()  
+      this._userName = user.userName
+      console.log('usename',this._userName)
+      this.msg= {from: 'Me', txt: `${this._userName} just joined: ${this.title} `}
+      this.sendMsg() 
+      
 
     },
     removeEvento(eventoId) {
