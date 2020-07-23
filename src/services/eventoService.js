@@ -44,10 +44,6 @@ async function getById(id) {
 }
 
 function save(evento) {
-    //Front or in server?
-    evento.createdAt = Date.now();
-    evento.members = [];
-    evento.owner = '';
     console.log('saveing', evento);
     return HttpService.post(`evento`, evento);
 }
@@ -68,6 +64,7 @@ function _getParams(filterBy) {
     var queryParams = new URLSearchParams();
 
     if (filterBy.title) queryParams.set('title', filterBy.title);
+    if (filterBy.category) queryParams.set('category', filterBy.category);
     if (filterBy.tags) queryParams.set('tags', filterBy.tags);
     if (filterBy.location) queryParams.set(location, filterBy.location)
     if (filterBy.timeAndDate) {

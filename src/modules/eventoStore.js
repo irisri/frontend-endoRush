@@ -8,8 +8,9 @@ export default {
     filterBy: {
       title: "",
       location: "",
-      tags: "",
+      tags: [],
       timeAndDate: "",
+      category: ""
     },
   },
 
@@ -82,17 +83,15 @@ export default {
       state.eventos.splice(index, 1, evento);
       // return eventos;
     },
-    // setFilter(state, { filterBy }) {
-    //   state.filterBy = filterBy;
-    // },
     setCurrEvento(state, { evento }) {
       state.currEvento = evento;
     },
     updateFilterBy(state, { filter }) {
       state.filterBy = filter;
     },
-    updateFilterByTag(state, { tag }) {
-      state.filterBy.tags = [tag];
+    setFilterByCategory(state, { category }) {
+      state.filterBy.category = category;
+      console.log(state.filterBy);
     }
   },
 
