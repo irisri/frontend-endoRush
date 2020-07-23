@@ -1,12 +1,12 @@
 <template>
   <div class="evento-edit main-container" v-if="evento">
+    <form-evento :evento="evento" @saveEvento="saveEvento" @onUploadImg="onUploadImg" />
     <div class="imgs-container" v-if="evento.imgUrls.length > 0">
       <div class="img-container" v-for="img in evento.imgUrls" :key="img">
         <img v-if="img" :src="img" />
         <el-button icon="el-icon-delete" @click="removeImg(img)"></el-button>
       </div>
     </div>
-    <form-evento :evento="evento" @saveEvento="saveEvento" @onUploadImg="onUploadImg" />
   </div>
 </template>
 

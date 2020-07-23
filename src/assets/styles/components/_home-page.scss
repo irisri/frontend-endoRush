@@ -12,26 +12,39 @@
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
-    }
-
-    // h3 {
-    //   top: 70%;
-    //   left: 3%;
-    //   font-size: 1ץ5rem;
-    //   margin: 45px 0;
-    //   position: absolute;
-    //   text-shadow: 0px 0px 6px #000000;
-    //   color: $clr4;
-    //   margin-left: 20px;
-    //   z-index: 1;
-    // }
-
-    input {
-      margin-top: 465px;
-      margin-bottom: 10px;
-      opacity: .9;
-      z-index: 2;
-      width: 50%;
+      .on-picture {
+        width: 100%;
+        h1 {
+          margin-bottom: 30px;
+          color: $clr4;
+          font-size: rem(30px);
+          background-color: rgba(0, 0, 0, 0.356);
+        }
+        
+        .search {
+          width: 50%;
+          margin: 0 auto;
+          gap: 5px;
+          >* {
+            margin-bottom: 10px;
+            opacity: .9;
+            z-index: 2;
+            height: 40px;
+            
+          }
+          input {
+            flex: 70%;
+            height: 40px;
+            font-size: rem(20px);
+          }
+          button {
+            background-color: $clr1;
+            color: white;
+            border: none;
+            font-size: rem(20px);
+          }
+        }
+      }
     }
 
     .el-tag {

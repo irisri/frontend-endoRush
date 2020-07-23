@@ -4,7 +4,7 @@
     // grid-template-columns: repeat(1, 1fr);
     grid-template-columns: repeat(auto-fit, 1fr);
     justify-content: center;
-    grid-gap: 30px;
+    grid-gap: 40px 30px;
     margin: 15px auto;
     // display: flex;
     // flex-wrap: wrap;
@@ -12,6 +12,10 @@
     // .evento-card {
     //   width: 100%;
     // }
+    .evento-card:hover {
+        box-shadow: 0 1px 0px #c4c4c4;
+
+    }
 }
 
 

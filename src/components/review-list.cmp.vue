@@ -1,6 +1,14 @@
 <template>
-  <section class="review">
-    <h3>Reviews ({{countReviews}})</h3>
+  <section class="reviews">
+    <div class="review-header flex space-between align-center">
+      <h3>Reviews ({{countReviews}})</h3>
+      <el-button
+        v-if="!showAddReview"
+        class="show-add-review-btn"
+        @click="showAddReview=!showAddReview"
+        id="btn"
+      >Add Review</el-button>
+    </div>
     <ul class="review-list flex column">
       <li class="review-card" v-for="(review, index) in reviews" :key="index">
         <img :src="review.imgUrl" />
@@ -13,12 +21,7 @@
         </div>
       </li>
     </ul>
-    <button
-      v-if="!showAddReview"
-      class="show-add-review-btn"
-      @click="showAddReview=!showAddReview"
-    >Add Review</button>
-    <div v-else class="add-review">
+    <div v-if="showAddReview" class="add-review">
       <el-rate
         v-model="newReview.rate"
         :texts="['oops', 'disappointed', 'normal', 'good', 'great']"
@@ -35,29 +38,29 @@ export default {
   props: {
     reviews: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       showAddReview: false,
-      newReview: { txt: "", rate: 0 }
+      newReview: { txt: "", rate: 0 },
     };
   },
   computed: {
     countReviews() {
       return this.reviews.length;
-    }
+    },
   },
   methods: {
     addReview() {
       this.showAddReview = false;
       this.$emit("addReview", this.newReview);
-    }
+    },
   },
   created() {
     console.log(this.reviews);
-  }
+  },
 };
 </script>
 

@@ -22,8 +22,17 @@
       <div class="details">
         <h3>{{ evento.title }}</h3>
         <p>{{ evento.location.name }}</p>
-        <h4>{{timeToShow}}</h4>
-        <p>Attendees: {{evento.members.length}} / {{evento.capacity}}</p>
+        <div class="time-member flex space-between">
+          <h4>{{timeToShow}}</h4>
+          <div class="members flex align-center">
+            <p class="member">
+              <i class="el-icon-s-custom"></i>
+            </p>&nbsp;
+            <!-- <i class="el-icon-s-custom"></i> -->
+            <p>  {{evento.members.length}}/{{evento.capacity}}</p>
+          </div>
+        </div>
+        <!-- <p>Attendees: {{evento.members.length}} / {{evento.capacity}}</p> -->
       </div>
     </div>
   </div>
@@ -38,13 +47,13 @@ export default {
   props: {
     evento: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       img: this.evento.imgUrls[0],
-      ownerUsr: ""
+      ownerUsr: "",
     };
   },
   computed: {
@@ -58,7 +67,8 @@ export default {
         return moment(this.evento.startTime).fromNow();
       if (this.evento.startTime > nextYear)
         return moment(this.evento.startTime).format("MMM Do YY");
-      else return moment(this.evento.startTime).format("MMM Do");
+      else return moment(this.evento.startTime).format('LL');
+      // moment(this.evento.startTime).format("MMM Do");
     },
     rateAvg() {
       const avg =
@@ -68,7 +78,7 @@ export default {
     },
     spotsLeft() {
       return this.evento.capacity - this.evento.members.length;
-    }
+    },
   },
   async created() {
     const userId = this.evento.owner._id;
@@ -79,6 +89,6 @@ export default {
     } else {
       console.log("no id");
     }
-  }
+  },
 };
 </script>

@@ -1,14 +1,17 @@
 <template>
   <section class="home-page main-container">
     <div class="home-img-container full">
-      <div class="parallax">
+      <div class="parallax flex align-center justify-center">
         <div class="on-picture">
-          <el-input
-            placeholder="Event name"
-            size="small"
-            v-model="filterBy.title"
-            @input="setFilter"
-          />
+          <h1>Join us and find your next awesome workot!</h1>
+          <div class="search flex align-center justify-center">
+            <el-input
+              placeholder="Event name"
+              size="small"
+              v-model="filterBy.title"
+            />
+            <el-button icon="el-icon-search" @click="setFilter"></el-button>
+          </div>
           <el-tag
             v-for="category in categories"
             :key="category"
@@ -38,16 +41,16 @@ export default {
         "Running",
         "Bicycle",
         "Boxing",
-        "Fitness"
+        "Fitness",
       ],
       filterBy: {
         title: "",
         location: "",
         tags: [],
         timeAndDate: "Any day",
-        category: null
+        category: null,
       },
-      topThree: null
+      topThree: null,
     };
   },
   async created() {
@@ -56,7 +59,7 @@ export default {
       location: "",
       tags: "",
       timeAndDate: "",
-      category: ""
+      category: "",
     };
     this.$store.commit({ type: "updateFilterBy", filter: cleanFilter });
     await this.$store.dispatch({ type: "loadEventos" });
@@ -67,17 +70,17 @@ export default {
     setFilter() {
       this.$store.commit({
         type: "updateFilterBy",
-        filter: _.cloneDeep(this.filterBy)
+        filter: _.cloneDeep(this.filterBy),
       });
       this.$router.push(`/evento`);
     },
     setFilterByCategory(category) {
       this.$store.commit({ type: "setFilterByCategory", category });
       this.$router.push(`/evento`);
-    }
+    },
   },
   components: {
-    eventoList
-  }
+    eventoList,
+  },
 };
 </script>

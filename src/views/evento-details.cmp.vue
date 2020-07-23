@@ -7,9 +7,6 @@
         v-if="owner.reviews"
         v-model="rateAvg"
         disabled
-        show-score
-        text-color="#ff9900"
-        score-template="{value}"
       >></el-rate>
     </div>
     <div class="img-wrapper">

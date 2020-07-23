@@ -3,17 +3,20 @@
     flex-direction: row;
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding-top: rem(10px);
     .member-card {
-        padding: 5px;
-        margin: 5px;
+        // padding: 5px;
+        margin: 10px;
         text-align: center;
         img{
             border-radius: 999px;
-            height: 72px;
-            width: 72px;
+            height: 65px;
+            width: 65px;
             size: cover;
             border: 1px solid gray;
+        }
+        h5 {
+            font-size: rem(15px);
         }
         
     }

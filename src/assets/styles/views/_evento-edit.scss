@@ -1,9 +1,11 @@
 .evento-edit {
   // max-width: 700px;
   margin: auto, 0;
+  display: flex;
+  gap: 5%;
     .imgs-container {
+        flex: 55%;
         display: grid;
-
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(2, 1fr);
         grid-gap: 7px;
@@ -27,6 +29,7 @@
     }
   
     .form-container {
+      flex: 40%;
       .title,
       .descritprion,
       .capaity,

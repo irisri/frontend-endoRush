@@ -3,9 +3,14 @@
     cursor: pointer;
     padding: 15px;
     transition: all .4s;
-    border-radius: 7px;
+    border-radius: 7px 7px 0 0;
     text-align: left;
     color: black;
+    border: none;
+    
+    // &:hover {
+    //     box-shadow: 0 1px 0px #c4c4c4;
+    // }
 
     .el-carousel__container {
         height: 160px;
@@ -38,10 +43,6 @@
                 }
             }
             .rate{
-                //  font-family: cursive;
-                *>{
-                    margin-right: rem(3px);
-                }
                 .star{
                     color: $clr1;
                     line-height: 1;
@@ -65,20 +66,31 @@
             p {
                 font-size: rem(18px);
             }
+            .time-member {
+                .members {
+                    .member {
+                        color: $clr1;
+                        font-size: rem(18px);
+                        line-height: 1;
+                    }
+                    p {
+                        font-size: rem(15px);
+                    }
+                    &:nth-child(1) {
+                        margin-left: -5px;
+                    }
+                }
+            }
             
         }
     }
 }
 
-.evento-preview:hover {
-    color: $clr1;
-    border: 1px solid $clr5;
-}
 
 
 @include for-narrow-layout {
     .evento-preview {
-        padding: 0px;
+        padding: 0 0 10px;
         // .el-carousel__container {
         //     height: 160px;
         // }

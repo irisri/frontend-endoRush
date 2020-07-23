@@ -6,7 +6,7 @@
         font-size: rem(30px);
         font-weight: bolder;
         text-align: left;
-        padding-top: 50px;
+        padding-top: 40px;
         padding-bottom: 20px;
         .el-rate__icon, .el-rate__text {
             font-size: rem(20px);
@@ -142,7 +142,7 @@
             flex-direction: row;
             .join {
                 flex-direction: column;
-                top: 180px;
+                top: 80px;
                 >*{   
                     margin-bottom: 1rem;
                     margin-right: 0;
