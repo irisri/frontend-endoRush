@@ -1,11 +1,6 @@
 
 <template>
-<<<<<<< HEAD
-  <section v-if="userToShow" class="user-details" >
-    <online-msg/>
-=======
   <section v-if="userToShow" class="user-details main-container">
->>>>>>> ba147ffe4acb96ac8e4590cd772e40b9e02eb323
     <h1>{{ userToShow.fullName }}</h1>
     <img :src="userToShow.imgUrl" />
     <h3>About...</h3>
@@ -22,12 +17,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import onlineMsg from "@/components/online-msg.cmp.vue"
-
-=======
 import reviewList from "../components/review-list.cmp.vue";
->>>>>>> ba147ffe4acb96ac8e4590cd772e40b9e02eb323
 export default {
   name: "user-details",
   data() {
@@ -46,14 +36,8 @@ export default {
       return this.userToShow;
     }
   },
-<<<<<<< HEAD
-    components: {
-
-    onlineMsg
-=======
   components: {
     reviewList
->>>>>>> ba147ffe4acb96ac8e4590cd772e40b9e02eb323
   }
 };
 </script>
