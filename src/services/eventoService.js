@@ -33,10 +33,8 @@ function getEmpty() {
 }
 
 function query(filterBy) {
-    console.log(filterBy);
     const filterUrl = _getParams(filterBy);
     return HttpService.get(`evento?${filterUrl}`);
-    // return HttpService.get(`evento`);
 }
 
 async function getById(id) {
@@ -44,18 +42,11 @@ async function getById(id) {
 }
 
 function save(evento) {
-    //Front or in server?
-    evento.createdAt = Date.now();
-    evento.members = [];
-    evento.owner = '';
     console.log('saveing', evento);
     return HttpService.post(`evento`, evento);
 }
 
 function update(evento) {
-    // return axios.put(`http://localhost:3000/evento/${evento.id}`, evento)
-    // .then(res => res.data)
-    // .catch(err => err);
     console.log('update evento service', evento);
     return HttpService.put(`evento/${evento._id}`, evento)
 }
@@ -68,6 +59,7 @@ function _getParams(filterBy) {
     var queryParams = new URLSearchParams();
 
     if (filterBy.title) queryParams.set('title', filterBy.title);
+    if (filterBy.category) queryParams.set('category', filterBy.category);
     if (filterBy.tags) queryParams.set('tags', filterBy.tags);
     if (filterBy.location) queryParams.set(location, filterBy.location)
     if (filterBy.timeAndDate) {

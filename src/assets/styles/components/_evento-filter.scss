@@ -16,43 +16,34 @@
       margin-bottom: 20px;
 
       @include for-narrow-layout {
-        label {
-          display: block;
-        }
         .el-select {
           margin-right: 0;
+          display: block;
           margin-bottom: 10px;
           &:last-of-type {
-            display: block;
             margin-bottom: 0;
           }
         }
       }
 
       @include for-normal-layout {
-        label {
-          display: inline;
-          margin-right: 10px;
-        }
         .el-select {
-          margin-right: 0;
+          margin-right: 10px;
           margin-bottom: 10px;
+          &:last-of-type {
+            margin-right: 0;
+          }
         }
       }
 
       @include for-wide-layout {
         display: flex;
         flex-direction: row;
-        label {
-          display: inline;
-          margin-right: 10px;
-        }
         .el-select {
-          &:first-of-type {
-            margin-right: 20px;
-          }
+          margin-right: 10px;
           &:last-of-type {
             display: inline;
+            margin-right: 0;
           }
         }
       }

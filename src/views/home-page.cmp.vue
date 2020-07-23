@@ -1,13 +1,24 @@
 <template>
   <section class="home-page main-container">
     <div class="home-img-container full">
-      <div class="parallax"></div>
-      <h2>Create and manage your fitness routine with others!</h2>
+      <div class="parallax">
+        <div class="on-picture">
+          <el-input
+            placeholder="Event name"
+            size="small"
+            v-model="filterBy.title"
+            @input="setFilter"
+          />
+          <el-tag
+            v-for="category in categories"
+            :key="category"
+            effect="plain"
+            @click="setFilterByCategory(category)"
+          >{{ category }}</el-tag>
+        </div>
+      </div>
     </div>
-    <p>Looking to be active? search no more!</p>
-    <p>You can find and arrenge any fiteness activety that can cross you'r mind</p>
-    <span>Trending</span>
-    <el-tag v-for="tag in tags" :key="tag" effect="plain" @click="setFilterByTag(tag)">{{ tag }}</el-tag>
+
     <h3>Chack out our top trending events</h3>
     <evento-list v-if="topThree" :eventos="topThree"></evento-list>
   </section>
@@ -18,10 +29,24 @@
 import eventoList from "../components/evento-list.cmp.vue";
 
 export default {
-  name: "evento-preview",
+  name: "home-page",
   data() {
     return {
-      tags: null,
+      categories: [
+        "Weight training",
+        "Cardio",
+        "Running",
+        "Bicycle",
+        "Boxing",
+        "Fitness"
+      ],
+      filterBy: {
+        title: "",
+        location: "",
+        tags: [],
+        timeAndDate: "Any day",
+        category: null
+      },
       topThree: null
     };
   },
@@ -29,17 +54,25 @@ export default {
     const cleanFilter = {
       title: "",
       location: "",
-      tag: "",
-      timeAndDate: ""
+      tags: "",
+      timeAndDate: "",
+      category: ""
     };
     this.$store.commit({ type: "updateFilterBy", filter: cleanFilter });
     await this.$store.dispatch({ type: "loadEventos" });
-    this.tags = this.$store.getters.trendingTags;
     this.topThree = this.$store.getters.topThree;
+    this.setFilter = _.debounce(this.setFilter, 800);
   },
   methods: {
-    setFilterByTag(tag) {
-      this.$store.commit({ type: "updateFilterByTag", tag });
+    setFilter() {
+      this.$store.commit({
+        type: "updateFilterBy",
+        filter: _.cloneDeep(this.filterBy)
+      });
+      this.$router.push(`/evento`);
+    },
+    setFilterByCategory(category) {
+      this.$store.commit({ type: "setFilterByCategory", category });
       this.$router.push(`/evento`);
     }
   },

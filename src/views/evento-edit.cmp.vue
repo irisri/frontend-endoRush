@@ -34,7 +34,6 @@ export default {
       this.evento = _.cloneDeep(this.$store.getters.evento);
       return (this.evento = _.cloneDeep(this.$store.getters.evento));
     } else {
-      console.log("no id");
       return (this.evento = eventoService.getEmpty());
     }
   },
@@ -52,18 +51,12 @@ export default {
         userName: user.userName,
         imgUrl: user.imgUrl
       };
-      console.log('evento',this.evento);
-      console.log('owner',ownerForEvento);
-
       this.evento.owner = ownerForEvento;
       this.evento.createdAt = Date.now();
-      console.log('evento',this.evento);
-      
       this.$store.dispatch({ type: "saveEvento", evento });
       this.$router.push("/");
     },
     removeImg(imgUrl) {
-      console.log(imgUrl);
       // imgService.deleteImg(imgUrl)
       const index = this.evento.imgUrls.findIndex(img => img === imgUrl);
       this.evento.imgUrls.splice(index, 1);

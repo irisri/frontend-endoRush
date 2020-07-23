@@ -1,22 +1,32 @@
 <template>
   <section class="search-area">
-      <el-input class="search-title"
-        size="large"
-        @input="setFilter"
-        v-model="filterBy.title"
-        placeholder="find your next event"
-      ></el-input>
+    <el-input
+      class="search-title"
+      size="large"
+      @input="setFilter"
+      v-model="filterBy.title"
+      placeholder="find your next event"
+    ></el-input>
 
     <div class="search-select">
       <!-- <label>Search by tag:</label> -->
-      <el-select v-model="filterBy.tags" multiple @change="setFilter" placeholder="Tags" :selected="filterBy.tags">
+      <el-select
+        v-model="filterBy.tags"
+        multiple
+        @change="setFilter"
+        placeholder="Tags"
+        :selected="filterBy.tags"
+      >
         <el-option v-for="item in tags" :key="item" :label="item" :value="item"></el-option>
       </el-select>
-      
+
+      <el-select v-model="filterBy.category" @change="setFilter" placeholder="Category" :selected="filterBy.category">
+        <el-option v-for="item in categories" :key="item" :label="item" :value="item"></el-option>
+      </el-select>
+
       <el-select v-model="filterBy.time" @change="setFilter" placeholder="Day">
         <el-option v-for="item in dates" :key="item" :label="item" :value="item"></el-option>
       </el-select>
-
     </div>
   </section>
 </template>
@@ -31,21 +41,27 @@ export default {
         title: "",
         location: "",
         tags: [],
-        timeAndDate: "Any day"
+        timeAndDate: "Any day",
+        category: null
       },
+      categories: [
+        "Weight training",
+        "Cardio",
+        "Running",
+        "Bicycle",
+        "Boxing",
+        "Fitness"
+      ],
       dates: ["Any day", "Today", "Tomorrow", "This week", "Next week"],
       tags: null
     };
   },
   created() {
     this.tags = this.$store.getters.tags;
-    this.filterBy.tags = this.$store.getters.clickedTag;
-    console.log(this.filterBy.tags);
+    this.filterBy = _.cloneDeep(this.$store.getters.getFilterBy);
   },
   methods: {
     setFilter() {
-      console.log('search', this.filterBy);
-      
       this.$emit("setFilter", this.filterBy);
     }
   }
