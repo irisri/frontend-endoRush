@@ -1,6 +1,17 @@
 <template>
   <div v-if="evento" class="evento-details main-container">
     <h1>{{ msg.txt }}</h1>
+    <div class="title">
+      <h3>{{ evento.title }}</h3>
+      <el-rate
+        v-if="owner.reviews"
+        v-model="rateAvg"
+        disabled
+        show-score
+        text-color="#ff9900"
+        score-template="{value}">
+      ></el-rate>
+    </div>
     <div class="img-wrapper">
       <div class="imgs-details">
         <img
@@ -13,30 +24,42 @@
     </div>
     <div class="details-content flex">
       <div class="info">
-        <h3 class="title">{{ evento.title }}</h3>
-        <p class="capacity">{{spotsLeft()}} spots left</p>
-        <div class="owner flex">
-          <img :src="evento.owner.imgUrl" />
-          <div>
-            <p>Orgenised by</p>
-            <h3>{{ evento.owner.userName }}</h3>
+        <p class="capacity">{{spotsLeft}} spots left</p>
+        <div class="owner flex space-between">
+          <div class="flex space-between column">
+            <h3>Orgenised by {{ evento.owner.userName }}</h3>
+            <p class="bio">{{ owner.bio }}</p>
           </div>
+          <img :src="evento.owner.imgUrl" />
         </div>
-        <el-button size="small" @click="$router.push(`/evento/edit/${evento._id}`)">Edit event</el-button>
-        <el-button size="small" @click="removeEvento()">Delete event</el-button>
-
-        <p>{{evento.title}}</p>
+        <div>
+          <el-button size="small" @click="$router.push(`/evento/edit/${evento._id}`)">Edit event</el-button>
+          <el-button size="small" @click="removeEvento()">Delete event</el-button>
+        </div>
         <p class="desc">{{evento.description}}</p>
-        <member-list :members="evento.members"></member-list>
+        <member-list :members="evento.members" :capacity="evento.capacity"></member-list>
         <review-list v-if="owner.reviews" :reviews="owner.reviews" @addReview="addReview"></review-list>
         <p v-else>Be the first to comment..</p>
       </div>
 
       <div class="join">
-        <i class="el-icon-time">{{timeToShow}}</i>
-        <i class="el-icon-map-location">{{ evento.location.name }}</i>
-        <i class="el-icon-star-on" v-if="owner.reviews">{{rateAvg}} ({{owner.reviews.length}})</i>
-        <button @click="addMember()">Join</button>
+        <p>
+          <i class="el-icon-date"></i>
+          &nbsp;&nbsp;{{ evento.startTime | moment("dddd, MMMM Do YYYY") }}
+        </p>
+        <p>
+          <i class="el-icon-time"></i>
+          &nbsp;&nbsp;{{ evento.startTime | moment("h:mm a") }}
+        </p>
+        <p>
+          <i class="el-icon-map-location"></i>
+          {{ evento.location.name }}
+        </p>
+        <p v-if="owner.reviews">
+          <i class="el-icon-star-on"></i>
+          {{rateAvg}} ({{owner.reviews.length}})
+        </p>
+        <button @click="addMember()">I want to join</button>
       </div>
       <!-- <alert v-if="alert" :alertContent="alert"></alert> -->
     </div>
@@ -57,7 +80,7 @@ export default {
       title: "",
       _userName: "",
       msg: {},
-      alert: ""
+      alert: "",
     };
   },
   computed: {
@@ -65,11 +88,15 @@ export default {
       return new Date(this.evento.startTime).toLocaleString();
     },
     rateAvg() {
+      if (!this.owner.reviews) return;
       const avg =
         this.owner.reviews.reduce((a, b) => a + b.rate, 0) /
         this.owner.reviews.length;
-      return avg.toFixed(0);
-    }
+      return parseFloat(avg.toFixed(0));
+    },
+    spotsLeft() {
+      return this.evento.capacity - this.evento.members.length;
+    },
   },
   async created() {
     // evento
@@ -85,7 +112,7 @@ export default {
     SocketService.setup();
     SocketService.emit("identify", this.evento.owner._id);
     SocketService.emit("of evento", this.evento._id);
-    SocketService.on("chat addMsg", _msg => {
+    SocketService.on("chat addMsg", (_msg) => {
       this.msg = _msg;
     });
     console.log(this.msg);
@@ -93,21 +120,21 @@ export default {
   methods: {
     addMember() {
       const user = this.$store.getters.loggedInUser;
-      if (this.evento.members.find(member => member._id === user._id)) {
+      if (this.evento.members.find((member) => member._id === user._id)) {
         this.alert = {
           success: false,
           title: "Error",
-          txt: "You are already registered for the event"
+          txt: "You are already registered for the event",
         };
         return console.log("You are already registered for the event");
       }
-      
+
       this.evento.members.push(user);
       this.$store.dispatch({ type: "addMember", evento: this.evento });
       this.alert = {
         success: false,
         title: "Success",
-        txt: "You have successfully registered for the event! "
+        txt: "You have successfully registered for the event! ",
       };
 
       this._userName = user.userName;
@@ -115,14 +142,14 @@ export default {
       //socket msg
       var sentMsg = {
         from: "Me",
-        txt: `${this._userName} just joined: ${this.title} `
+        txt: `${this._userName} just joined: ${this.title} `,
       };
       this.sendMsg(sentMsg);
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
         type: "removeEvento",
-        eventoId: this.evento._id
+        eventoId: this.evento._id,
       });
       this.$router.push(`/`);
     },
@@ -134,15 +161,11 @@ export default {
       this.owner.reviews.push(newReview);
       this.$store.dispatch({ type: "addReview", user: this.owner });
     },
-
-    spotsLeft() {
-      return this.evento.capacity - this.evento.members.length;
-    },
     sendMsg(sentMsg) {
       console.log("Sending", sentMsg);
       SocketService.emit("chat newMsg", sentMsg);
       this.msg = { from: "Me", txt: "" };
-    }
+    },
   },
   destroyed() {
     SocketService.off("chat addMsg", this.addMsg);
@@ -151,8 +174,8 @@ export default {
   components: {
     memberList,
     reviewList,
-    alert
-  }
+    alert,
+  },
 };
 </script>
 
