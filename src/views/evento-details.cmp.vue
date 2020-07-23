@@ -9,8 +9,8 @@
         disabled
         show-score
         text-color="#ff9900"
-        score-template="{value}">
-      ></el-rate>
+        score-template="{value}"
+      >></el-rate>
     </div>
     <div class="img-wrapper">
       <div class="imgs-details">
@@ -24,6 +24,11 @@
     </div>
     <div class="details-content flex">
       <div class="info">
+        <!-- <div class="tags-list flex" v-if="evento.tags">
+          <ul class="clean-list" v-for="(tag,index) in evento.tags" :key="index">
+            <li>{{tag}} &#183; </li>
+          </ul>
+        </div> -->
         <p class="capacity">{{spotsLeft}} spots left</p>
         <div class="owner flex space-between">
           <div class="flex space-between column">
@@ -130,7 +135,7 @@ export default {
       }
 
       this.evento.members.push(user);
-      this.$store.dispatch({ type: "addMember", evento: this.evento });   
+      this.$store.dispatch({ type: "addMember", evento: this.evento });
 
       this.alert = {
         success: false,
@@ -138,8 +143,8 @@ export default {
         txt: "You have successfully registered for the event! ",
       };
 
-      this._userName = user.userName
-      console.log('usename',this._userName)
+      this._userName = user.userName;
+      console.log("usename", this._userName);
       //socket msg
       var sentMsg = {
         from: "Me",
