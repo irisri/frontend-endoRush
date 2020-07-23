@@ -10,7 +10,7 @@
 
 <script>
 import eventoPreview from "@/components/evento-preview.cmp.vue";
-import onlieMsg from "@/components/online-msg.cmp.vue"
+
 
 export default {
   name: "evento-list",
@@ -32,7 +32,7 @@ export default {
   },
   components: {
     eventoPreview,
-    onlieMsg
+  
     
   }
 };

@@ -130,15 +130,16 @@ export default {
       }
 
       this.evento.members.push(user);
-      this.$store.dispatch({ type: "addMember", evento: this.evento });
+      this.$store.dispatch({ type: "addMember", evento: this.evento });   
+
       this.alert = {
         success: false,
         title: "Success",
         txt: "You have successfully registered for the event! ",
       };
 
-      this._userName = user.userName;
-      console.log("usename", this._userName);
+      this._userName = user.userName
+      console.log('usename',this._userName)
       //socket msg
       var sentMsg = {
         from: "Me",
