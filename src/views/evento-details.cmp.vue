@@ -14,6 +14,7 @@
         />
       </div>
     </div>
+
     <div class="details-content flex">
       <div class="info">
         <!-- <div class="tags-list flex" v-if="evento.tags">
@@ -109,8 +110,8 @@ export default {
     this.title = this.evento.title;
     // socket
     SocketService.setup();
-    SocketService.emit("identify", this.evento.owner._id);
     SocketService.emit("of evento", this.evento._id);
+    SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("chat addMsg", (_msg) => {
       this.msg = _msg;
     });
@@ -120,13 +121,20 @@ export default {
     addMember() {
       const user = this.$store.getters.loggedInUser;
       if (this.evento.members.find((member) => member._id === user._id)) {
-        return this.$toasted.show("You are already registered for this event", {
-          // theme: "toasted-primary",
-          position: "top-right",
-          // duration: 10000,
-          fullWidth: true,
-          className: ["alert-modal","alert-err"]
-        });
+        // this.$toasted.show("You are already registered for this event", {
+        //   // theme: "toasted-primary",
+        //   position: "top-right",
+        //   // duration: 10000,
+        //   fullWidth: true,
+        //   className: ["alert-modal","alert-err"]
+        // });
+        // to delete
+        var sentMsg = {
+        from: "Me",
+        txt: `just joined: ${this.title} `,
+      };
+      this.sendMsg(sentMsg);
+        return console.log("You are already registered for the event");
       }
 
       this.evento.members.push(user);
@@ -140,11 +148,11 @@ export default {
         className: ["alert-modal","alert-sec"]
       });
       //socket msg
-      var sentMsg = {
-        from: "Me",
-        txt: `${this._userName} just joined: ${this.title} `,
-      };
-      this.sendMsg(sentMsg);
+      // var sentMsg = {
+      //   from: "Me",
+      //   txt: `${this._userName} just joined: ${this.title} `,
+      // };
+      // this.sendMsg(sentMsg);
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -164,6 +172,7 @@ export default {
     sendMsg(sentMsg) {
       console.log("Sending", sentMsg);
       SocketService.emit("chat newMsg", sentMsg);
+      SocketService.emit("userNewMsg", sentMsg);
       this.msg = { from: "Me", txt: "" };
     },
   },
