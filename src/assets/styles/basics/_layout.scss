@@ -16,7 +16,7 @@
         // padding: rem(10px) rem(40px);
         &.home-page {
             margin-top: 0;
-            
+            padding: 0;
         }
     }
     footer {
@@ -28,6 +28,9 @@
     .main-layout{
         .main-container {
             padding: 10px 40px;
+            &.home-page {
+                padding: 0;
+            }
         }
     }
 }

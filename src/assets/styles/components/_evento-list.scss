@@ -1,7 +1,7 @@
 .evento-list {
 
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    // grid-template-columns: repeat(1, 1fr);
     grid-template-columns: repeat(auto-fit, 1fr);
     justify-content: center;
     grid-gap: 30px;
@@ -17,8 +17,8 @@
 
   @include for-normal-layout {
     .evento-list {
-      grid-template-columns: repeat(2, 1fr);
-      // grid-template-columns: repeat(auto-fit, 300px);
+      // grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, 300px);
       // .evento-card {
       //   width: 50%;
       // }
@@ -27,8 +27,8 @@
   
   @include for-wide-layout {
     .evento-list {
-      grid-template-columns: repeat(5, 1fr);
-      // grid-template-columns: repeat(auto-fit, 250px);
+      // grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(auto-fit, 250px);
       // .evento-card {
       //   width: 18%;
       // }
