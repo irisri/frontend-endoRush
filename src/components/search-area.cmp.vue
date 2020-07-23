@@ -20,7 +20,7 @@
         <el-option v-for="item in tags" :key="item" :label="item" :value="item"></el-option>
       </el-select>
 
-      <el-select v-model="filterBy.category" @change="setFilter" placeholder="Category">
+      <el-select v-model="filterBy.category" @change="setFilter" placeholder="Category" :selected="filterBy.category">
         <el-option v-for="item in categories" :key="item" :label="item" :value="item"></el-option>
       </el-select>
 
@@ -58,13 +58,10 @@ export default {
   },
   created() {
     this.tags = this.$store.getters.tags;
-    this.filterBy.tags = this.$store.getters.clickedTag;
-    console.log(this.filterBy.tags);
+    this.filterBy = _.cloneDeep(this.$store.getters.getFilterBy);
   },
   methods: {
     setFilter() {
-      console.log("search", this.filterBy);
-
       this.$emit("setFilter", this.filterBy);
     }
   }

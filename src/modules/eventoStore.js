@@ -32,37 +32,9 @@ export default {
 
       return new Set(tags);
     },
-    clickedTag(state) {
-      return state.filterBy.tags
-    },
-    trendingTags(state) {
-      const tags = [];
-      state.eventos.forEach((evento) => {
-        tags.push(...evento.tags);
-      });
-
-      let countTag = {};
-      for (var i = 0; i < tags.length; i++) {
-        var word = tags[i];
-        if (!countTag[word]) countTag[word] = 1;
-        else countTag[word]++;
-      }
-
-      let sortableTag = [];
-      for (let tag in countTag) {
-        sortableTag.push([tag, countTag[tag]]);
-      }
-
-      sortableTag.sort(function(tag1, tag2) {
-        return tag2[1] - tag1[1];
-      });
-
-      const topFiveTagsAndCount = sortableTag.slice(0, 5);
-      const topFiveTags = topFiveTagsAndCount.map(
-        (tagAndNumber) => tagAndNumber[0]
-      );
-      return topFiveTags;
-    },
+    getFilterBy(state) {
+      return state.filterBy
+    }
   },
 
   mutations: {
@@ -91,7 +63,6 @@ export default {
     },
     setFilterByCategory(state, { category }) {
       state.filterBy.category = category;
-      console.log(state.filterBy);
     }
   },
 
@@ -102,7 +73,6 @@ export default {
       return evento;
     },
     async saveEvento({ commit }, { evento }) {
-      console.log(evento);
       if (evento._id) {
         return await eventoService.update(evento);
         // const updatedEvento = await eventoService.update(evento);

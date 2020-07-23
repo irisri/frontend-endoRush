@@ -22,7 +22,7 @@ export default {
     },
     removeEvento(eventoId) {
       console.log({ type: "removeEvento", eventoId });
-      // this.$store.dispatch({type: 'removeEvento', eventoId});
+      this.$store.dispatch({type: 'removeEvento', eventoId});
     }
   },
   components: {

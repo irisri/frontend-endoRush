@@ -13,6 +13,10 @@
       ></el-input>
     </div>
 
+    <div>
+      <el-input placeholder="City" size="small" v-model="evento.location.name"></el-input>
+    </div>
+
     <div class="tags">
       <el-tag
         :key="tag"

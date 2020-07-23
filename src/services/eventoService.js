@@ -33,10 +33,8 @@ function getEmpty() {
 }
 
 function query(filterBy) {
-    console.log(filterBy);
     const filterUrl = _getParams(filterBy);
     return HttpService.get(`evento?${filterUrl}`);
-    // return HttpService.get(`evento`);
 }
 
 async function getById(id) {
@@ -49,9 +47,6 @@ function save(evento) {
 }
 
 function update(evento) {
-    // return axios.put(`http://localhost:3000/evento/${evento.id}`, evento)
-    // .then(res => res.data)
-    // .catch(err => err);
     console.log('update evento service', evento);
     return HttpService.put(`evento/${evento._id}`, evento)
 }
