@@ -8,6 +8,9 @@
         text-align: left;
         padding-top: 50px;
         padding-bottom: 20px;
+        .el-rate__icon, .el-rate__text {
+            font-size: rem(20px);
+        }
     }
     .img-wrapper {
         border-radius: 12px;
