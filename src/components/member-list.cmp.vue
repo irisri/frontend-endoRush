@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h3>Members ({{countMembers}})</h3>
+    <h3>Members ({{countMembers}} / {{capacity}})</h3>
     <ul class="member-list flex">
       <li class="member-card" v-for="member in members" :key="member._id">
         <img :src="member.imgUrl" />
@@ -16,6 +16,10 @@ export default {
     members: {
       type: Array,
       required: true
+    },
+    capacity: {
+      type: Number,
+      required: false
     }
   },
   computed: {

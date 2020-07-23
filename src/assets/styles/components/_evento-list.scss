@@ -1,32 +1,38 @@
 .evento-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 250px);
-  justify-content: center;
-  grid-gap: 30px;
-  max-width: 1300px;
-  margin: 15px auto;
 
-
-
-  // @include for-normal-layout {
-  //   grid-template-columns: repeat(2, 1fr);
-  //   grid-gap: 6px;
-  //   .evento-preview {
-  //     width: 230px;
-  //     margin: 15px auto;
-  //     img {
-  //       border-radius: 20px;
-  //     }
-  //   }
-  // }
-  
-  // @include for-wide-layout {
-  //   grid-template-columns: repeat(3, 1fr);
-  //   .evento-preview {
-  //     width: 230px;
-  //     // margin: 15px auto;
-  //   }
-  // }
-
-  
+    display: grid;
+    // grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(auto-fit, 1fr);
+    justify-content: center;
+    grid-gap: 30px;
+    margin: 15px auto;
+    // display: flex;
+    // flex-wrap: wrap;
+    // gap: 15px;
+    // .evento-card {
+    //   width: 100%;
+    // }
 }
+
+
+  @include for-normal-layout {
+    .evento-list {
+      // grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, 300px);
+      // .evento-card {
+      //   width: 50%;
+      // }
+    }
+  }
+  
+  @include for-wide-layout {
+    .evento-list {
+      // grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(auto-fit, 250px);
+      // .evento-card {
+      //   width: 18%;
+      // }
+    }
+  }
+
+

@@ -1,6 +1,7 @@
 <template>
   <div class="evento-list">
-      <section v-for="evento in eventos" :key="evento._id" @click.stop="$router.push(`/evento/details/${evento._id}`)">
+    <!-- <onlie-msg/> -->
+      <section class="evento-card" v-for="evento in eventos" :key="evento._id" @click.stop="$router.push(`/evento/details/${evento._id}`)">
         <evento-preview :evento="evento"/>
       </section>
   </div>
