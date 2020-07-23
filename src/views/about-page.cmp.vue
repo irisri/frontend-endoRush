@@ -6,7 +6,7 @@
       </div>
       <div class="tm-dit">
         <h4>Ofra Bargad</h4>
-        <p class="text-dark">Web Development Student</p>
+        <p class="text-dark">Web developer</p>
 
         <div class="social-buttons flex justify-center">
           <a href="#">
@@ -34,7 +34,7 @@
       </div>
       <div class="tm-dit">
         <h4>Iris Rifold</h4>
-        <p class="text-dark">Web Development Student</p>
+        <p class="text-dark">Web developer</p>
 
         <div class="social-buttons flex justify-center">
           <a href="#">
@@ -63,7 +63,7 @@
       </div>
       <div class="tm-dit">
         <h4>Lee Dror</h4>
-        <p class="text-dark">Web Development Student</p>
+        <p class="text-dark">Web developer</p>
 
         <div class="social-buttons flex justify-center">
           <a href="#">

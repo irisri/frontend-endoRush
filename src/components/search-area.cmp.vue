@@ -8,6 +8,15 @@
       placeholder="find your next event"
     ></el-input>
 
+    <el-select
+      v-model="filterBy.category"
+      @change="setFilter"
+      placeholder="Category"
+      :selected="filterBy.category"
+    >
+      <el-option v-for="item in categories" :key="item" :label="item" :value="item"></el-option>
+    </el-select>
+
     <div class="search-select">
       <!-- <label>Search by tag:</label> -->
       <el-select
@@ -18,10 +27,6 @@
         :selected="filterBy.tags"
       >
         <el-option v-for="item in tags" :key="item" :label="item" :value="item"></el-option>
-      </el-select>
-
-      <el-select v-model="filterBy.category" @change="setFilter" placeholder="Category" :selected="filterBy.category">
-        <el-option v-for="item in categories" :key="item" :label="item" :value="item"></el-option>
       </el-select>
 
       <el-select v-model="filterBy.time" @change="setFilter" placeholder="Day">
