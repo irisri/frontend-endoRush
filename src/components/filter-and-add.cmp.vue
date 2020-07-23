@@ -1,11 +1,12 @@
 <template>
   <div class="evento-filter">
     <div>
-      <search-area @setFilter="setFilter"/>
+      <search-area @setFilter="setFilter" />
     </div>
 
     <div>
       <el-button
+        id="btn"
         class="new-evento"
         title="Add New event"
         @click="$router.push('/evento/edit')"
@@ -21,11 +22,11 @@ export default {
   methods: {
     setFilter(filterBy) {
       this.$emit("setFilter", filterBy);
-    }
+    },
   },
   components: {
-    searchArea
-  }
+    searchArea,
+  },
 };
 </script>
 

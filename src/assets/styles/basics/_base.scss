@@ -53,3 +53,23 @@ p {
 }
 
 
+// for alerts
+
+.alert-modal {
+    background-color: white;
+    color: $clr1;
+}
+
+.alert-sec { 
+    &::before{
+        font-family: element-icons;
+        content: "\e720";
+    }
+}
+
+.alert-err {
+    &::before{
+        font-family: element-icons;
+        content: "\e78d";
+    }
+}

@@ -2,25 +2,24 @@
   <section class="login-page main-container">
     <div v-if="!signUp" class="login">
       <h2>Login</h2>
-      <form class="form flex column align-center" @submit.prevent="doLogin">
+      <form class="form flex column align-center">
         <el-input type="text" v-model="loginCred.userName" placeholder="Username" />
         <el-input type="text" v-model="loginCred.password" placeholder="Password" />
-        <el-button @click.prevent="doLogin">Login</el-button>
+        <el-button id="btn" @click.prevent="doLogin">Login</el-button>
       </form>
-      <el-button @click="signUp=!signUp">Signup</el-button>
+      <el-button id="btn" @click="signUp=!signUp">Signup</el-button>
     </div>
     <div v-if="signUp" class="sign-up">
       <h2>Signup</h2>
-      <form class="form flex column align-center" @submit.prevent="doSignup">
+      <form class="form flex column align-center">
         <el-input type="text" v-model="signupCred.fullName" placeholder="Fullname" />
         <el-input type="text" v-model="signupCred.userName" placeholder="Username" />
         <el-input type="text" v-model="signupCred.password" placeholder="Password" />
         <el-input type="file" @change="onUploadImg" />
         <img :src="signupCred.src" />
-        <!-- <el-button >Signup</el-button> -->
-        <el-button @click.prevent="doSignup">Signup</el-button>
+        <el-button id="btn" @click.prevent="doSignup">Signup</el-button>
         <span style="display:none;"></span>
-        <el-button @click="signUp=!signUp" plain>Login</el-button>
+        <el-button id="btn" @click="signUp=!signUp" plain>Login</el-button>
       </form>
     </div>
   </section>

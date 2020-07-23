@@ -8,7 +8,7 @@
         <h4>Ofra Bargad</h4>
         <p class="text-dark">Web developer</p>
 
-        <div class="social-buttons flex justify-center">
+        <!-- <div class="social-buttons flex justify-center">
           <a href="#">
             <i class="fab fa-twitter"></i>
           </a>
@@ -18,7 +18,7 @@
           <a href="https://www.linkedin.com/in/lee-dror-145632138/" target="_blank">
             <i class="fab fa-linkedin-in"></i>
           </a>
-        </div>
+        </div> -->
       </div>
       <div class="tm-desc flex align-center">
         <p class="large text-dark about-description">
@@ -36,7 +36,7 @@
         <h4>Iris Rifold</h4>
         <p class="text-dark">Web developer</p>
 
-        <div class="social-buttons flex justify-center">
+        <!-- <div class="social-buttons flex justify-center">
           <a href="#">
             <i class="fab fa-twitter"></i>
           </a>
@@ -46,7 +46,7 @@
           <a href="https://www.linkedin.com/in/lee-dror-145632138/" target="_blank">
             <i class="fab fa-linkedin-in"></i>
           </a>
-        </div>
+        </div> -->
       </div>
       <div class="tm-desc flex align-center">
         <p class="large text-dark about-description">
@@ -65,7 +65,7 @@
         <h4>Lee Dror</h4>
         <p class="text-dark">Web developer</p>
 
-        <div class="social-buttons flex justify-center">
+        <!-- <div class="social-buttons flex justify-center">
           <a href="#">
             <i class="fab fa-twitter"></i>
           </a>
@@ -75,7 +75,7 @@
           <a href="https://www.linkedin.com/in/lee-dror-145632138/" target="_blank">
             <i class="fab fa-linkedin-in"></i>
           </a>
-        </div>
+        </div> -->
       </div>
       <div class="tm-desc flex align-center">
         <p class="large text-dark about-description">
