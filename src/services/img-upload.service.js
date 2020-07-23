@@ -22,13 +22,13 @@ function uploadImg(ev) {
         .catch(err => console.error(err))
 }
 
-const deleteImg = (ev) => {
-    // return fetch(UPLOAD_URL, {
-    //     method: 'POST',
-    //     body: FORM_DATA
-    // })
-    // .then(res => res.json())
-    // .then(res => res)
-    // .catch(err => console.error(err))
+function deleteImg(url) {
+    return fetch(UPLOAD_URL, {
+        method: 'DELETE',
+        body: url
+    })
+    .then(res => res.json())
+    .then(res => res)
+    .catch(err => console.error(err))
 }
 

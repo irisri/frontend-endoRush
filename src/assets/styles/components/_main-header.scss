@@ -1,15 +1,14 @@
 .main-header {
-  // grid-column: 1 / -1;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // margin: 0 65px;
   padding: 0 20px;
 
   .logo {
     font-family: RanchersRegular;
-    // padding: 10px 0;
     word-spacing: rem(8px);
+    font-size: rem(35px);
+    cursor: pointer;
 
     span {
       text-transform: capitalize;
@@ -24,7 +23,7 @@
       font-family: JosefinSansMedium;
       padding: 15px 0;
       margin: 10px;
-      transform: color 150;
+      transform: color 150s;
 
       &:last-of-type {
         margin-right: 0;
@@ -40,30 +39,32 @@
     }
 
     a.router-link-exact-active {
-      color: $clr1;
+      &:not(.logo) {
+        color: $clr1;
+      }
     }
   }
 
-  @include for-narrow-layout {
-    // background-color: green;
-    flex-direction: column;
-    .logo {
-      font-size: rem(40px);
-    }
-  }
   
-  @include for-normal-layout {
-    flex-direction: row;
-    .logo {
-      font-size: rem(40px);
-    }
-  }
-  
-  @include for-wide-layout {
-    .logo {
-      font-size: rem(50px);
-    }
-  }
-
 }
+    // @include for-narrow-layout {
+    //   // background-color: green;
+    //   flex-direction: column;
+    //   .logo {
+    //     font-size: rem(40px);
+    //   }
+    // }
+    
+    // @include for-normal-layout {
+    //   flex-direction: row;
+    //   .logo {
+    //     font-size: rem(40px);
+    //   }
+    // }
+    
+    // @include for-wide-layout {
+    //   .logo {
+    //     font-size: rem(50px);
+    //   }
+    // }
 

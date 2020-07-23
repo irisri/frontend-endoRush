@@ -1,6 +1,9 @@
 <template>
   <div v-if="evento" class="evento-details main-container">
+<<<<<<< HEAD
     <!-- <online-msg/> -->
+=======
+>>>>>>> 3c0e2fc8e42d713d7e115e0596e29f1b882fe32b
     <h1>{{ msg.txt }}</h1>
     <div class="img-wrapper">
       <div class="imgs-details">
@@ -55,9 +58,16 @@ export default {
     return {
       evento: null,
       owner: "",
+<<<<<<< HEAD
       title:"",
       _userName:"",
        msg: {},
+=======
+      title: "",
+      _userName: "",
+      msg: {},
+      alert: ""
+>>>>>>> 3c0e2fc8e42d713d7e115e0596e29f1b882fe32b
     };
   },
   computed: {
@@ -80,6 +90,7 @@ export default {
     const userId = this.evento.owner._id;
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = _.cloneDeep(this.$store.getters.user);
+<<<<<<< HEAD
     this.title = this.evento.title
     // socket
      SocketService.setup();
@@ -88,17 +99,30 @@ export default {
      console.log(this.msg)
     //  SocketService.emit('to user', this.evento.owner.userName)
     
+=======
+    this.title = this.evento.title;
+    // socket
+    SocketService.setup();
+    SocketService.emit("identify", this.evento.owner._id);
+    SocketService.emit("of evento", this.evento._id);
+    SocketService.on("chat addMsg", _msg => {
+      this.msg = _msg;
+    });
+    console.log(this.msg);
+>>>>>>> 3c0e2fc8e42d713d7e115e0596e29f1b882fe32b
   },
   methods: {
     addMember() {
       const user = this.$store.getters.loggedInUser;
-      if (this.evento.members.find(member => member._id === user._id))
+      if (this.evento.members.find(member => member._id === user._id)) {
         this.alert = {
           success: false,
           title: "Error",
           txt: "You are already registered for the event"
         };
-      return console.log("You are already registered for the event");
+        return console.log("You are already registered for the event");
+      }
+      
       this.evento.members.push(user);
       this.$store.dispatch({ type: "addMember", evento: this.evento });   
 
@@ -108,12 +132,23 @@ export default {
         txt: "You have successfully registered for the event! "
       };
 
+<<<<<<< HEAD
       this._userName = user.userName
       console.log('usename',this._userName)
       //socket msg
       var sentMsg = {from: 'Me', txt: `${this._userName} just joined: ${this.title} `}
       this.sendMsg(sentMsg) 
 
+=======
+      this._userName = user.userName;
+      console.log("usename", this._userName);
+      //socket msg
+      var sentMsg = {
+        from: "Me",
+        txt: `${this._userName} just joined: ${this.title} `
+      };
+      this.sendMsg(sentMsg);
+>>>>>>> 3c0e2fc8e42d713d7e115e0596e29f1b882fe32b
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -136,7 +171,11 @@ export default {
     },
     sendMsg(sentMsg) {
       console.log("Sending", sentMsg);
+<<<<<<< HEAD
       SocketService.emit("chat newMsg",sentMsg);
+=======
+      SocketService.emit("chat newMsg", sentMsg);
+>>>>>>> 3c0e2fc8e42d713d7e115e0596e29f1b882fe32b
       this.msg = { from: "Me", txt: "" };
     }
   },

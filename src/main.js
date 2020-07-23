@@ -11,7 +11,11 @@ import locale from 'element-ui/lib/locale'
 import VueCarousel from 'vue-carousel';
 import Gallery from "vue-cover-gallery";
 import VModal from 'vue-js-modal'
+// import moment from 'moment';
 
+Vue.use(require('vue-moment'));
+
+// Vue.use(moment);
 Vue.use(Gallery);
 Vue.use(VueCarousel);
 Vue.use(elementUI);

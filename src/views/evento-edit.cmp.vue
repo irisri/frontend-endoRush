@@ -1,6 +1,6 @@
 <template>
   <div class="evento-edit main-container" v-if="evento">
-    <div class="imgs-container">
+    <div class="imgs-container" v-if="evento.imgUrls.length > 0">
       <div class="img-container" v-for="img in evento.imgUrls" :key="img">
         <img v-if="img" :src="img" />
         <el-button icon="el-icon-delete" @click="removeImg(img)"></el-button>
@@ -29,13 +29,9 @@ export default {
   },
   async created() {
     const eventoId = this.$route.params.id;
-    // if (eventoId) {
-    //   this.evento = _.cloneDeep(eventoService.getById(eventoId));
-    // } else {
-    //   this.evento = eventoService.getEmpty();
-    // }
     if (eventoId) {
       await this.$store.dispatch({ type: "getById", eventoId });
+      this.evento = _.cloneDeep(this.$store.getters.evento);
       return (this.evento = _.cloneDeep(this.$store.getters.evento));
     } else {
       console.log("no id");
@@ -44,17 +40,31 @@ export default {
   },
   methods: {
     async onUploadImg(ev) {
-      console.log(ev);
       const res = await imgService.uploadImg(ev);
-      this.evento.imgUrls.unshift(res.url);
+      if (this.evento.imgUrls.length === 0)
+        return this.evento.imgUrls.push(res.url);
+      else this.evento.imgUrls.unshift(res.url);
     },
     saveEvento(evento) {
-      console.log(evento);
+      const user = this.$store.getters.user;
+      const ownerForEvento = {
+        _id: user._id,
+        userName: user.userName,
+        imgUrl: user.imgUrl
+      };
+      console.log('evento',this.evento);
+      console.log('owner',ownerForEvento);
+
+      this.evento.owner = ownerForEvento;
+      this.evento.createdAt = Date.now();
+      console.log('evento',this.evento);
+      
       this.$store.dispatch({ type: "saveEvento", evento });
       this.$router.push("/");
     },
     removeImg(imgUrl) {
       console.log(imgUrl);
+      // imgService.deleteImg(imgUrl)
       const index = this.evento.imgUrls.findIndex(img => img === imgUrl);
       this.evento.imgUrls.splice(index, 1);
     }

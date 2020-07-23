@@ -1,38 +1,19 @@
 <template>
   <form @submit.prevent="saveEvento" class="form-container">
     <div class="title">
-      <label for="title">Event title:</label>
-      <el-input placeholder="Event name" id="title" size="small" v-model="evento.title"></el-input>
+      <el-input placeholder="Event name" size="small" v-model="evento.title"></el-input>
     </div>
 
     <div class="descritprion">
-      <label for="descript">Event description:</label>
       <el-input
-        type="textarea" 
-        id="descript"
+        type="textarea"
         :autosize="{ minRows: 2, maxRows: 6}"
         placeholder="Event description"
         v-model="evento.description"
       ></el-input>
     </div>
 
-    <div class="capacity">
-      <label for="cap">Number of maximum participants:</label>
-      <!-- <input type="number" id="participants" v-model="evento.capaity" /> -->
-      <el-input-number 
-        size="small"
-        v-model="evento.capacity"
-        controls-position="right"
-        @change="changeCapaity"
-        id="cap"
-        :min="1"
-        :max="50"
-      ></el-input-number>
-    </div>
-
     <div class="tags">
-      <label>Add tag:</label>
-
       <el-tag
         :key="tag"
         v-for="tag in evento.tags"
@@ -52,15 +33,32 @@
       <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
     </div>
 
+    <el-select v-model="evento.category" placeholder="Category">
+      <el-option v-for="category in categories" :key="category" :label="category" :value="category"></el-option>
+    </el-select>
+
     <div class="time-date">
-      <label for="startTime">Select time and date:</label>
-      <el-date-picker
+      <el-date-picker 
+        format="yyyy-MM-dd HH:mm"
         v-model="evento.startTime"
         type="datetime"
         placeholder="Select date and time"
-        id="startTime"
         @change="setDate"
       ></el-date-picker>
+    </div>
+
+    <div class="capacity">
+      <label for="cap">Number of participants:</label>
+      <!-- <input type="number" id="participants" v-model="evento.capaity" /> -->
+      <el-input-number
+        size="small"
+        v-model="evento.capacity"
+        controls-position="right"
+        @change="changeCapaity"
+        id="cap"
+        :min="1"
+        :max="50"
+      ></el-input-number>
     </div>
 
     <div class="img-upload">
@@ -69,28 +67,27 @@
     </div>
 
     <!-- Add location -->
-    <el-button>Save event</el-button>
+    <el-button @click="saveEvento">Save event</el-button>
   </form>
 </template>
 
 <script>
-
 export default {
   name: "title-description",
   props: ["evento"],
   data() {
     return {
       inputVisible: false,
-      inputValue: ""
+      inputValue: "",
+      categories: ["Weight training", "Cardio", "Running", "Bicycle", "Boxing", "Fitness"],
     };
   },
   methods: {
     changeCapaity(value) {
       this.evento.capaity = value;
-      console.log(this.evento);
     },
     handleClose(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+      this.evento.tags.splice(this.evento.tags.indexOf(tag), 1);
     },
     showInput() {
       this.inputVisible = true;
@@ -105,7 +102,6 @@ export default {
       let inputValue = this.inputValue;
       if (inputValue) {
         this.evento.tags.push(inputValue);
-        console.log(this.evento.tags);
       }
       this.inputVisible = false;
       this.inputValue = "";
@@ -113,8 +109,8 @@ export default {
     setDate(value) {
       this.evento.startTime = Date.parse(value);
     },
-    saveEvento(evento) {
-      this.$emit("saveEvento", evento);
+    saveEvento() {
+      this.$emit("saveEvento", this.evento);
     }
   }
 };

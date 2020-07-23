@@ -20,7 +20,15 @@ function getEmpty() {
           lng: null
         },
         startTime: null,
-        capacity: null
+        capacity: null,
+        imgUrls: [],
+        imgUrls: [],
+        category: null,
+        createdAt: null,
+        members: [],
+        owner: {},
+        imgUrls: [],
+        tags: []
     }
 }
 
