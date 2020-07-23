@@ -134,9 +134,9 @@ export default {
     spotsLeft() {
       return this.evento.capacity - this.evento.members.length;
     },
-    sendMsg() {
-      console.log("Sending", this.msg);
-      SocketService.emit("chat newMsg", this.msg);
+    sendMsg(sentMsg) {
+      console.log("Sending", sentMsg);
+      SocketService.emit("chat newMsg",sentMsg);
       this.msg = { from: "Me", txt: "" };
     }
   },
