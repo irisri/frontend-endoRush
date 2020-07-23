@@ -112,8 +112,9 @@ export default {
     this.title = this.evento.title;
     // socket
     SocketService.setup();
-    SocketService.emit("identify", this.evento.owner._id);
+ 
     SocketService.emit("of evento", this.evento._id);
+    SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("chat addMsg", (_msg) => {
       this.msg = _msg;
     });
@@ -128,6 +129,11 @@ export default {
           title: "Error",
           txt: "You are already registered for the event",
         };
+              var sentMsg = {
+        from: "Me",
+        txt: `just joined: ${this.title} `,
+      };
+      this.sendMsg(sentMsg);
         return console.log("You are already registered for the event");
       }
 
@@ -143,11 +149,11 @@ export default {
       this._userName = user.userName;
       console.log("usename", this._userName);
       //socket msg
-      var sentMsg = {
-        from: "Me",
-        txt: `${this._userName} just joined: ${this.title} `,
-      };
-      this.sendMsg(sentMsg);
+      // var sentMsg = {
+      //   from: "Me",
+      //   txt: `${this._userName} just joined: ${this.title} `,
+      // };
+      // this.sendMsg(sentMsg);
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -167,6 +173,8 @@ export default {
     sendMsg(sentMsg) {
       console.log("Sending", sentMsg);
       SocketService.emit("chat newMsg", sentMsg);
+      
+      // SocketService.emit("chat sendToOwner", sentMsg);
       this.msg = { from: "Me", txt: "" };
     },
   },
