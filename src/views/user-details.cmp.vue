@@ -51,6 +51,10 @@ export default {
 
     }
   },
+    destroyed() {
+    SocketService.off("chat addMsg", this.addMsg);
+    SocketService.terminate();
+  },
   components: {
     reviewList
   }
