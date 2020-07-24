@@ -3,10 +3,10 @@
     <div class="home-img-container full">
       <div class="parallax flex align-center justify-center">
         <div class="on-picture">
-          <h1>Join us and find your next awesome workot!</h1>
+          <h2>Create and manage your workout activitys with others</h2>
           <div class="search flex align-center justify-center">
             <el-input
-              placeholder="Event name"
+              placeholder="Try 'Triathlon'"
               size="small"
               v-model="filterBy.title"
             />

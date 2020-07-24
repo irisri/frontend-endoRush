@@ -14,23 +14,24 @@
       background-size: cover;
       .on-picture {
         width: 100%;
-        h1 {
-          margin-bottom: 30px;
+        margin-top: 300px;
+
+        h2 {
+          margin-bottom: 15px;
           color: $clr4;
           font-size: rem(30px);
-          background-color: rgba(0, 0, 0, 0.356);
+          text-shadow: 0px 0px 6px #000000;
         }
-        
+
         .search {
           width: 50%;
           margin: 0 auto;
           gap: 5px;
-          >* {
+          > * {
             margin-bottom: 10px;
-            opacity: .9;
+            opacity: 0.9;
             z-index: 2;
             height: 40px;
-            
           }
           input {
             flex: 70%;
@@ -51,8 +52,8 @@
       font-size: 1rem;
       background-color: $clr3;
       cursor: pointer;
-      opacity: .9;
-      transition: opacity .5s;
+      opacity: 0.9;
+      transition: opacity 0.5s;
       &:hover {
         opacity: 1;
       }
