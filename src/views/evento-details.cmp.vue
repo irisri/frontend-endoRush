@@ -18,7 +18,10 @@
     <div class="details-content flex">
       <div class="info">
         <p class="capacity">{{spotsLeft}} spots left</p>
-        <div class="owner flex space-between"  @click.stop="$router.push(`/user/details/${owner._id}`)">
+        <div
+          class="owner flex space-between"
+          @click.stop="$router.push(`/user/details/${owner._id}`)"
+        >
           <div class="flex space-between column">
             <h3>Orgenised by {{ evento.owner.userName }}</h3>
             <p class="bio">{{ owner.bio }}</p>
@@ -26,10 +29,7 @@
           <img :src="evento.owner.imgUrl" />
         </div>
         <div v-if="isOwner">
-          <el-button
-            size="small"
-            @click="$router.push(`/evento/edit/${evento._id}`)"
-          >Edit event</el-button>
+          <el-button size="small" @click="$router.push(`/evento/edit/${evento._id}`)">Edit event</el-button>
           <el-button size="small" @click="removeEvento()">Delete event</el-button>
         </div>
         <p class="desc">{{evento.description}}</p>
@@ -97,7 +97,9 @@ export default {
       return parseFloat(avg.toFixed(0));
     },
     spotsLeft() {
-      return this.evento.capacity - this.evento.members.length;
+      const spots = this.evento.capacity - this.evento.members.length;
+      if (!spots) return "No";
+      return spots;
     },
     isOwner() {
       const user = this.$store.getters.loggedInUser;
@@ -121,7 +123,7 @@ export default {
     SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("chat addMsg", (_msg) => {
       this.msg = _msg;
-      const payload = {msg: _msg, icon: "how_to_reg"};
+      const payload = { msg: _msg, icon: "how_to_reg" };
       toastService.toastMsg(this, payload);
     });
   },
