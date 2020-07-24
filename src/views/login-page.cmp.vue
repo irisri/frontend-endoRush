@@ -28,6 +28,7 @@
 
 <script>
 import { uploadImg } from "@/services/img-upload.service.js";
+
 export default {
   data() {
     return {
@@ -43,7 +44,7 @@ export default {
   },
   methods: {
     onUploadImg(ev) {
-      uploadImg(ev).then(res => (this.signupCred.src = res.url));
+      this.signupCred.imgUrl = imgService.uploadImg(ev).then(res => (this.signupCred.src = res.url));
     },
     async doLogin() {
       const cred = this.loginCred;

@@ -1,17 +1,21 @@
 <template>
-  <header class="main-header">
+  <header class="main-header" :class="classObject" >
+    <div class="screen" :class="classObject" @click.prevent="toggleMenu()"></div>
+
     <h1 class="logo" @click.prevent="$router.push(`/`).catch(()=>{});">
-      <!-- <h1 class="logo"> -->
-      <!-- <router-link to="/"> -->
       Endorphin
       <span>rush</span>
-      <!-- </router-link> -->
     </h1>
     <h1 v-if="user">{{ msg.txt }}</h1>
-    <nav>
-      <!-- <router-link to="/">Home</router-link>| -->
-      <router-link to="/evento">Events</router-link>|
-      <router-link to="/about">About</router-link>|
+
+    <!-- <div class="toggle-menu-screen" @click="closeMenu" :class="classObject"></div> -->
+
+    <span class="btn-menu" @click.stop="toggleMenu">☰</span>
+    <nav class="main-nav">
+      <router-link to="/evento">Events</router-link>
+      <span>|</span>
+      <router-link to="/about">About</router-link>
+      <span>|</span>
       <router-link v-if="user" :to="`/user/details/${user._id}`">Profile</router-link>
       <span v-if="user">|</span>
       <router-link v-if="user" @click.native="logout()" to="/">Logout</router-link>
@@ -31,12 +35,20 @@ export default {
   },
   data() {
     return {
-      msg: {}
+      msg: {},
+      isOpenMenu: false
     };
   },
   methods: {
     logout() {
       this.$emit("logout");
+    },
+    toggleMenu() {
+      console.log("click btn");
+      this.isOpenMenu = !this.isOpenMenu;
+    },
+    closeMenu() {
+      this.isOpenMenu = false;
     }
   },
   async created() {
@@ -45,6 +57,13 @@ export default {
       this.msg = _msg;
     });
     console.log(this.msg);
+  },
+  computed: {
+    classObject() {
+      return {
+        "menu-open": this.isOpenMenu
+      };
+    }
   }
 };
 </script>

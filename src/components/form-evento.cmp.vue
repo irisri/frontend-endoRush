@@ -99,7 +99,7 @@ export default {
         this.$refs.saveTagInput.$refs.input.focus();
       });
     },
-    async onUploadImg(ev) {
+    onUploadImg(ev) {
       this.$emit("onUploadImg", ev);
     },
     handleInputConfirm() {
