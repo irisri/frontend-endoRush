@@ -17,7 +17,6 @@ export default {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             loadImage();
-            console.log("loading img");
             observer.unobserve(el);
           }
         });

@@ -55,21 +55,32 @@ p {
 
 // for alerts
 
-.alert-modal {
-    background-color: white;
-    color: $clr1;
-}
+// .toasted-primary {
+//     background-color: red;
+// }
 
-.alert-sec { 
-    &::before{
-        font-family: element-icons;
-        content: "\e720";
+.alert-toast {
+    background-color: $clr5 !important;
+    color: $clr1 !important;
+    border-radius: 7px !important;
+    // font-size: 1rem !important;
+    letter-spacing: -.5px !important;
+    box-shadow: none !important;
+    .material-icons {
+        color: $clr1 !important;
     }
 }
 
-.alert-err {
-    &::before{
-        font-family: element-icons;
-        content: "\e78d";
-    }
-}
+// .alert-sec { 
+//     &::before{
+//         font-family: element-icons;
+//         content: "\e720";
+//     }
+// }
+
+// .alert-err {
+//     &::before{
+//         font-family: element-icons;
+//         content: "\e78d";
+//     }
+// }

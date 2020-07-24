@@ -1,31 +1,30 @@
-import Vue from 'vue'
-import App from './App.vue'
-import './registerServiceWorker'
-import router from './router'
-import store from './store'
-import './assets/styles/styles.scss'
-import elementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-import lang from 'element-ui/lib/locale/lang/en'
-import locale from 'element-ui/lib/locale'
-import VueCarousel from 'vue-carousel';
+import Vue from "vue";
+import App from "./App.vue";
+import "./registerServiceWorker";
+import router from "./router";
+import store from "./store";
+import "./assets/styles/styles.scss";
+import elementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+import lang from "element-ui/lib/locale/lang/en";
+import locale from "element-ui/lib/locale";
+import VueCarousel from "vue-carousel";
 import Gallery from "vue-cover-gallery";
-import VModal from 'vue-js-modal'
-import Toasted from 'vue-toasted';
+import VModal from "vue-js-modal";
+import Toasted from "vue-toasted";
 
-Vue.use(Toasted);
-Vue.use(require('vue-moment'));
+Vue.use(Toasted, { iconPack: "material" });
+Vue.use(require("vue-moment"));
 Vue.use(Gallery);
 Vue.use(VueCarousel);
 Vue.use(elementUI);
-Vue.use(VModal)
-locale.use(lang)
-Vue.config.productionTip = false
+Vue.use(VModal);
+locale.use(lang);
+Vue.config.productionTip = false;
 // navigator.serviceWorker.register('./registerServiceWorker.js');
-
 
 new Vue({
   router,
   store,
-  render: h => h(App)
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");

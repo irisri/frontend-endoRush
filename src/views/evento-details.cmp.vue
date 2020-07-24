@@ -72,6 +72,7 @@
 import memberList from "../components/member-list.cmp.vue";
 import reviewList from "../components/review-list.cmp.vue";
 import SocketService from "@/services/SocketService";
+import toastService from "@/services/toastService";
 
 export default {
   data() {
@@ -114,43 +115,49 @@ export default {
     SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("chat addMsg", (_msg) => {
       this.msg = _msg;
-      setTimeout(function(){ 
-        this.msg = '' }, 3000);
+      const payload = {msg: _msg, icon: "how_to_reg"};
+      toastService.toastMsg(this, payload);
+
+      // setTimeout(function () {
+      //   this.msg = "";
+      // }, 3000);
     });
     console.log(this.msg);
   },
   methods: {
     addMember() {
       const user = this.$store.getters.loggedInUser;
+      const payload = {};
+      if (!user) {
+        (payload.msg = "Please log in"), (payload.icon = "block");
+        toastService.toastMsg(this, payload);
+        return setTimeout(() => this.$router.push(`/login`), 1000);
+        // return console.log('nope')
+      }
       if (this.evento.members.find((member) => member._id === user._id)) {
-        // this.$toasted.show("You are already registered for this event", {
-        //   // theme: "toasted-primary",
-        //   position: "top-right",
-        //   // duration: 10000,
-        //   fullWidth: true,
-        //   className: ["alert-modal","alert-err"]
-        // });
-        // to delete
-
-        return console.log("You are already registered for the event");
+        payload.msg = "You are already registered for the event";
+        payload.icon = "how_to_reg";
+        return toastService.toastMsg(this, payload);
+      }
+      if (!this.evento.members.find((member) => member._id === user._id)) {
+        const payload = {};
+        if (this.spotsLeft === 0) {
+          (payload.msg = "No spots left"), (payload.icon = "block");
+        } else {
+          this.evento.members.push(user);
+          this.$store.dispatch({ type: "addMember", evento: this.evento });
+          this._userName = user.userName;
+          var sentMsg = {
+            from: "Me",
+            txt: `${user.userName} just joined: ${this.title} `,
+          };
+          this.sendMsg(sentMsg);
+          payload.msg = "You have successfully registered for this event";
+          payload.icon = "how_to_reg";
+        }
+        return toastService.toastMsg(this, payload);
       }
 
-      this.evento.members.push(user);
-      this.$store.dispatch({ type: "addMember", evento: this.evento });
-      this._userName = user.userName;
-      this.$toasted.show("You have successfully registered for this event", {
-        theme: "toasted-primary",
-        position: "bottom-right",
-        duration: 5000,
-        fullWidth: true,
-        className: ["alert-modal","alert-sec"]
-      });
-              
-        var sentMsg = {
-        from: "Me",
-        txt: `${this._userName} just joined: ${this.title} `,
-      };
-      this.sendMsg(sentMsg);
       //socket msg
       // var sentMsg = {
       //   from: "Me",
