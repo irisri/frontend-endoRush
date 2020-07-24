@@ -114,6 +114,8 @@ export default {
     SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("chat addMsg", (_msg) => {
       this.msg = _msg;
+      setTimeout(function(){ 
+        this.msg = '' }, 3000);
     });
     console.log(this.msg);
   },
@@ -129,11 +131,7 @@ export default {
         //   className: ["alert-modal","alert-err"]
         // });
         // to delete
-        var sentMsg = {
-        from: "Me",
-        txt: `just joined: ${this.title} `,
-      };
-      this.sendMsg(sentMsg);
+
         return console.log("You are already registered for the event");
       }
 
@@ -147,6 +145,12 @@ export default {
         fullWidth: true,
         className: ["alert-modal","alert-sec"]
       });
+              
+        var sentMsg = {
+        from: "Me",
+        txt: `${this._userName} just joined: ${this.title} `,
+      };
+      this.sendMsg(sentMsg);
       //socket msg
       // var sentMsg = {
       //   from: "Me",
@@ -172,7 +176,7 @@ export default {
     sendMsg(sentMsg) {
       console.log("Sending", sentMsg);
       SocketService.emit("chat newMsg", sentMsg);
-      SocketService.emit("userNewMsg", sentMsg);
+      // SocketService.emit("userNewMsg", sentMsg);
       this.msg = { from: "Me", txt: "" };
     },
   },
