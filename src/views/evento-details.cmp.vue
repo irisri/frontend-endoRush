@@ -1,13 +1,8 @@
 <template>
   <div v-if="evento" class="evento-details main-container">
-    <h1>{{ msg.txt }}</h1>
     <div class="title">
       <h3>{{ evento.title }}</h3>
-      <el-rate
-        v-if="owner.reviews"
-        v-model="rateAvg"
-        disabled
-      >></el-rate>
+      <el-rate v-if="owner.reviews" v-model="rateAvg" disabled>></el-rate>
     </div>
     <div class="img-wrapper">
       <div class="imgs-details">
@@ -19,13 +14,14 @@
         />
       </div>
     </div>
+
     <div class="details-content flex">
       <div class="info">
         <!-- <div class="tags-list flex" v-if="evento.tags">
           <ul class="clean-list" v-for="(tag,index) in evento.tags" :key="index">
             <li>{{tag}} &#183; </li>
           </ul>
-        </div> -->
+        </div>-->
         <p class="capacity">{{spotsLeft}} spots left</p>
         <div class="owner flex space-between">
           <div class="flex space-between column">
@@ -35,8 +31,12 @@
           <img :src="evento.owner.imgUrl" />
         </div>
         <div>
-          <el-button size="small" @click="$router.push(`/evento/edit/${evento._id}`)">Edit event</el-button>
-          <el-button size="small" @click="removeEvento()">Delete event</el-button>
+          <el-button
+            id="btn"
+            size="small"
+            @click="$router.push(`/evento/edit/${evento._id}`)"
+          >Edit event</el-button>
+          <el-button id="btn" size="small" @click="removeEvento()">Delete event</el-button>
         </div>
         <p class="desc">{{evento.description}}</p>
         <member-list :members="evento.members" :capacity="evento.capacity"></member-list>
@@ -63,15 +63,14 @@
         </p>
         <button @click="addMember()">I want to join</button>
       </div>
-      <!-- <alert v-if="alert" :alertContent="alert"></alert> -->
     </div>
+    <h1>{{ msg.txt }}</h1>
   </div>
 </template>
 
 <script>
 import memberList from "../components/member-list.cmp.vue";
 import reviewList from "../components/review-list.cmp.vue";
-import alert from "../components/alert.cmp.vue";
 import SocketService from "@/services/SocketService";
 
 export default {
@@ -82,7 +81,6 @@ export default {
       title: "",
       _userName: "",
       msg: {},
-      alert: "",
     };
   },
   computed: {
@@ -112,8 +110,8 @@ export default {
     this.title = this.evento.title;
     // socket
     SocketService.setup();
-    SocketService.emit("identify", this.evento.owner._id);
     SocketService.emit("of evento", this.evento._id);
+    SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("chat addMsg", (_msg) => {
       this.msg = _msg;
     });
@@ -123,31 +121,38 @@ export default {
     addMember() {
       const user = this.$store.getters.loggedInUser;
       if (this.evento.members.find((member) => member._id === user._id)) {
-        this.alert = {
-          success: false,
-          title: "Error",
-          txt: "You are already registered for the event",
-        };
+        // this.$toasted.show("You are already registered for this event", {
+        //   // theme: "toasted-primary",
+        //   position: "top-right",
+        //   // duration: 10000,
+        //   fullWidth: true,
+        //   className: ["alert-modal","alert-err"]
+        // });
+        // to delete
+        var sentMsg = {
+        from: "Me",
+        txt: `just joined: ${this.title} `,
+      };
+      this.sendMsg(sentMsg);
         return console.log("You are already registered for the event");
       }
 
       this.evento.members.push(user);
       this.$store.dispatch({ type: "addMember", evento: this.evento });
-
-      this.alert = {
-        success: false,
-        title: "Success",
-        txt: "You have successfully registered for the event! ",
-      };
-
       this._userName = user.userName;
-      console.log("usename", this._userName);
+      this.$toasted.show("You have successfully registered for this event", {
+        theme: "toasted-primary",
+        position: "bottom-right",
+        duration: 5000,
+        fullWidth: true,
+        className: ["alert-modal","alert-sec"]
+      });
       //socket msg
-      var sentMsg = {
-        from: "Me",
-        txt: `${this._userName} just joined: ${this.title} `,
-      };
-      this.sendMsg(sentMsg);
+      // var sentMsg = {
+      //   from: "Me",
+      //   txt: `${this._userName} just joined: ${this.title} `,
+      // };
+      // this.sendMsg(sentMsg);
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -167,6 +172,7 @@ export default {
     sendMsg(sentMsg) {
       console.log("Sending", sentMsg);
       SocketService.emit("chat newMsg", sentMsg);
+      SocketService.emit("userNewMsg", sentMsg);
       this.msg = { from: "Me", txt: "" };
     },
   },
@@ -177,7 +183,6 @@ export default {
   components: {
     memberList,
     reviewList,
-    alert,
   },
 };
 </script>
