@@ -121,13 +121,13 @@ export default {
     addMember() {
       const user = this.$store.getters.loggedInUser;
       if (this.evento.members.find((member) => member._id === user._id)) {
-        // this.$toasted.show("You are already registered for this event", {
-        //   // theme: "toasted-primary",
-        //   position: "top-right",
-        //   // duration: 10000,
-        //   fullWidth: true,
-        //   className: ["alert-modal","alert-err"]
-        // });
+        this.$toasted.show("You are already registered for this event", {
+          // theme: "toasted-primary",
+          position: "top-right",
+          // duration: 10000,
+          // fullWidth: true,
+          className: ["alert-modal","alert-err"]
+        });
         // to delete
         var sentMsg = {
         from: "Me",
