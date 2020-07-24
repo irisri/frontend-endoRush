@@ -62,7 +62,6 @@ p {
     background-color: $clr5 !important;
     color: $clr1 !important;
     border-radius: 7px !important;
-    // font-size: 1rem !important;
     letter-spacing: -.5px !important;
     box-shadow: none !important;
     .material-icons {
@@ -103,9 +102,11 @@ p {
     .el-select .el-input.is-focus .el-input__inner {
         border-color: $clr1;
     }
-    .el-select-dropdown__item.selected {
-        color: $clr1;
-        font-weight: 700;
+    .el-select-dropdown__list{
+        .el-select-dropdown__item.selected {
+            color: $clr1;
+            font-weight: 700;
+        }
     }
     
 }

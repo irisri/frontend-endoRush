@@ -1,53 +1,53 @@
 .evento-filter {
-  margin: 0 65px 30px 65px;
-  .search-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    .search-title {
-      input {
-        width: 60%;
-        margin: 10px 0;
-      }
-    }
-
-    .search-select {
-      margin-bottom: 20px;
-
-      @include for-narrow-layout {
-        .el-select {
-          margin-right: 0;
-          display: block;
-          margin-bottom: 10px;
-          &:last-of-type {
-            margin-bottom: 0;
-          }
-        }
-      }
-
-      @include for-normal-layout {
-        .el-select {
-          margin-right: 10px;
-          margin-bottom: 10px;
-          &:last-of-type {
-            margin-right: 0;
-          }
-        }
-      }
-
-      @include for-wide-layout {
+    .search-area {
         display: flex;
-        flex-direction: row;
-        .el-select {
-          margin-right: 10px;
-          &:last-of-type {
-            display: inline;
-            margin-right: 0;
-          }
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        max-width: 400px;
+        margin: 0 auto;
+        >* {
+          width: 100%;
+          margin: 5px 0;
         }
-      }
+        .cat-tags {
+          gap: 5px;
+        }
+        .el-select {
+          width: 55%;
+        }
     }
-  }
-
 }
+
+      //   .el-select {
+      //     margin-right: 0;
+      //     display: block;
+      //     margin-bottom: 10px;
+      //     &:last-of-type {
+      //       margin-bottom: 0;
+      //     }
+      //   }
+      // }
+
+      // @include for-normal-layout {
+      //   .el-select {
+      //     margin-right: 10px;
+      //     margin-bottom: 10px;
+      //     &:last-of-type {
+      //       margin-right: 0;
+      //     }
+      //   }
+      // }
+
+      // @include for-wide-layout {
+      //   display: flex;
+      //   flex-direction: row;
+      //   .el-select {
+      //     margin-right: 10px;
+      //     &:last-of-type {
+      //       display: inline;
+      //       margin-right: 0;
+      //     }
+      //   }
+      // }
+

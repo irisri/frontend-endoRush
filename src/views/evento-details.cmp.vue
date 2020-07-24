@@ -18,7 +18,7 @@
     <div class="details-content flex">
       <div class="info">
         <p class="capacity">{{spotsLeft}} spots left</p>
-        <div class="owner flex space-between">
+        <div class="owner flex space-between"  @click.stop="$router.push(`/user/details/${owner._id}`)">
           <div class="flex space-between column">
             <h3>Orgenised by {{ evento.owner.userName }}</h3>
             <p class="bio">{{ owner.bio }}</p>
@@ -123,12 +123,7 @@ export default {
       this.msg = _msg;
       const payload = {msg: _msg, icon: "how_to_reg"};
       toastService.toastMsg(this, payload);
-
-      // setTimeout(function () {
-      //   this.msg = "";
-      // }, 3000);
     });
-    console.log(this.msg);
   },
   methods: {
     addMember() {
@@ -138,7 +133,6 @@ export default {
         (payload.msg = "Please log in"), (payload.icon = "block");
         toastService.toastMsg(this, payload);
         return setTimeout(() => this.$router.push(`/login`), 1000);
-        // return console.log('nope')
       }
       if (this.evento.members.find((member) => member._id === user._id)) {
         payload.msg = "You are already registered for the event";
@@ -187,9 +181,7 @@ export default {
       this.$store.dispatch({ type: "addReview", user: this.owner });
     },
     sendMsg(sentMsg) {
-      console.log("Sending", sentMsg);
       SocketService.emit("chat newMsg", sentMsg);
-      // SocketService.emit("userNewMsg", sentMsg);
       this.msg = { from: "Me", txt: "" };
     },
   },

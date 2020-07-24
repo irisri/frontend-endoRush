@@ -28,11 +28,9 @@
             <p class="member">
               <i class="el-icon-s-custom"></i>
             </p>&nbsp;
-            <!-- <i class="el-icon-s-custom"></i> -->
             <p>{{evento.members.length}}/{{evento.capacity}}</p>
           </div>
         </div>
-        <!-- <p>Attendees: {{evento.members.length}} / {{evento.capacity}}</p> -->
       </div>
     </div>
   </div>
