@@ -17,11 +17,6 @@
 
     <div class="details-content flex">
       <div class="info">
-        <!-- <div class="tags-list flex" v-if="evento.tags">
-          <ul class="clean-list" v-for="(tag,index) in evento.tags" :key="index">
-            <li>{{tag}} &#183; </li>
-          </ul>
-        </div>-->
         <p class="capacity">{{spotsLeft}} spots left</p>
         <div class="owner flex space-between">
           <div class="flex space-between column">
@@ -30,15 +25,21 @@
           </div>
           <img :src="evento.owner.imgUrl" />
         </div>
-        <div>
+        <div v-if="isOwner">
           <el-button
-            id="btn"
             size="small"
             @click="$router.push(`/evento/edit/${evento._id}`)"
           >Edit event</el-button>
-          <el-button id="btn" size="small" @click="removeEvento()">Delete event</el-button>
+          <el-button size="small" @click="removeEvento()">Delete event</el-button>
         </div>
         <p class="desc">{{evento.description}}</p>
+        <div class="category">
+          <p>Category: {{evento.category}}</p>
+          <ul class="tags-list flex clean-list" v-if="evento.tags">
+            <li v-for="(tag,index) in evento.tags" :key="index">{{tag}}</li>
+          </ul>
+        </div>
+
         <member-list :members="evento.members" :capacity="evento.capacity"></member-list>
         <review-list v-if="owner.reviews" :reviews="owner.reviews" @addReview="addReview"></review-list>
         <p v-else>Be the first to comment..</p>
@@ -97,6 +98,11 @@ export default {
     },
     spotsLeft() {
       return this.evento.capacity - this.evento.members.length;
+    },
+    isOwner() {
+      const user = this.$store.getters.loggedInUser;
+      if (!user) return;
+      return this.evento.owner._id === user._id;
     },
   },
   async created() {

@@ -1,23 +1,28 @@
-.member-list {
-    flex-wrap: wrap;
-    flex-direction: row;
-    list-style: none;
-    margin: 0;
-    padding-top: rem(10px);
-    .member-card {
-        // padding: 5px;
-        margin: 10px;
-        text-align: center;
-        img{
-            border-radius: 999px;
-            height: 65px;
-            width: 65px;
-            size: cover;
-            border: 1px solid gray;
-        }
-        h5 {
-            font-size: rem(15px);
-        }
-        
+.members{
+    .member-header {
+        font-size: rem(23px);
+        letter-spacing: -.8px;
+        font-weight: normal;
     }
+    .member-list {
+        flex-wrap: wrap;
+        flex-direction: row;
+        list-style: none;
+        padding-top: rem(10px);
+        .member-card {
+            max-width: 60px;
+            margin: 10px;
+            text-align: center;
+            img{
+                border-radius: 999px;
+                height: 65px;
+                width: 65px;
+                size: cover;
+                border: 1px solid gray;
+            }
+            h5 {
+                font-size: rem(15px);
+            }  
+        }
+    }   
 }

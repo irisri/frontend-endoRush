@@ -6,7 +6,6 @@
 
     <div>
       <el-button
-        id="btn"
         class="new-evento"
         title="Add New event"
         @click="$router.push('/evento/edit')"
