@@ -1,9 +1,67 @@
+.main-nav {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 60px;
+  right: 0;
+  transform: translateX(100%);
+  transition: transform 0.8s;
+  z-index: 2;
+}
+
+.screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+
+  transition: opacity 0.8s;
+}
+
+.main-header.menu-open .main-nav {
+  transform: translateX(0);
+}
+
+.screen.menu-open {
+  display: block;
+  z-index: 1;
+  visibility: visible;
+  background-color: rgba(42, 42, 42, 0.4);
+  opacity: 1;
+}
+
+
+
 .main-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  border-bottom: 1px solid $clr5;
+  // border-bottom: 1px solid $clr5;
+
+  // .screen {
+  //   position: fixed;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   cursor: pointer;
+
+  //   visibility: hidden;
+  //   opacity: 0;
+
+  //   transition: opacity 0.8s;
+  // }
+
+  .btn-menu {
+    cursor: pointer;
+    display: inline;
+  }
 
   .logo {
     font-family: RanchersRegular;
@@ -17,13 +75,27 @@
     }
   }
 
-  nav {
+  .main-nav {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 60px;
+    right: 0;
+    transform: translateX(100%);
+    transition: transform 0.8s;
+
+    span {
+      display: none;
+    }
+
     a {
       color: $clr2;
       text-decoration: none;
       font-family: JosefinSansMedium;
-      padding: 15px 0;
-      margin: 10px;
+
+      background-color: rgba(222, 213, 198, 0.8);
+      padding: 10px 20px;
+
       transform: color 150s;
 
       &:last-of-type {
@@ -35,6 +107,8 @@
       }
     }
 
+    
+
     a:hover {
       color: $clr1;
     }
@@ -44,28 +118,89 @@
         color: $clr1;
       }
     }
+
+    // .menu-open nav {
+    //   transform: translateX(0);
+    // }
+
+    // .menu-open .screen {
+    //   display: block;
+    //   z-index: 1;
+    //   visibility: visible;
+    //   background-color: rgba(42, 42, 42, 0.4);
+    // }
+
   }
-
-  
 }
-    // @include for-narrow-layout {
-    //   // background-color: green;
-    //   flex-direction: column;
-    //   .logo {
-    //     font-size: rem(40px);
-    //   }
-    // }
-    
-    // @include for-normal-layout {
-    //   flex-direction: row;
-    //   .logo {
-    //     font-size: rem(40px);
-    //   }
-    // }
-    
-    // @include for-wide-layout {
-    //   .logo {
-    //     font-size: rem(50px);
-    //   }
-    // }
 
+
+// @include for-narrow-layout {
+// .main-header {
+// .btn-menu {
+//   cursor: pointer;
+//   display: inline;
+// }
+
+// nav {
+// display: flex;
+// flex-direction: column;
+// position: fixed;
+// top: 60px;
+// right: 0;
+// transform: translateX(100%);
+// transition: transform 0.8s;
+// span {
+//   display: none;
+// }
+
+//   a {
+//     background-color: rgba(255, 248, 240, 0.8);
+//     padding: 10px 20px;
+//   }
+// }
+
+// .menu-open nav {
+//   transform: translateX(0);
+// }
+
+// .menu-open .screen {
+//   display: block;
+//   z-index: 1;
+//   visibility: visible;
+//   background-color: rgba(42, 42, 42, 0.4);
+// }
+// }
+// }
+
+@include for-normal-layout {
+  .main-header {
+    border-bottom: 1px solid $clr5;
+
+    .btn-menu {
+      display: none;
+    }
+    .main-nav {
+      flex-direction: row;
+      // top: 0;
+      position: static;
+      transform: none;
+      span {
+        position: static;
+        display: inline;
+        padding-top: 24px;
+      }
+      a {
+        padding: 15px 0;
+        margin: 10px;
+        background-color: rgba(255, 248, 240, 0);
+      }
+    }
+  }
+}
+
+// @include for-normal-layout {
+//   flex-direction: row;
+//   .logo {
+//     font-size: rem(40px);
+//   }
+// }
