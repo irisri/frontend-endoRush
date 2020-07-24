@@ -1,24 +1,26 @@
 <template>
-  <header class="main-header" :class="classObject" >
+  <header class="main-header" :class="classObject">
     <div class="screen" :class="classObject" @click.prevent="toggleMenu()"></div>
 
-    <h1 class="logo" @click.prevent="$router.push(`/`).catch(()=>{});">
-      Endorphin
-      <span>rush</span>
-    </h1>
+    <router-link to="/">
+      <h1 class="logo">
+        Endorphin
+        <span>rush</span>
+      </h1>
+    </router-link>
     <h1 v-if="user">{{ msg.txt }}</h1>
 
-    <!-- <div class="toggle-menu-screen" @click="closeMenu" :class="classObject"></div> -->
-
-    <span class="btn-menu" @click.stop="toggleMenu">☰</span>
-    <nav class="main-nav">
+    <span class="btn-menu material-icons" @click.stop="toggleMenu">menu</span>
+    <nav class="main-nav" @click.stop="isOpenMenu= false">
       <router-link to="/evento">Events</router-link>
       <span>|</span>
       <router-link to="/about">About</router-link>
       <span>|</span>
-      <router-link v-if="user" :to="`/user/details/${user._id}`">Profile</router-link>
+      <router-link v-if="user" @click.native="logout()" to="/login">Logout</router-link>
       <span v-if="user">|</span>
-      <router-link v-if="user" @click.native="logout()" to="/">Logout</router-link>
+      <router-link v-if="user" :to="`/user/details/${user._id}`" class="profile">
+        <img :src="user.imgUrl" alt="Profile" />
+      </router-link>
       <router-link v-else to="/login">Login</router-link>
     </nav>
   </header>
@@ -30,13 +32,13 @@ export default {
   props: {
     user: {
       type: Object,
-      required: false
-    }
+      required: false,
+    },
   },
   data() {
     return {
       msg: {},
-      isOpenMenu: false
+      isOpenMenu: false,
     };
   },
   methods: {
@@ -44,16 +46,15 @@ export default {
       this.$emit("logout");
     },
     toggleMenu() {
-      console.log("click btn");
       this.isOpenMenu = !this.isOpenMenu;
     },
     closeMenu() {
       this.isOpenMenu = false;
-    }
+    },
   },
   async created() {
     SocketService.setup();
-    SocketService.on("chat addMsg", _msg => {
+    SocketService.on("chat addMsg", (_msg) => {
       this.msg = _msg;
     });
     console.log(this.msg);
@@ -61,10 +62,10 @@ export default {
   computed: {
     classObject() {
       return {
-        "menu-open": this.isOpenMenu
+        "menu-open": this.isOpenMenu,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 
