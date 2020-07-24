@@ -5,9 +5,9 @@
       <form class="form flex column align-center">
         <el-input type="text" v-model="loginCred.userName" placeholder="Username" />
         <el-input type="text" v-model="loginCred.password" placeholder="Password" />
-        <el-button id="btn" @click.prevent="doLogin">Login</el-button>
+        <el-button @click.prevent="doLogin">Login</el-button>
       </form>
-      <el-button id="btn" @click="signUp=!signUp">Signup</el-button>
+      <el-button @click="signUp=!signUp">Signup</el-button>
     </div>
     <div v-if="signUp" class="sign-up">
       <h2>Signup</h2>
@@ -17,9 +17,9 @@
         <el-input type="text" v-model="signupCred.password" placeholder="Password" />
         <el-input type="file" @change="onUploadImg" />
         <img :src="signupCred.src" />
-        <el-button id="btn" @click.prevent="doSignup">Signup</el-button>
+        <el-button @click.prevent="doSignup">Signup</el-button>
         <span style="display:none;"></span>
-        <el-button id="btn" @click="signUp=!signUp" plain>Login</el-button>
+        <el-button @click="signUp=!signUp">Login</el-button>
       </form>
     </div>
   </section>

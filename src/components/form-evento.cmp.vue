@@ -53,7 +53,6 @@
 
     <div class="capacity">
       <label for="cap">Number of participants:</label>
-      <!-- <input type="number" id="participants" v-model="evento.capaity" /> -->
       <el-input-number
         size="small"
         v-model="evento.capacity"
