@@ -29,9 +29,7 @@ function update(user) {
 }
 
 async function login(userCred) {
-    console.log('usrt-ser-fro-userCred', userCred);
     const user = await HttpService.post('auth/login', userCred)
-    console.log('userservice-http', user);
     return _handleLogin(user)
 }
 async function signup(userCred) {

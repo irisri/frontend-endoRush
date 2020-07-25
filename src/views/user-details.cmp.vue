@@ -21,8 +21,7 @@ export default {
   name: "user-details",
   data() {
     return {
-      userToShow: "",
-      msg: {},
+      userToShow: ""
     };
   },
   computed: {
@@ -48,10 +47,8 @@ export default {
       await this.$store.dispatch({ type: "getUserById", userId });
       this.userToShow = this.$store.getters.user;
       SocketService.setup();
-      console.log("touser", this.userToShow._id);
       SocketService.emit("to user", this.userToShow._id);
       SocketService.on("chat addMsg", (_msg) => {
-        this.msg = _msg;
         const payload = { msg: _msg, icon: "how_to_reg" };
         toastService.toastMsg(this, payload);
         return this.userToShow;
