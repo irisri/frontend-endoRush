@@ -42,12 +42,10 @@ async function getById(id) {
 }
 
 function save(evento) {
-    console.log('saveing', evento);
     return HttpService.post(`evento`, evento);
 }
 
 function update(evento) {
-    console.log('update evento service', evento);
     return HttpService.put(`evento/${evento._id}`, evento)
 }
 

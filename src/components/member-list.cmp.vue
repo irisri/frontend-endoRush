@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <h3>Members ({{countMembers}} / {{capacity}})</h3>
+  <section class="members">
+    <h3 class="member-header">Members ({{countMembers}} / {{capacity}})</h3>
     <ul class="member-list flex clean-list">
       <li class="member-card" v-for="member in members" :key="member._id">
         <img :src="member.imgUrl" />

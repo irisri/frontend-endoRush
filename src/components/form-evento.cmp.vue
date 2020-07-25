@@ -42,7 +42,7 @@
     </el-select>
 
     <div class="time-date">
-      <el-date-picker 
+      <el-date-picker
         format="yyyy-MM-dd HH:mm"
         v-model="evento.startTime"
         type="datetime"
@@ -53,7 +53,6 @@
 
     <div class="capacity">
       <label for="cap">Number of participants:</label>
-      <!-- <input type="number" id="participants" v-model="evento.capaity" /> -->
       <el-input-number
         size="small"
         v-model="evento.capacity"
@@ -64,14 +63,14 @@
         :max="50"
       ></el-input-number>
     </div>
-
-    <div class="img-upload">
-      <label for="upload" class="custom-file-upload">Upload image</label>
-      <input type="file" @change="onUploadImg" id="upload" />
-    </div>
-
     <!-- Add location -->
-    <el-button @click="saveEvento">Save event</el-button>
+    <div class="btns flex justify-center">
+      <div class="img-upload">
+        <label for="upload" class="custom-file-upload">Upload image</label>
+        <input type="file" @change="onUploadImg" id="upload" />
+      </div>
+      <el-button @click="saveEvento">Save event</el-button>
+    </div>
   </form>
 </template>
 
@@ -83,7 +82,14 @@ export default {
     return {
       inputVisible: false,
       inputValue: "",
-      categories: ["Weight training", "Cardio", "Running", "Bicycle", "Boxing", "Fitness"],
+      categories: [
+        "Weight training",
+        "Cardio",
+        "Running",
+        "Bicycle",
+        "Boxing",
+        "Fitness",
+      ],
     };
   },
   methods: {
@@ -95,7 +101,7 @@ export default {
     },
     showInput() {
       this.inputVisible = true;
-      this.$nextTick(_ => {
+      this.$nextTick((_) => {
         this.$refs.saveTagInput.$refs.input.focus();
       });
     },
@@ -115,7 +121,7 @@ export default {
     },
     saveEvento() {
       this.$emit("saveEvento", this.evento);
-    }
-  }
+    },
+  },
 };
 </script>

@@ -1,18 +1,23 @@
 .evento-edit {
-  // max-width: 700px;
-  margin: auto, 0;
+  // max-width: 1500px;
+  padding-top: 20px;
+  margin: 0 auto;
   display: flex;
+  flex-direction: column;
   gap: 5%;
     .imgs-container {
-        flex: 55%;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        grid-gap: 7px;
+        flex: 45%;
+        display: flex;
+        max-width: 600px;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin: 0 auto;
         width: 100%;
-        height: 350px;
         .img-container {
           position: relative;
+          width: 150px;
+          height: 150px;
+          display: block;
           img {
               width: 100%;
               height: 100%;
@@ -28,77 +33,13 @@
       }
     }
   
-    .form-container {
-      flex: 40%;
-      .title,
-      .descritprion,
-      .capaity,
-      .tags,
-      .time-date,
-      .img-upload {
-        margin: rem(15px) auto;
-        *:focus {
-          color: $clr1;
-          border-color: $clr2;
-        }
-        label {
-          margin-right: 15px;
-        }
-      }
-      
-      .title,
-      .descritprion {
-        input,
-        textarea {
-          width: 60%;
-          margin: 0 auto;
-        }
-      }
+    .form-container { 
+      max-width: 600px;
+      flex: 55%;
 
-      .capacity {
-        label {
-          margin-right: 10px;
-        }
-      }
-  
-      .tags {
-        .el-icon-close {
-          border-color: $clr1;
-        }
-        .el-tag {
-          .el-icon-close {
-            color: $clr2;
-  
-            &:hover {
-              background-color: $clr1;
-            }
-          }
-        }
-        .el-tag,
-        .el-input {
-          background-color: $clr3;
-          color: $clr2;
-        }
-        .el-tag + .el-tag {
-          margin-left: 10px;
-        }
-        .button-new-tag {
-          margin-left: 10px;
-          height: 32px;
-          line-height: 30px;
-          padding-top: 0;
-          padding-bottom: 0;
-          &:hover {
-            border-color: $clr2;
-            background-color: $clr3;
-            color: $clr2;
-          }
-        }
-        .input-new-tag {
-          width: 90px;
-          margin-left: 10px;
-          vertical-align: bottom;
-        }
+      >* {
+        width: 100%;
+        margin: 5px 0;
       }
   
       .img-upload {
@@ -133,3 +74,10 @@
     }
   }
   
+
+
+@include for-normal-layout {
+  .evento-edit {
+      flex-direction: row;
+  }
+}

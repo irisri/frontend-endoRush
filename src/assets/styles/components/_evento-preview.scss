@@ -8,17 +8,17 @@
     color: black;
     border: none;
     
-    // &:hover {
-    //     box-shadow: 0 1px 0px #c4c4c4;
-    // }
-
     .el-carousel__container {
         height: 160px;
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 7px;
+        figure{
+            margin: 0;;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-top-left-radius: 7px;
+                border-top-right-radius: 7px;
+            }
         }
         }
     .el-carousel__indicators {
@@ -26,6 +26,7 @@
     }
 
     .preview-content {
+        letter-spacing: -0.4px;
         margin-left: 5px;
         margin-right: 5px;
         .owner-rate {
@@ -91,9 +92,6 @@
 @include for-narrow-layout {
     .evento-preview {
         padding: 0 0 10px;
-        // .el-carousel__container {
-        //     height: 160px;
-        // }
     }
 }
 

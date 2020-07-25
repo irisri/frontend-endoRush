@@ -2,7 +2,7 @@
   <div class="evento-preview">
     <el-carousel indicator-position="outside" :autoplay="false">
       <el-carousel-item v-for="(url, index) in evento.imgUrls" :key="index">
-        <img :src="url" />
+        <img-carousel-lazy :url="url" />
       </el-carousel-item>
     </el-carousel>
     <div class="preview-content flex column justify-start">
@@ -28,11 +28,9 @@
             <p class="member">
               <i class="el-icon-s-custom"></i>
             </p>&nbsp;
-            <!-- <i class="el-icon-s-custom"></i> -->
-            <p>  {{evento.members.length}}/{{evento.capacity}}</p>
+            <p>{{evento.members.length}}/{{evento.capacity}}</p>
           </div>
         </div>
-        <!-- <p>Attendees: {{evento.members.length}} / {{evento.capacity}}</p> -->
       </div>
     </div>
   </div>
@@ -41,24 +39,25 @@
 
 
 <script>
+import imgCarouselLazy from "./img-carousel-lazy";
+
 const moment = require("moment");
 export default {
   name: "evento-preview",
   props: {
     evento: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       img: this.evento.imgUrls[0],
-      ownerUsr: "",
+      ownerUsr: ""
     };
   },
   computed: {
     timeToShow() {
-      // return 0;
       const nextWeek = new Date();
       nextWeek.setDate(nextWeek.getDate() + 7);
       const nextYear = new Date();
@@ -67,8 +66,7 @@ export default {
         return moment(this.evento.startTime).fromNow();
       if (this.evento.startTime > nextYear)
         return moment(this.evento.startTime).format("MMM Do YY");
-      else return moment(this.evento.startTime).format('LL');
-      // moment(this.evento.startTime).format("MMM Do");
+      else return moment(this.evento.startTime).format("LL");
     },
     rateAvg() {
       const avg =
@@ -78,7 +76,7 @@ export default {
     },
     spotsLeft() {
       return this.evento.capacity - this.evento.members.length;
-    },
+    }
   },
   async created() {
     const userId = this.evento.owner._id;
@@ -87,8 +85,11 @@ export default {
       this.ownerUsr = _.cloneDeep(this.$store.getters.user);
       this.rate = this.rateAvg;
     } else {
-      console.log("no id");
+      // console.log("no id");
     }
   },
+  components: {
+    imgCarouselLazy
+  }
 };
 </script>

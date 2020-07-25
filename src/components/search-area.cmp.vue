@@ -5,20 +5,18 @@
       size="large"
       @input="setFilter"
       v-model="filterBy.title"
-      placeholder="find your next event"
+      placeholder="Find your next event"
     ></el-input>
 
-    <el-select
-      v-model="filterBy.category"
-      @change="setFilter"
-      placeholder="Category"
-      :selected="filterBy.category"
-    >
-      <el-option v-for="item in categories" :key="item" :label="item" :value="item"></el-option>
-    </el-select>
-
-    <div class="search-select">
-      <!-- <label>Search by tag:</label> -->
+    <div class="cat-tags flex justify-center">
+      <el-select
+        v-model="filterBy.category"
+        @change="setFilter"
+        placeholder="Category"
+        :selected="filterBy.category"
+      >
+        <el-option v-for="item in categories" :key="item" :label="item" :value="item"></el-option>
+      </el-select>
       <el-select
         v-model="filterBy.tags"
         multiple
@@ -28,17 +26,16 @@
       >
         <el-option v-for="item in tags" :key="item" :label="item" :value="item"></el-option>
       </el-select>
-
-      <el-select v-model="filterBy.time" @change="setFilter" placeholder="Day">
-        <el-option v-for="item in dates" :key="item" :label="item" :value="item"></el-option>
-      </el-select>
     </div>
+
+    <el-select v-model="filterBy.time" @change="setFilter" placeholder="Day">
+      <el-option v-for="item in dates" :key="item" :label="item" :value="item"></el-option>
+    </el-select>
   </section>
 </template>
 
 <script>
 export default {
-  //   props: [tags],
   data() {
     return {
       name: "search-area",
@@ -47,7 +44,7 @@ export default {
         location: "",
         tags: [],
         timeAndDate: "Any day",
-        category: null
+        category: null,
       },
       categories: [
         "Weight training",
@@ -55,10 +52,10 @@ export default {
         "Running",
         "Bicycle",
         "Boxing",
-        "Fitness"
+        "Fitness",
       ],
       dates: ["Any day", "Today", "Tomorrow", "This week", "Next week"],
-      tags: null
+      tags: null,
     };
   },
   created() {
@@ -68,8 +65,8 @@ export default {
   methods: {
     setFilter() {
       this.$emit("setFilter", this.filterBy);
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,9 +1,37 @@
 .user-details {
-    max-width: 800px;
-    margin: auto;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+    gap: 10%;
+    .right {
+        margin-top: 2.5rem;
+        >* {
+            margin-top: 10px;
+            max-width: 250px;
+        } 
+        img {
+            height: 200px;
+            border-radius: 10px;
+        }
+    }    
+    .left {
+        flex: 2;
+        .reviews {
+            text-align: left;
+            transform: scale(0.8, 0.8);
+            -ms-transform: scale(0.8, 0.8); /* IE 9 */
+            -webkit-transform: scale(0.8, 0.8); /* Safari and Chrome */
+            -o-transform: scale(0.8, 0.8); /* Opera */
+            -moz-transform: scale(0.8, 0.8); /* Firefox */ 
+        }
+    }
 
-    img {
-        height: 200px;
-        border-radius: 10px;
+}
+
+
+@include for-normal-layout {
+    .user-details {
+        flex-direction: row;
+        align-items: flex-start;
     }
 }

@@ -29,7 +29,6 @@ export default {
       state.eventos.forEach((evento) => {
         tags.push(...evento.tags);
       });
-
       return new Set(tags);
     },
     getFilterBy(state) {
@@ -48,12 +47,10 @@ export default {
       state.eventos = state.eventos.filter((evento) => evento._id !== eventoId);
     },
     updateEvento(state, { evento }) {
-      console.log("update", evento);
       const index = state.eventos.findIndex(
         (currEvento) => currEvento._id === evento._id
       );
       state.eventos.splice(index, 1, evento);
-      // return eventos;
     },
     setCurrEvento(state, { evento }) {
       state.currEvento = evento;
@@ -75,9 +72,7 @@ export default {
     async saveEvento({ commit }, { evento }) {
       if (evento._id) {
         return await eventoService.update(evento);
-        // const updatedEvento = await eventoService.update(evento);
-        // commit({ type: "updateEvento", evento: updatedEvento });
-      } else {
+     } else {
         return await eventoService.save(evento);
       }
     },
