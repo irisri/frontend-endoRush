@@ -3,7 +3,6 @@ export default {
 }
 
 function toastMsg(that, payload) {
-  console.log('payload', payload);
     that.$toasted.show(
         payload.msg,
         {

@@ -167,7 +167,7 @@ export default {
       this.$router.push(`/`);
     },
     addReview(newReview) {
-      const user = this.$store.getters.loggedInUser;
+      const user = this.loggedInUser;
       newReview.userId = user._id;
       newReview.userName = user.userName;
       newReview.imgUrl = user.imgUrl;

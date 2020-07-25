@@ -5,6 +5,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  border-bottom: 1px solid $clr5;
 
   .screen {
     position: fixed;
@@ -108,7 +109,6 @@
 
 @include for-normal-layout {
   .main-header {
-    border-bottom: 1px solid $clr5;
       .logo {
          font-size: rem(35px);
       }
