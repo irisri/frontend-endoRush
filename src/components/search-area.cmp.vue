@@ -60,7 +60,6 @@ export default {
   },
   created() {
     this.tags = this.$store.getters.tags;
-    console.log('this.tags ', this.tags );
     this.filterBy = _.cloneDeep(this.$store.getters.getFilterBy);
   },
   methods: {

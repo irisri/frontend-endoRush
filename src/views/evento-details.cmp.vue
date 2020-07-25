@@ -35,9 +35,10 @@
         <p class="desc">{{evento.description}}</p>
         <div class="category">
           <p>Category: {{evento.category}}</p>
-          <ul class="tags-list flex clean-list" v-if="evento.tags">
-            <li v-for="(tag,index) in evento.tags" :key="index">{{tag}}</li>
-          </ul>
+          <div>
+            Tags:
+            <el-tag class="tags-list flex" v-for="(tag,index) in evento.tags" :key="index">{{tag}}</el-tag>
+          </div>
         </div>
 
         <member-list :members="evento.members" :capacity="evento.capacity"></member-list>

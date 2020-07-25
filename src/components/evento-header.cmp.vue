@@ -57,7 +57,7 @@ export default {
     SocketService.on("chat addMsg", (_msg) => {
       this.msg = _msg;
     });
-    console.log(this.msg);
+    // console.log(this.msg);
   },
   computed: {
     classObject() {

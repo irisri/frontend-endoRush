@@ -26,12 +26,9 @@ export default {
     },
     tags(state) {
       const tags = [];
-      console.log(state.eventos);
       state.eventos.forEach((evento) => {
-        console.log(evento);
         tags.push(...evento.tags);
       });
-      console.log(tags);
       return new Set(tags);
     },
     getFilterBy(state) {

@@ -32,7 +32,6 @@ export default {
   created() {
     this.$store.dispatch({ type: "loadEventos" });
     this.setFilter = _.debounce(this.setFilter, 500);
-    console.log("app");
   }
 };
 </script>

@@ -85,7 +85,7 @@ export default {
       this.ownerUsr = _.cloneDeep(this.$store.getters.user);
       this.rate = this.rateAvg;
     } else {
-      console.log("no id");
+      // console.log("no id");
     }
   },
   components: {
