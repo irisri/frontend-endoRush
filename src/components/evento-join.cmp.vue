@@ -50,35 +50,32 @@ export default {
   },
   methods: {
     addMember() {
-      // console.log("click");
-      // const payload = {};
-      // if (!this.loggedInUser) {
-      //   payload.msg = "Please log in";
-      //   payload.icon = "block";
-      //   toastService.toastMsg(this, payload);
-      //   return setTimeout(() => this.$router.push(`/login`), 1000);
-      // } else {
-      //   if (
-      //     this.evento.members.find(
-      //       (member) => member._id === this.loggedInUser._id
-      //     )
-      //   ) {
-      //     payload.msg = "You are already registered for the event";
-      //     payload.icon = "how_to_reg";
-      //   } else if (this.loggedInUser._id === this.owner._id) {
-      //     payload.msg = "This is you're event!";
-      //     payload.icon = "block";
-      //   } else if (this.evento.capacity - this.evento.members.length === 0) {
-      //     payload.msg = "No spots left";
-      //     payload.icon = "block";
-      //   } else {
+      const payload = {};
+      if (!this.loggedInUser) {
+        payload.msg = "Please log in";
+        payload.icon = "block";
+        toastService.toastMsg(this, payload);
+        return setTimeout(() => this.$router.push(`/login`), 1000);
+      } else {
+        if (
+          this.evento.members.find(
+            (member) => member._id === this.loggedInUser._id
+          )
+        ) {
+          payload.msg = "You are already registered for the event";
+          payload.icon = "how_to_reg";
+        } else if (this.loggedInUser._id === this.owner._id) {
+          payload.msg = "This is you're event!";
+          payload.icon = "block";
+        } else if (this.evento.capacity - this.evento.members.length === 0) {
+          payload.msg = "No spots left";
+          payload.icon = "block";
+        } else {
           this.$emit("addMember");
-      //   }
-      //   if (payload.msg) toastService.toastMsg(this, payload);
-      //   return setTimeout(() => this.$router.push(`/evento`), 1000);
-      // }
-
-      // this.$emit("addMember");
+        }
+        if (payload.msg) toastService.toastMsg(this, payload);
+        return setTimeout(() => this.$router.push(`/evento`), 1000);
+      }
     },
   },
   async created() {

@@ -4,7 +4,7 @@
     margin: 0 auto;
    
     .team-member {
-        padding: 1rem 2rem;
+        padding: 1rem 1rem;
         align-items: center;
         flex-direction: column;
         h4 {
@@ -47,6 +47,12 @@
         }
         .tm-desc {
             max-width: 50%;
+        }
+    }
+    .email {
+        margin-left: 20px;
+        span {
+            cursor: pointer;
         }
     }
 }

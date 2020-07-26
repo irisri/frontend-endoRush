@@ -106,7 +106,8 @@ export default {
       });
     },
     onUploadImg(ev) {
-      this.$emit("onUploadImg", ev);
+      console.log(ev);
+      // this.$emit("onUploadImg", ev);
     },
     handleInputConfirm() {
       let inputValue = this.inputValue;

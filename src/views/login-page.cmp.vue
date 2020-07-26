@@ -15,9 +15,13 @@
         <el-input type="text" v-model="signupCred.fullName" placeholder="Fullname" />
         <el-input type="text" v-model="signupCred.userName" placeholder="Username" />
         <el-input type="text" v-model="signupCred.password" placeholder="Password" />
-        <el-input type="file" @change="onUploadImg" />
+        <!-- <el-input type="file" @change="onUploadImg" /> -->
+        <div class="img-upload">
+          <label for="upload" class="custom-file-upload">Upload image</label>
+          <input type="file" @change="onUploadImg" id="upload" />
+        </div>
         <img :src="signupCred.imgUrl" />
-        
+
         <el-button @click.prevent="doSignup">Signup</el-button>
         <span style="display:none;"></span>
         <el-button @click="signUp=!signUp">Login</el-button>
@@ -34,13 +38,13 @@ export default {
     return {
       loginCred: {},
       signupCred: {},
-      signUp: false
+      signUp: false,
     };
   },
   computed: {
     loggedInUser() {
       return this.$store.getters.loggedInUser;
-    }
+    },
   },
   methods: {
     async onUploadImg(ev) {
@@ -62,8 +66,8 @@ export default {
         return (this.msg = "Please enter username & password");
       await this.$store.dispatch({ type: "signup", userCred: cred });
       this.$router.back();
-    }
-  }
+    },
+  },
 };
 </script>
 

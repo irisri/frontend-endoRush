@@ -86,24 +86,24 @@ export default {
   methods: {
     addMember() {
       const user = this.loggedInUser;
-      if (!user) {
-        this.payload.msg = "Please log in";
-        this.payload.icon = "block";
-        toastService.toastMsg(this, this.payload);
-        return setTimeout(() => this.$router.push(`/login`), 1000);
-      }
-      if (this.evento.members.find((member) => member._id === user._id)) {
-        this.payload.msg = "You are already registered for the event";
-        this.payload.icon = "how_to_reg";
-        console.log("already");
-        return toastService.toastMsg(this, this.payload);
-      }
-      if (!this.evento.members.find((member) => member._id === user._id)) {
-        if (this.spotsLeft === "No") {
-          this.payload.msg = "No spots left";
-          this.payload.icon = "block";
-          toastService.toastMsg(this, this.payload);
-        } else {
+      // if (!user) {
+      //   this.payload.msg = "Please log in";
+      //   this.payload.icon = "block";
+      //   toastService.toastMsg(this, this.payload);
+      //   return setTimeout(() => this.$router.push(`/login`), 1000);
+      // }
+      // if (this.evento.members.find((member) => member._id === user._id)) {
+      //   this.payload.msg = "You are already registered for the event";
+      //   this.payload.icon = "how_to_reg";
+      //   console.log("already");
+      //   return toastService.toastMsg(this, this.payload);
+      // }
+      // if (!this.evento.members.find((member) => member._id === user._id)) {
+      //   if (this.spotsLeft === "No") {
+      //     this.payload.msg = "No spots left";
+      //     this.payload.icon = "block";
+      //     toastService.toastMsg(this, this.payload);
+      //   } else {
           this.isJoined = true;
           this.evento.members.push(user);
           this.$store.dispatch({ type: "addMember", evento: this.evento });
@@ -113,10 +113,9 @@ export default {
 
           var sentMsg = `${user.userName} just joined: ${this.evento.title} `;
           this.sendMsg(sentMsg);
-        }
-
-        return;
-      }
+      //   }
+      //   return;
+      // }
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
