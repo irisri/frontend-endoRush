@@ -47,7 +47,9 @@
       </div>
 
       <div class="join">
-        <p>
+        <evento-join :startTime="evento.startTime" :location="evento.location.name" :reviews="owner.reviews" @click="addMember()"/>
+
+        <!-- <p>
           <i class="el-icon-date"></i>
           &nbsp;&nbsp;{{ evento.startTime | moment("dddd, MMMM Do YYYY") }}
         </p>
@@ -63,7 +65,7 @@
           <i class="el-icon-star-on"></i>
           {{rateAvg}} ({{owner.reviews.length}})
         </p>
-        <button @click="addMember()">I want to join</button>
+        <button @click="addMember()">I want to join</button> -->
       </div>
     </div>
   </div>
@@ -72,6 +74,7 @@
 <script>
 import memberList from "../components/member-list.cmp.vue";
 import reviewList from "../components/review-list.cmp.vue";
+import eventoJoin from "../components/evento-join.cmp.vue";
 import SocketService from "@/services/SocketService";
 import toastService from "@/services/toastService";
 
@@ -87,9 +90,9 @@ export default {
     };
   },
   computed: {
-    timeToShow() {
-      return new Date(this.evento.startTime).toLocaleString();
-    },
+    // timeToShow() {
+    //   return new Date(this.evento.startTime).toLocaleString();
+    // },
     rateAvg() {
       if (!this.owner.reviews) return;
       const avg =
@@ -186,6 +189,7 @@ export default {
   components: {
     memberList,
     reviewList,
+    eventoJoin
   },
 };
 </script>
