@@ -1,71 +1,17 @@
 <template>
   <div v-if="evento" class="evento-details main-container">
-    <div class="title">
-      <h3>{{ evento.title }}</h3>
-      <el-rate v-if="owner.reviews" v-model="rateAvg" disabled>></el-rate>
-    </div>
-    <div class="img-wrapper">
-      <div class="imgs-details">
-        <img
-          v-for="(img, index) in evento.imgUrls"
-          :key="img"
-          :src="img"
-          :class="`image-${index+1}`"
-        />
-      </div>
-    </div>
-
+    <evento-details-header :evento="evento" v-if="owner.reviews" :reviews="owner.reviews"/>
+    
     <div class="details-content flex">
       <div class="info">
-        <p class="capacity">{{spotsLeft}} spots left</p>
-        <div
-          class="owner flex space-between"
-          @click.stop="$router.push(`/user/details/${owner._id}`)"
-        >
-          <div class="flex space-between column">
-            <h3>Orgenised by {{ evento.owner.userName }}</h3>
-            <p class="bio">{{ owner.bio }}</p>
-          </div>
-          <img :src="evento.owner.imgUrl" />
-        </div>
-        <div v-if="isOwner">
-          <el-button size="small" @click="$router.push(`/evento/edit/${evento._id}`)">Edit event</el-button>
-          <el-button size="small" @click="removeEvento()">Delete event</el-button>
-        </div>
-        <p class="desc">{{evento.description}}</p>
-        <div class="category">
-          <p>Category: {{evento.category}}</p>
-          <div>
-            Tags:
-            <el-tag class="tags-list flex" v-for="(tag,index) in evento.tags" :key="index">{{tag}}</el-tag>
-          </div>
-        </div>
-
+        <evento-details-info :evento="evento" v-if="owner" :owner="owner" @removeEvento="removeEvento()"/>
         <member-list :members="evento.members" :capacity="evento.capacity"></member-list>
         <review-list v-if="owner.reviews" :reviews="owner.reviews" @addReview="addReview"></review-list>
         <p v-else>Be the first to comment..</p>
       </div>
 
       <div class="join">
-        <evento-join :startTime="evento.startTime" :location="evento.location.name" :reviews="owner.reviews" @click="addMember()"/>
-
-        <!-- <p>
-          <i class="el-icon-date"></i>
-          &nbsp;&nbsp;{{ evento.startTime | moment("dddd, MMMM Do YYYY") }}
-        </p>
-        <p>
-          <i class="el-icon-time"></i>
-          &nbsp;&nbsp;{{ evento.startTime | moment("h:mm a") }}
-        </p>
-        <p>
-          <i class="el-icon-map-location"></i>
-          {{ evento.location.name }}
-        </p>
-        <p v-if="owner.reviews">
-          <i class="el-icon-star-on"></i>
-          {{rateAvg}} ({{owner.reviews.length}})
-        </p>
-        <button @click="addMember()">I want to join</button> -->
+        <evento-join :evento="evento" v-if="owner" :owner="owner" :loggedInUser="loggedInUser" @addMember="addMember()"/>
       </div>
     </div>
   </div>
@@ -74,6 +20,8 @@
 <script>
 import memberList from "../components/member-list.cmp.vue";
 import reviewList from "../components/review-list.cmp.vue";
+import eventoDetailsHeader from "../components/evento-details-header.cmp.vue";
+import eventoDetailsInfo from "../components/evento-details-info.cmp.vue";
 import eventoJoin from "../components/evento-join.cmp.vue";
 import SocketService from "@/services/SocketService";
 import toastService from "@/services/toastService";
@@ -83,32 +31,17 @@ export default {
     return {
       evento: null,
       owner: "",
-      title: "",
-      payload: {},
+      // title: "",
+      // payload: {},
       loggedInUser: '',
       msg: ''
     };
   },
-  computed: {
-    // timeToShow() {
-    //   return new Date(this.evento.startTime).toLocaleString();
-    // },
-    rateAvg() {
-      if (!this.owner.reviews) return;
-      const avg =
-        this.owner.reviews.reduce((a, b) => a + b.rate, 0) /
-        this.owner.reviews.length;
-      return parseFloat(avg.toFixed(0));
-    },
+    computed: {
     spotsLeft() {
       const spots = this.evento.capacity - this.evento.members.length;
       if (!spots) return "No";
       return spots;
-    },
-    isOwner() {
-      const user = this.$store.getters.loggedInUser;
-      if (!user) return;
-      return this.evento.owner._id === user._id;
     },
   },
   async created() {
@@ -122,7 +55,7 @@ export default {
     const userId = this.evento.owner._id;
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = _.cloneDeep(this.$store.getters.user);
-    this.title = this.evento.title;
+    // this.title = this.evento.title;
     // socket
     SocketService.setup();
     SocketService.emit("of evento", this.evento._id);
@@ -134,33 +67,33 @@ export default {
   },
   methods: {
     addMember() {
-      const user = this.loggedInUser
-      if (!user) {
-        this.payload.msg = "Please log in";
-        this.payload.icon = "block";
-        toastService.toastMsg(this, this.payload);
-        return setTimeout(() => this.$router.push(`/login`), 1000);
-      }
-      if (this.evento.members.find((member) => member._id === user._id)) {
-        this.payload.msg = "You are already registered for the event";
-        this.payload.icon = "how_to_reg";
-        console.log('already');
-        return toastService.toastMsg(this, this.payload);
-      }
-      if (!this.evento.members.find((member) => member._id === user._id)) {
-        if (this.spotsLeft === 'No') {
-          this.payload.msg = "No spots left";
-          this.payload.icon = "block";
-        } else {
+      // const user = this.loggedInUser
+      // if (!user) {
+      //   this.payload.msg = "Please log in";
+      //   this.payload.icon = "block";
+      //   toastService.toastMsg(this, this.payload);
+      //   return setTimeout(() => this.$router.push(`/login`), 1000);
+      // }
+      // if (this.evento.members.find((member) => member._id === user._id)) {
+      //   this.payload.msg = "You are already registered for the event";
+      //   this.payload.icon = "how_to_reg";
+      //   console.log('already');
+      //   return toastService.toastMsg(this, this.payload);
+      // }
+      // if (!this.evento.members.find((member) => member._id === user._id)) {
+      //   if (this.spotsLeft === 'No') {
+      //     this.payload.msg = "No spots left";
+      //     this.payload.icon = "block";
+      //   } else {
           this.evento.members.push(user);
           this.$store.dispatch({ type: "addMember", evento: this.evento });
-          var sentMsg =  `${user.userName} just joined: ${this.title} `
+          var sentMsg =  `${user.userName} just joined: ${this.evento.title} `
           this.sendMsg(sentMsg);
-          this.payload.msg = "You have successfully registered for this event";
-          this.payload.icon = "how_to_reg";
-        }
-        return toastService.toastMsg(this, this.payload);
-      }
+          // this.payload.msg = "You have successfully registered for this event";
+          // this.payload.icon = "how_to_reg";
+        // }
+        // return toastService.toastMsg(this, this.payload);
+      // }
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -189,7 +122,9 @@ export default {
   components: {
     memberList,
     reviewList,
-    eventoJoin
+    eventoJoin,
+    eventoDetailsInfo,
+    eventoDetailsHeader
   },
 };
 </script>
