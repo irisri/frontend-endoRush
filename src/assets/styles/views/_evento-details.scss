@@ -3,6 +3,7 @@
     margin: auto;
 
     .title {
+        text-transform: capitalize;
         line-height: 1;
         letter-spacing: -1px;
         font-size: rem(30px);
@@ -10,11 +11,22 @@
         text-align: left;
         padding-top: 40px;
         padding-bottom: 20px;
-        .el-rate__icon, .el-rate__text {
-            font-size: rem(20px);
+        .rate {
+            margin-top: 10px;
+            .el-rate {
+                font-size: rem(20px);
+                > * {
+                    vertical-align: center;
+                    height: 100%;
+                }
+            }
+            .count {
+                font-size: rem(15px);
+                color: gray;
+            }
         }
     }
-    .img-wrapper {
+        .img-wrapper {
         border-radius: 12px;
         .imgs-details {
             display: grid;
@@ -78,16 +90,6 @@
                     letter-spacing: 0.5px;
                     line-height: 1;
                 }
-                // ul {
-                //     li {
-                //         font-size: rem(18px);
-                //         padding: 10px;
-                //         background-color: $clr3;
-                //         line-height: 1;
-                //         border-radius: 10px;
-                //         margin: 0 5px; 
-                //     }
-                // }
             }
             .owner {
                 font-size: rem(18px);
@@ -112,7 +114,7 @@
         .join {
             display: flex;
             flex-direction: row;
-            text-align: left;
+            align-items: center;
             flex: 30%;
             height: 100%;
             position: -webkit-sticky;
@@ -123,9 +125,30 @@
             padding: 24px;
             background-color: $clr4;
             font-size: rem(20px);
-
+            .join-details {
+                display: flex;
+                flex-direction: column;
+                text-align: left;
+                :nth-child(4) {
+                    display: none;
+                }
+                >*{
+                    display: block;
+                    line-height: 1;
+                    text-transform: capitalize;
+                    margin-right: 2rem;
+                    margin-bottom: 0;
+                    font-size: rem(15px);
+                    font-weight: bold; 
+                }
+                i {
+                    font-size: rem(25px);
+                    padding-right: 5px;
+                    padding-bottom: 5px;
+                }
+            }
             button {
-                font-size: 18px;
+                font-size: 15px;
                 padding: 10px 15px;
                 letter-spacing: 0.7px;
                 cursor: pointer;
@@ -136,24 +159,12 @@
                 text-transform: capitalize;
                 font-weight: bold;
                 margin: 0 auto;
+                float: left;
             }
             button:hover {
                 background: darken($clr1, 5%)
-              }
-            >*{
-                display: block;
-                line-height: 1;
-                text-transform: capitalize;
-                margin-right: 2rem;
-                margin-bottom: 0;
-                font-size: rem(15px);
-                font-weight: bold;
-              }
-            i {
-                font-size: rem(25px);
-                padding-right: 5px;
-                padding-bottom: 5px;
             }
+           
         }
     }
 }
@@ -172,13 +183,22 @@
         .details-content {
             flex-direction: row;
             .join {
-                flex-direction: column;
                 top: 80px;
-                >*{   
-                    margin-bottom: 1rem;
-                    margin-right: 0;
-                    line-height: 2;
-                    font-size: rem(20px);
+                flex-direction: column;
+                align-items: flex-start;
+                .join-details {
+                    >*{   
+                        margin-bottom: 1rem;
+                        margin-right: 0;
+                        line-height: 2;
+                        font-size: rem(20px);
+                    }
+                    :nth-child(4) {
+                        display: block;
+                    }
+                }
+                button {
+                    font-size: 18px;
                 }
             }
         }

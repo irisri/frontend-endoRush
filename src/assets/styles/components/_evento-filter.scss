@@ -1,21 +1,19 @@
 .evento-filter {
-    .search-area {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        max-width: 400px;
-        margin: 0 auto;
-        >* {
-          width: 100%;
-          margin: 5px 0;
-        }
-        .cat-tags {
-          gap: 5px;
-        }
-        .el-select {
-          width: 55%;
-        }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    margin: 0 auto;
+    >* {
+      width: 100%;
+      margin: 5px 0;
+    }
+    .cat-tags {
+      gap: 5px;
+    }
+    .el-select {
+      width: 55%;
     }
 }
 

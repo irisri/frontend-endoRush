@@ -2,7 +2,10 @@
   <div>
     <div class="title">
       <h3>{{ evento.title }}</h3>
-      <el-rate v-if="reviews" v-model="rateAvg" disabled>></el-rate>
+      <div class="flex align-center rate">
+        <el-rate v-if="reviews" v-model="rateAvg" disabled>></el-rate>
+        <p class="count">({{this.reviews.length}})</p>
+      </div>
     </div>
     <div class="img-wrapper">
       <div class="imgs-details">
@@ -26,18 +29,17 @@ export default {
       required: true,
     },
     reviews: {
-        type: Array,
-        required: true,
-    }
+      type: Array,
+      required: true,
+    },
   },
   computed: {
     rateAvg() {
       if (!this.reviews) return;
       const avg =
-        this.reviews.reduce((a, b) => a + b.rate, 0) /
-        this.reviews.length;
+        this.reviews.reduce((a, b) => a + b.rate, 0) / this.reviews.length;
       return parseFloat(avg.toFixed(0));
     },
-  }
+  },
 };
 </script>
