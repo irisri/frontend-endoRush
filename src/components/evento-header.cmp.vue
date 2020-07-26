@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$emit("logout");
+      this.$emit("addMember");
     },
     toggleMenu() {
       this.isOpenMenu = !this.isOpenMenu;

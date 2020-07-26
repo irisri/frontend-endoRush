@@ -1,69 +1,28 @@
 <template>
   <div v-if="evento" class="evento-details main-container">
-    <div class="title">
-      <h3>{{ evento.title }}</h3>
-      <el-rate v-if="owner.reviews" v-model="rateAvg" disabled>></el-rate>
-    </div>
-    <div class="img-wrapper">
-      <div class="imgs-details">
-        <img
-          v-for="(img, index) in evento.imgUrls"
-          :key="img"
-          :src="img"
-          :class="`image-${index+1}`"
-        />
-      </div>
-    </div>
+    <evento-details-header :evento="evento" v-if="owner.reviews" :reviews="owner.reviews" />
 
     <div class="details-content flex">
       <div class="info">
-        <p class="capacity">{{spotsLeft}} spots left</p>
-        <div
-          class="owner flex space-between"
-          @click.stop="$router.push(`/user/details/${owner._id}`)"
-        >
-          <div class="flex space-between column">
-            <h3>Orgenised by {{ evento.owner.userName }}</h3>
-            <p class="bio">{{ owner.bio }}</p>
-          </div>
-          <img :src="evento.owner.imgUrl" />
-        </div>
-        <div v-if="isOwner">
-          <el-button size="small" @click="$router.push(`/evento/edit/${evento._id}`)">Edit event</el-button>
-          <el-button size="small" @click="removeEvento()">Delete event</el-button>
-        </div>
-        <p class="desc">{{evento.description}}</p>
-        <div class="category">
-          <p>Category: {{evento.category}}</p>
-          <div>
-            Tags:
-            <el-tag class="tags-list flex" v-for="(tag,index) in evento.tags" :key="index">{{tag}}</el-tag>
-          </div>
-        </div>
-
+        <evento-details-info
+          :evento="evento"
+          v-if="owner"
+          :owner="owner"
+          @removeEvento="removeEvento()"
+        />
         <member-list :members="evento.members" :capacity="evento.capacity"></member-list>
         <review-list v-if="owner.reviews" :reviews="owner.reviews" @addReview="addReview"></review-list>
         <p v-else>Be the first to comment..</p>
       </div>
 
       <div class="join">
-        <p>
-          <i class="el-icon-date"></i>
-          &nbsp;&nbsp;{{ evento.startTime | moment("dddd, MMMM Do YYYY") }}
-        </p>
-        <p>
-          <i class="el-icon-time"></i>
-          &nbsp;&nbsp;{{ evento.startTime | moment("h:mm a") }}
-        </p>
-        <p>
-          <i class="el-icon-map-location"></i>
-          {{ evento.location.name }}
-        </p>
-        <p v-if="owner.reviews">
-          <i class="el-icon-star-on"></i>
-          {{rateAvg}} ({{owner.reviews.length}})
-        </p>
-        <button @click="addMember()">I want to join</button>
+        <evento-join
+          :evento="evento"
+          v-if="owner"
+          :owner="owner"
+          :loggedInUser="loggedInUser"
+          @addMember="addMember()"
+        />
       </div>
     </div>
   </div>
@@ -72,6 +31,9 @@
 <script>
 import memberList from "../components/member-list.cmp.vue";
 import reviewList from "../components/review-list.cmp.vue";
+import eventoDetailsHeader from "../components/evento-details-header.cmp.vue";
+import eventoDetailsInfo from "../components/evento-details-info.cmp.vue";
+import eventoJoin from "../components/evento-join.cmp.vue";
 import SocketService from "@/services/SocketService";
 import toastService from "@/services/toastService";
 
@@ -80,33 +42,20 @@ export default {
     return {
       evento: null,
       owner: "",
-      title: "",
       payload: {},
-      loggedInUser: '',
-      msg: '',
-      isJoined:false
+      loggedInUser: "",
+      msg: "",
+      isJoined: false,
     };
   },
   computed: {
     timeToShow() {
       return new Date(this.evento.startTime).toLocaleString();
     },
-    rateAvg() {
-      if (!this.owner.reviews) return;
-      const avg =
-        this.owner.reviews.reduce((a, b) => a + b.rate, 0) /
-        this.owner.reviews.length;
-      return parseFloat(avg.toFixed(0));
-    },
     spotsLeft() {
       const spots = this.evento.capacity - this.evento.members.length;
       if (!spots) return "No";
       return spots;
-    },
-    isOwner() {
-      const user = this.$store.getters.loggedInUser;
-      if (!user) return;
-      return this.evento.owner._id === user._id;
     },
   },
   async created() {
@@ -126,18 +75,17 @@ export default {
     SocketService.emit("of evento", this.evento._id);
     SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("chat addMsg", (_msg) => {
-       if(!this.isJoined){
-      toastService.resetToast(this)
-      this.payload = { msg: _msg+'xx', icon: "how_to_reg" };
-      toastService.toastMsg(this, this.payload);
-      this.isJoined=false
-       }
-      
+      if (!this.isJoined) {
+        toastService.resetToast(this);
+        this.payload = { msg: _msg + "xx", icon: "how_to_reg" };
+        toastService.toastMsg(this, this.payload);
+        this.isJoined = false;
+      }
     });
   },
   methods: {
     addMember() {
-      const user = this.loggedInUser
+      const user = this.loggedInUser;
       if (!user) {
         this.payload.msg = "Please log in";
         this.payload.icon = "block";
@@ -147,31 +95,27 @@ export default {
       if (this.evento.members.find((member) => member._id === user._id)) {
         this.payload.msg = "You are already registered for the event";
         this.payload.icon = "how_to_reg";
-        console.log('already');
+        console.log("already");
         return toastService.toastMsg(this, this.payload);
       }
       if (!this.evento.members.find((member) => member._id === user._id)) {
-        if (this.spotsLeft === 'No') {
+        if (this.spotsLeft === "No") {
           this.payload.msg = "No spots left";
           this.payload.icon = "block";
-           toastService.toastMsg(this, this.payload);
+          toastService.toastMsg(this, this.payload);
         } else {
-          this.isJoined=true
+          this.isJoined = true;
           this.evento.members.push(user);
           this.$store.dispatch({ type: "addMember", evento: this.evento });
-
           this.payload.msg = "You have successfully registered for this event";
           this.payload.icon = "how_to_reg";
           toastService.toastMsg(this, this.payload);
-         
-          var sentMsg =  `${user.userName} just joined: ${this.title} `
-           this.sendMsg(sentMsg);
-          
-        }
-      
-        return 
-         
 
+          var sentMsg = `${user.userName} just joined: ${this.evento.title} `;
+          this.sendMsg(sentMsg);
+        }
+
+        return;
       }
     },
     removeEvento(eventoId) {
@@ -190,11 +134,10 @@ export default {
       this.$store.dispatch({ type: "addReview", user: this.owner });
     },
     sendMsg(sentMsg) {
-      setTimeout(function(){
-              SocketService.emit("chat newMsg", sentMsg);
-      this.payload = {};
-        }, 500);
-
+      setTimeout(function () {
+        SocketService.emit("chat newMsg", sentMsg);
+        this.payload = {};
+      }, 500);
     },
   },
   destroyed() {
@@ -204,6 +147,9 @@ export default {
   components: {
     memberList,
     reviewList,
+    eventoJoin,
+    eventoDetailsInfo,
+    eventoDetailsHeader,
   },
 };
 </script>
