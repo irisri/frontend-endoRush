@@ -1,17 +1,28 @@
 <template>
   <div v-if="evento" class="evento-details main-container">
-    <evento-details-header :evento="evento" v-if="owner.reviews" :reviews="owner.reviews"/>
-    
+    <evento-details-header :evento="evento" v-if="owner.reviews" :reviews="owner.reviews" />
+
     <div class="details-content flex">
       <div class="info">
-        <evento-details-info :evento="evento" v-if="owner" :owner="owner" @removeEvento="removeEvento()"/>
+        <evento-details-info
+          :evento="evento"
+          v-if="owner"
+          :owner="owner"
+          @removeEvento="removeEvento()"
+        />
         <member-list :members="evento.members" :capacity="evento.capacity"></member-list>
         <review-list v-if="owner.reviews" :reviews="owner.reviews" @addReview="addReview"></review-list>
         <p v-else>Be the first to comment..</p>
       </div>
 
       <div class="join">
-        <evento-join :evento="evento" v-if="owner" :owner="owner" :loggedInUser="loggedInUser" @addMember="addMember()"/>
+        <evento-join
+          :evento="evento"
+          v-if="owner"
+          :owner="owner"
+          :loggedInUser="loggedInUser"
+          @addMember="addMember()"
+        />
       </div>
     </div>
   </div>
@@ -33,11 +44,11 @@ export default {
       owner: "",
       // title: "",
       // payload: {},
-      loggedInUser: '',
-      msg: ''
+      loggedInUser: "",
+      msg: "",
     };
   },
-    computed: {
+  computed: {
     spotsLeft() {
       const spots = this.evento.capacity - this.evento.members.length;
       if (!spots) return "No";
@@ -61,13 +72,13 @@ export default {
     SocketService.emit("of evento", this.evento._id);
     SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("chat addMsg", (_msg) => {
-      this.payload = { msg: _msg+'xx', icon: "how_to_reg" };
+      this.payload = { msg: _msg + "xx", icon: "how_to_reg" };
       toastService.toastMsg(this, this.payload);
     });
   },
   methods: {
     addMember() {
-      // const user = this.loggedInUser
+      const user = this.loggedInUser;
       // if (!user) {
       //   this.payload.msg = "Please log in";
       //   this.payload.icon = "block";
@@ -85,14 +96,18 @@ export default {
       //     this.payload.msg = "No spots left";
       //     this.payload.icon = "block";
       //   } else {
-          this.evento.members.push(user);
-          this.$store.dispatch({ type: "addMember", evento: this.evento });
-          var sentMsg =  `${user.userName} just joined: ${this.evento.title} `
-          this.sendMsg(sentMsg);
-          // this.payload.msg = "You have successfully registered for this event";
-          // this.payload.icon = "how_to_reg";
-        // }
-        // return toastService.toastMsg(this, this.payload);
+      this.evento.members.push(user);
+      this.$store.dispatch({ type: "addMember", evento: this.evento });
+      var sentMsg = `${user.userName} just joined: ${this.evento.title} `;
+      this.sendMsg(sentMsg);
+      const payload = {
+        msg: "You have successfully registered for this event",
+        icon: "how_to_reg",
+      };
+      console.log('add-mem');
+      
+      return toastService.toastMsg(this, payload);
+      // }
       // }
     },
     removeEvento(eventoId) {
@@ -112,7 +127,8 @@ export default {
     },
     sendMsg(sentMsg) {
       SocketService.emit("chat newMsg", sentMsg);
-      this.payload = {};
+      console.log('sock');
+      // this.payload = {};
     },
   },
   destroyed() {
@@ -124,7 +140,7 @@ export default {
     reviewList,
     eventoJoin,
     eventoDetailsInfo,
-    eventoDetailsHeader
+    eventoDetailsHeader,
   },
 };
 </script>

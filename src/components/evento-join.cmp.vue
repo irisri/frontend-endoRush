@@ -56,14 +56,18 @@ export default {
   methods: {
     addMember() {
       console.log("click");
-      const payload = {}
+      const payload = {};
       if (!this.loggedInUser) {
         payload.msg = "Please log in";
         payload.icon = "block";
         toastService.toastMsg(this, payload);
         return setTimeout(() => this.$router.push(`/login`), 1000);
       } else {
-        if (this.evento.members.find((member) => member._id === this.loggedInUser._id)) {
+        if (
+          this.evento.members.find(
+            (member) => member._id === this.loggedInUser._id
+          )
+        ) {
           payload.msg = "You are already registered for the event";
           payload.icon = "how_to_reg";
         } else if (this.loggedInUser._id === this.owner._id) {
@@ -74,10 +78,8 @@ export default {
           payload.icon = "block";
         } else {
           this.$emit("addMember");
-          payload.msg = "You have successfully registered for this event";
-          payload.icon = "how_to_reg";
         }
-        toastService.toastMsg(this, payload);
+        if (payload.msg) toastService.toastMsg(this, payload);
         return setTimeout(() => this.$router.push(`/evento`), 1000);
       }
 
@@ -85,8 +87,7 @@ export default {
     },
   },
   async created() {
-    // this.loggedInUser = this.$store.getters.loggedInUser;
-  console.log(this.loggedInUser);
-  }
+    console.log(this.loggedInUser);
+  },
 };
 </script>
