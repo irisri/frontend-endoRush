@@ -50,7 +50,6 @@ export default {
     async onUploadImg(ev) {
       const res = await imgService.uploadImg(ev);
       this.signupCred.imgUrl = res.url;
-      console.log('this.signupCred', this.signupCred);
     },
     async doLogin() {
       const cred = this.loginCred;

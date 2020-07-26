@@ -24,7 +24,6 @@ export default {
     mutations: {
         setUser(state, { user }) {
             state.loggedinUser = user;
-            console.log('setUser-store', state.loggedinUser);
         },
         setUsers(state, { users }) {
             state.users = users;
@@ -34,7 +33,6 @@ export default {
         },
         setUserToShow(state, { user }) {
             state.user = user
-            // console.log('userservice', user);
         }
     },
     actions: {
@@ -48,7 +46,6 @@ export default {
             commit({ type: "setUserToShow", user });
         },
         async signup(context, { userCred }) {
-            console.log('userCred-store', {userCred});
             const user = await userService.signup(userCred)
             context.commit({ type: 'setUser', user })
             return user;

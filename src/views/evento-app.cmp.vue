@@ -25,7 +25,6 @@ export default {
       this.$store.dispatch({ type: "loadEventos" });
     },
     removeEvento(eventoId) {
-      console.log({ type: "removeEvento", eventoId });
       this.$store.dispatch({type: 'removeEvento', eventoId});
     }
   },

@@ -84,8 +84,6 @@ export default {
       await this.$store.dispatch({ type: "getUserById", userId });
       this.ownerUsr = _.cloneDeep(this.$store.getters.user);
       this.rate = this.rateAvg;
-    } else {
-      // console.log("no id");
     }
   },
   components: {
