@@ -4,8 +4,6 @@ const BASE_URL = process.env.NODE_ENV === 'production'
     ? '/api/'
     : '//localhost:3030/api/'
 
-// const BASE_URL = 'http://localhost:3000'
-
 import Axios from 'axios';
 var axios = Axios.create({
     withCredentials: true
@@ -26,9 +24,7 @@ export default {
     }
 }
 
-
 async function ajax(endpoint, method='get', data=null) {
-    //  console.log('http', data, 'method', method);
     try {
         const res = await axios({
             url: `${BASE_URL}${endpoint}`,

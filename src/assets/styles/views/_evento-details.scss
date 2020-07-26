@@ -78,24 +78,21 @@
                     letter-spacing: 0.5px;
                     line-height: 1;
                 }
-                ul {
-                    // display:inline-block;
-                    // :not(:last-child)::before {
-                    //     content: "\00B7";
-                    // }
-                    li {
-                        font-size: rem(18px);
-                        padding: 10px;
-                        background-color: $clr3;
-                        line-height: 1;
-                        border-radius: 10px;
-                        margin: 0 5px; 
-                    }
-                }
+                // ul {
+                //     li {
+                //         font-size: rem(18px);
+                //         padding: 10px;
+                //         background-color: $clr3;
+                //         line-height: 1;
+                //         border-radius: 10px;
+                //         margin: 0 5px; 
+                //     }
+                // }
             }
             .owner {
                 font-size: rem(18px);
                 gap: 5%;
+                cursor: pointer;
                 img {
                     border-radius: 50%;
                     height: 60px;
@@ -150,6 +147,7 @@
                 margin-right: 2rem;
                 margin-bottom: 0;
                 font-size: rem(15px);
+                font-weight: bold;
               }
             i {
                 font-size: rem(25px);

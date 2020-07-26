@@ -3,7 +3,7 @@
     <div class="review-header flex space-between align-center rush">
       <h3>Reviews ({{countReviews}})</h3>
       <el-button
-        v-if="!showAddReview"
+        v-if="!showAddReview & !isOwner"
         class="show-add-review-btn"
         @click="showAddReview=!showAddReview"
       >Add Review</el-button>
@@ -43,6 +43,10 @@ export default {
       type: Array,
       required: true,
     },
+    isOwner: {
+      type: Boolean,
+      required: false
+    }
   },
   data() {
     return {
@@ -60,10 +64,7 @@ export default {
       this.showAddReview = false;
       this.$emit("addReview", this.newReview);
     },
-  },
-  created() {
-    console.log(this.reviews);
-  },
+  }
 };
 </script>
 

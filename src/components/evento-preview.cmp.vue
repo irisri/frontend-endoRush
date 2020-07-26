@@ -28,11 +28,9 @@
             <p class="member">
               <i class="el-icon-s-custom"></i>
             </p>&nbsp;
-            <!-- <i class="el-icon-s-custom"></i> -->
             <p>{{evento.members.length}}/{{evento.capacity}}</p>
           </div>
         </div>
-        <!-- <p>Attendees: {{evento.members.length}} / {{evento.capacity}}</p> -->
       </div>
     </div>
   </div>
@@ -87,7 +85,7 @@ export default {
       this.ownerUsr = _.cloneDeep(this.$store.getters.user);
       this.rate = this.rateAvg;
     } else {
-      console.log("no id");
+      // console.log("no id");
     }
   },
   components: {

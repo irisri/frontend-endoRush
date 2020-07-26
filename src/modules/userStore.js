@@ -46,7 +46,6 @@ export default {
         async getUserById({ commit }, { userId }) {
             const user = await userService.getById(userId);
             commit({ type: "setUserToShow", user });
-            // console.log('user', user)
         },
         async signup(context, { userCred }) {
             console.log('userCred-store', {userCred});

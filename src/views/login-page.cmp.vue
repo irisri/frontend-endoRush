@@ -16,7 +16,8 @@
         <el-input type="text" v-model="signupCred.userName" placeholder="Username" />
         <el-input type="text" v-model="signupCred.password" placeholder="Password" />
         <el-input type="file" @change="onUploadImg" />
-        <img :src="signupCred.src" />
+        <img :src="signupCred.imgUrl" />
+        
         <el-button @click.prevent="doSignup">Signup</el-button>
         <span style="display:none;"></span>
         <el-button @click="signUp=!signUp">Login</el-button>
@@ -26,7 +27,7 @@
 </template>
 
 <script>
-import { uploadImg } from "@/services/img-upload.service.js";
+import imgService from "@/services/img-upload.service.js";
 
 export default {
   data() {
@@ -42,25 +43,23 @@ export default {
     }
   },
   methods: {
-    onUploadImg(ev) {
-      this.signupCred.imgUrl = imgService.uploadImg(ev).then(res => (this.signupCred.src = res.url));
+    async onUploadImg(ev) {
+      const res = await imgService.uploadImg(ev);
+      this.signupCred.imgUrl = res.url;
+      console.log('this.signupCred', this.signupCred);
     },
     async doLogin() {
       const cred = this.loginCred;
       if (!cred.userName || !cred.password)
         return (this.msg = "Please enter username/password");
       await this.$store.dispatch({ type: "login", userCred: cred });
-      console.log("cred-login-page", cred);
       this.loginCred = {};
       this.$router.back();
-      // this.$router.push(`/`);
     },
     async doSignup() {
       const cred = this.signupCred;
-      console.log("this.signupCred", this.signupCred);
       if (!cred.fullName || !cred.password || !cred.userName)
         return (this.msg = "Please enter username & password");
-      console.log("this.signupCred", this.signupCred);
       await this.$store.dispatch({ type: "signup", userCred: cred });
       this.$router.back();
     }

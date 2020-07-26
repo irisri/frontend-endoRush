@@ -18,7 +18,10 @@
     <div class="details-content flex">
       <div class="info">
         <p class="capacity">{{spotsLeft}} spots left</p>
-        <div class="owner flex space-between">
+        <div
+          class="owner flex space-between"
+          @click.stop="$router.push(`/user/details/${owner._id}`)"
+        >
           <div class="flex space-between column">
             <h3>Orgenised by {{ evento.owner.userName }}</h3>
             <p class="bio">{{ owner.bio }}</p>
@@ -26,18 +29,16 @@
           <img :src="evento.owner.imgUrl" />
         </div>
         <div v-if="isOwner">
-          <el-button
-            size="small"
-            @click="$router.push(`/evento/edit/${evento._id}`)"
-          >Edit event</el-button>
+          <el-button size="small" @click="$router.push(`/evento/edit/${evento._id}`)">Edit event</el-button>
           <el-button size="small" @click="removeEvento()">Delete event</el-button>
         </div>
         <p class="desc">{{evento.description}}</p>
         <div class="category">
           <p>Category: {{evento.category}}</p>
-          <ul class="tags-list flex clean-list" v-if="evento.tags">
-            <li v-for="(tag,index) in evento.tags" :key="index">{{tag}}</li>
-          </ul>
+          <div>
+            Tags:
+            <el-tag class="tags-list flex" v-for="(tag,index) in evento.tags" :key="index">{{tag}}</el-tag>
+          </div>
         </div>
 
         <member-list :members="evento.members" :capacity="evento.capacity"></member-list>
@@ -65,7 +66,6 @@
         <button @click="addMember()">I want to join</button>
       </div>
     </div>
-    <h1>{{ msg.txt }}</h1>
   </div>
 </template>
 
@@ -81,8 +81,9 @@ export default {
       evento: null,
       owner: "",
       title: "",
-      _userName: "",
-      msg: {},
+      payload: {},
+      loggedInUser: '',
+      msg: ''
     };
   },
   computed: {
@@ -97,7 +98,9 @@ export default {
       return parseFloat(avg.toFixed(0));
     },
     spotsLeft() {
-      return this.evento.capacity - this.evento.members.length;
+      const spots = this.evento.capacity - this.evento.members.length;
+      if (!spots) return "No";
+      return spots;
     },
     isOwner() {
       const user = this.$store.getters.loggedInUser;
@@ -110,6 +113,8 @@ export default {
     const eventoId = this.$route.params.id;
     await this.$store.dispatch({ type: "getById", eventoId });
     this.evento = _.cloneDeep(this.$store.getters.evento);
+    // loggedInUser
+    this.loggedInUser = this.$store.getters.loggedInUser;
     // reviews by owner
     const userId = this.evento.owner._id;
     await this.$store.dispatch({ type: "getUserById", userId });
@@ -120,57 +125,39 @@ export default {
     SocketService.emit("of evento", this.evento._id);
     SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("chat addMsg", (_msg) => {
-      this.msg = _msg;
-      console.log('socket',_msg);
-      const payload = {msg: _msg, icon: "how_to_reg"};
-      toastService.toastMsg(this, payload);
-
-      // setTimeout(function () {
-      //   this.msg = "";
-      // }, 3000);
+      this.payload = { msg: _msg+'xx', icon: "how_to_reg" };
+      toastService.toastMsg(this, this.payload);
     });
-    console.log(this.msg);
   },
   methods: {
     addMember() {
-      const user = this.$store.getters.loggedInUser;
-      const payload = {};
+      const user = this.loggedInUser
       if (!user) {
-        (payload.msg = "Please log in"), (payload.icon = "block");
-        toastService.toastMsg(this, payload);
+        this.payload.msg = "Please log in";
+        this.payload.icon = "block";
+        toastService.toastMsg(this, this.payload);
         return setTimeout(() => this.$router.push(`/login`), 1000);
-        // return console.log('nope')
       }
       if (this.evento.members.find((member) => member._id === user._id)) {
-        payload.msg = "You are already registered for the event";
-        payload.icon = "how_to_reg";
-        return toastService.toastMsg(this, payload);
+        this.payload.msg = "You are already registered for the event";
+        this.payload.icon = "how_to_reg";
+        console.log('already');
+        return toastService.toastMsg(this, this.payload);
       }
       if (!this.evento.members.find((member) => member._id === user._id)) {
-        const payload = {};
-        if (this.spotsLeft === 0) {
-          (payload.msg = "No spots left"), (payload.icon = "block");
+        if (this.spotsLeft === 'No') {
+          this.payload.msg = "No spots left";
+          this.payload.icon = "block";
         } else {
           this.evento.members.push(user);
           this.$store.dispatch({ type: "addMember", evento: this.evento });
-          this._userName = user.userName;
-          var sentMsg = {
-            from: "Me",
-            txt: `${user.userName} just joined: ${this.title} `,
-          };
+          var sentMsg =  `${user.userName} just joined: ${this.title} `
           this.sendMsg(sentMsg);
-          payload.msg = "You have successfully registered for this event";
-          payload.icon = "how_to_reg";
+          this.payload.msg = "You have successfully registered for this event";
+          this.payload.icon = "how_to_reg";
         }
-        return toastService.toastMsg(this, payload);
+        return toastService.toastMsg(this, this.payload);
       }
-
-      //socket msg
-      // var sentMsg = {
-      //   from: "Me",
-      //   txt: `${this._userName} just joined: ${this.title} `,
-      // };
-      // this.sendMsg(sentMsg);
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -180,7 +167,7 @@ export default {
       this.$router.push(`/`);
     },
     addReview(newReview) {
-      const user = this.$store.getters.loggedInUser;
+      const user = this.loggedInUser;
       newReview.userId = user._id;
       newReview.userName = user.userName;
       newReview.imgUrl = user.imgUrl;
@@ -188,10 +175,8 @@ export default {
       this.$store.dispatch({ type: "addReview", user: this.owner });
     },
     sendMsg(sentMsg) {
-      console.log("Sending", sentMsg);
       SocketService.emit("chat newMsg", sentMsg);
-      // SocketService.emit("userNewMsg", sentMsg);
-      this.msg = { from: "Me", txt: "" };
+      this.payload = {};
     },
   },
   destroyed() {
