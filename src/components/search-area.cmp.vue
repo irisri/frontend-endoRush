@@ -50,6 +50,7 @@ export default {
         category: null
       },
       categories: [
+        "All",
         "Weight training",
         "Cardio",
         "Running",

@@ -121,6 +121,7 @@ export default {
     SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("chat addMsg", (_msg) => {
       this.msg = _msg;
+      console.log('socket',_msg);
       const payload = {msg: _msg, icon: "how_to_reg"};
       toastService.toastMsg(this, payload);
 
