@@ -1,7 +1,8 @@
 <template class="main-layout">
   <div class="evento-app main-container">
     <filter-and-add @setFilter="setFilter"></filter-and-add>
-    <evento-list :eventos="eventos" @removeEvento="removeEvento"></evento-list>
+    <evento-list v-if="!isLoading" :eventos="eventos" @removeEvento="removeEvento"></evento-list>
+     <img v-else src="https://1.bp.blogspot.com/-yIhXlQfYN1E/WMksG192LLI/AAAAAAAAA9w/txsqdQfykVksDEFshayeN54c0Gu6C3AAwCLcB/s1600/glow.gif" alt="Loading...">
   </div>
 </template>
 
@@ -13,6 +14,9 @@ export default {
   computed: {
     eventos() {
       return this.$store.getters.eventos;
+    },
+        isLoading() {
+      return this.$store.getters.isLoading
     }
   },
   methods: {

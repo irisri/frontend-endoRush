@@ -21,7 +21,7 @@ export default {
   name: "user-details",
   data() {
     return {
-      userToShow: ""
+      userToShow: "",
     };
   },
   computed: {
@@ -54,6 +54,10 @@ export default {
         return this.userToShow;
       });
     }
+  },
+    destroyed() {
+    SocketService.off("chat addMsg", this.addMsg);
+    SocketService.terminate();
   },
   components: {
     reviewList,
