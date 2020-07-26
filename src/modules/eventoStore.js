@@ -2,6 +2,7 @@ import eventoService from "../services/eventoService.js";
 
 export default {
   state: {
+    isLoading: false,
     eventos: [],
     tags: [],
     currEvento: null,
@@ -15,6 +16,9 @@ export default {
   },
 
   getters: {
+    isLoading(state) {
+      return state.isLoading;
+  },
     eventos(state) {
       return state.eventos;
     },
@@ -37,6 +41,9 @@ export default {
   },
 
   mutations: {
+    setIsLoading(state, { isLoading }) {
+      state.isLoading = isLoading
+  },
     setEventos(state, { eventos }) {
       state.eventos = eventos;
     },
@@ -81,7 +88,9 @@ export default {
       commit({ type: "setCurrEvento", evento });
     },
     async loadEventos({ commit, state }) {
+      commit({ type: 'setIsLoading', isLoading: true })
       const eventos = await eventoService.query(state.filterBy);
+      commit({ type: 'setIsLoading', isLoading: false })
       commit({ type: "setEventos", eventos });
     },
     async removeEvento(context, { eventoId }) {

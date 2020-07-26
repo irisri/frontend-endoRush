@@ -1,5 +1,6 @@
 export default {
-    toastMsg
+    toastMsg,
+     resetToast
 }
 
 function toastMsg(that, payload) {
@@ -14,3 +15,12 @@ function toastMsg(that, payload) {
         }
       );
 }
+
+ function resetToast(that){
+
+   that.$toasted.clear()
+
+ }
+// Toast t = Toast.makeText(this,"Toasttext",Toast.LENGTH_LONG); 
+//  t.show();
+//  t.cancel();

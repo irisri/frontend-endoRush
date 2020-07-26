@@ -21,7 +21,7 @@ export default {
   name: "user-details",
   data() {
     return {
-      userToShow: ""
+      userToShow: "",
     };
   },
   computed: {

@@ -83,7 +83,8 @@ export default {
       title: "",
       payload: {},
       loggedInUser: '',
-      msg: ''
+      msg: '',
+      isJoined:false
     };
   },
   computed: {
@@ -125,8 +126,13 @@ export default {
     SocketService.emit("of evento", this.evento._id);
     SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("chat addMsg", (_msg) => {
+       if(!this.isJoined){
+      toastService.resetToast(this)
       this.payload = { msg: _msg+'xx', icon: "how_to_reg" };
       toastService.toastMsg(this, this.payload);
+      this.isJoined=false
+       }
+      
     });
   },
   methods: {
@@ -148,15 +154,24 @@ export default {
         if (this.spotsLeft === 'No') {
           this.payload.msg = "No spots left";
           this.payload.icon = "block";
+           toastService.toastMsg(this, this.payload);
         } else {
+          this.isJoined=true
           this.evento.members.push(user);
           this.$store.dispatch({ type: "addMember", evento: this.evento });
-          var sentMsg =  `${user.userName} just joined: ${this.title} `
-          this.sendMsg(sentMsg);
+
           this.payload.msg = "You have successfully registered for this event";
           this.payload.icon = "how_to_reg";
+          toastService.toastMsg(this, this.payload);
+         
+          var sentMsg =  `${user.userName} just joined: ${this.title} `
+           this.sendMsg(sentMsg);
+          
         }
-        return toastService.toastMsg(this, this.payload);
+      
+        return 
+         
+
       }
     },
     removeEvento(eventoId) {
@@ -175,8 +190,11 @@ export default {
       this.$store.dispatch({ type: "addReview", user: this.owner });
     },
     sendMsg(sentMsg) {
-      SocketService.emit("chat newMsg", sentMsg);
+      setTimeout(function(){
+              SocketService.emit("chat newMsg", sentMsg);
       this.payload = {};
+        }, 500);
+
     },
   },
   destroyed() {
