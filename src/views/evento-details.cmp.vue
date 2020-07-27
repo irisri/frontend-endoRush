@@ -1,7 +1,10 @@
 <template>
   <div v-if="evento" class="evento-details main-container">
     <evento-details-header :evento="evento" v-if="owner.reviews" :reviews="owner.reviews" />
-
+  <!-- <div v-if="this.userJoined || (this.loggedInUser && this.loggedInUser._id === this.evento.owner._id)">
+        <evento-chat :eventoId="this.evento._id">
+        </evento-chat>
+    </div> -->
     <div class="details-content flex">
       <div class="info">
         <evento-details-info
@@ -15,6 +18,7 @@
         <p v-else>Be the first to comment..</p>
       </div>
 
+
         <evento-join
           :evento="evento"
           v-if="owner"
@@ -23,6 +27,9 @@
           @addMember="addMember()"
         />
     </div>
+
+  
+
   </div>
 </template>
 
@@ -34,6 +41,7 @@ import eventoDetailsInfo from "../components/evento-details-info.cmp.vue";
 import eventoJoin from "../components/evento-join.cmp.vue";
 import SocketService from "@/services/SocketService";
 import toastService from "@/services/toastService";
+import eventoChat from "@/components/evento-chat.cmp.vue";
 
 export default {
   data() {
@@ -44,6 +52,7 @@ export default {
       loggedInUser: "",
       msg: "",
       isJoined: false,
+      userJoined:""
     };
   },
   computed: {
@@ -72,7 +81,8 @@ export default {
     SocketService.setup();
     SocketService.emit("of evento", this.evento._id);
     SocketService.emit("to user", this.evento.owner._id);
-    SocketService.on("chat addMsg", (_msg) => {
+    SocketService.on("sentMsg", (_msg) => {
+      console.log('sent join',_msg)
       if (!this.isJoined) {
         toastService.resetToast(this);
         this.payload = { msg: _msg + "xx", icon: "how_to_reg" };
@@ -84,6 +94,7 @@ export default {
   methods: {
     addMember() {
       const user = this.loggedInUser;
+      this.userJoined = this.loggedInUser
       // if (!user) {
       //   this.payload.msg = "Please log in";
       //   this.payload.icon = "block";
@@ -132,13 +143,13 @@ export default {
     },
     sendMsg(sentMsg) {
       setTimeout(function () {
-        SocketService.emit("chat newMsg", sentMsg);
+        SocketService.emit("newMsg", sentMsg);
         this.payload = {};
       }, 500);
     },
   },
   destroyed() {
-    SocketService.off("chat addMsg", this.addMsg);
+    SocketService.off("sentMsg", this.addMsg);
     SocketService.terminate();
   },
   components: {
@@ -147,6 +158,7 @@ export default {
     eventoJoin,
     eventoDetailsInfo,
     eventoDetailsHeader,
+    eventoChat
   },
 };
 </script>
