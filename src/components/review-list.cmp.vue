@@ -41,7 +41,7 @@ export default {
   props: {
     reviews: {
       type: Array,
-      required: true,
+      required: false,
     },
     isOwner: {
       type: Boolean,
@@ -56,7 +56,8 @@ export default {
   },
   computed: {
     countReviews() {
-      return this.reviews.length;
+      if (this.reviews) return this.reviews.length
+      return 0;
     },
   },
   methods: {

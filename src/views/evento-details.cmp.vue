@@ -10,8 +10,8 @@
           @removeEvento="removeEvento()"
         />
         <member-list :members="evento.members" :capacity="evento.capacity"></member-list>
-        <review-list v-if="owner.reviews" :reviews="owner.reviews" @addReview="addReview"></review-list>
-        <p v-else>Be the first to comment..</p>
+        <review-list :reviews="owner.reviews" @addReview="addReview"></review-list>
+        <p v-if="!owner.reviews" >Be the first to comment..</p>
       </div>
 
       <evento-join

@@ -45,7 +45,7 @@
       <div class="tm-desc flex align-center">
         <div class="large text-dark about-description">
           <p>B.Sc. Industrial Engineering and Management, major in Information Systems.</p>
-          <p>Project manager in the field of ERP systems.</p>
+          <p>ERP Project manager.</p>
           <p>Looking for a full stack developer position.</p>
         </div>
       </div>
