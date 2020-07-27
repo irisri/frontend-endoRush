@@ -61,6 +61,7 @@ export default {
       return moment(this.evento.startTime).format("l");
     },
     rateAvg() {
+      if (!this.ownerUsr.reviews) return 0;
       const avg =
         this.ownerUsr.reviews.reduce((a, b) => a + b.rate, 0) /
         this.ownerUsr.reviews.length;
