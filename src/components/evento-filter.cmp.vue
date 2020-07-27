@@ -17,15 +17,6 @@
       >
         <el-option v-for="item in categories" :key="item" :label="item" :value="item"></el-option>
       </el-select>
-      <!-- <el-select
-        v-model="filterBy.tags"
-        multiple
-        @change="setFilter"
-        placeholder="Tags"
-        :selected="filterBy.tags"
-      >
-        <el-option v-for="item in tags" :key="item" :label="item" :value="item"></el-option>
-      </el-select>-->
       <el-select v-model="filterBy.time" @change="setFilter" placeholder="Day">
         <el-option v-for="item in dates" :key="item" :label="item" :value="item"></el-option>
       </el-select>
@@ -68,6 +59,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

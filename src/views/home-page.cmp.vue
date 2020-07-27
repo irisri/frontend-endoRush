@@ -64,7 +64,6 @@ export default {
     this.$store.commit({ type: "updateFilterBy", filter: cleanFilter });
     await this.$store.dispatch({ type: "loadEventos" });
     this.topThree = this.$store.getters.topThree;
-    // this.setFilter = _.debounce(this.setFilter, 800);
   },
   methods: {
     setFilter() {
