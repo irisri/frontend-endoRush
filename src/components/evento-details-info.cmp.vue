@@ -42,15 +42,16 @@ export default {
       if (!spots) return "No";
       return spots;
     },
+    isOwner() {
+      const user = this.$store.getters.loggedInUser;
+      console.log(user);
+      if (user) return;
+      return this.evento.owner._id === user._id;
+    },
   },
   methods: {
     removeEvento() {
       this.$emit("removeEvento");
-    },
-    isOwner() {
-      const user = this.$store.getters.loggedInUser;
-      if (!user) return;
-      return this.evento.owner._id === user._id;
     },
   },
 };
