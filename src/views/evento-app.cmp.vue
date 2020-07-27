@@ -2,7 +2,11 @@
   <div class="evento-app main-container">
     <evento-filter @setFilter="setFilter"></evento-filter>
     <evento-list v-if="!isLoading" :eventos="eventos" @removeEvento="removeEvento"></evento-list>
-     <img v-else src="https://1.bp.blogspot.com/-yIhXlQfYN1E/WMksG192LLI/AAAAAAAAA9w/txsqdQfykVksDEFshayeN54c0Gu6C3AAwCLcB/s1600/glow.gif" alt="Loading...">
+    <img style="margin: 0 auto;"
+      v-else
+      src="https://1.bp.blogspot.com/-yIhXlQfYN1E/WMksG192LLI/AAAAAAAAA9w/txsqdQfykVksDEFshayeN54c0Gu6C3AAwCLcB/s1600/glow.gif"
+      alt="Loading..."
+    />
   </div>
 </template>
 
@@ -15,29 +19,35 @@ export default {
     eventos() {
       return this.$store.getters.eventos;
     },
-        isLoading() {
-      return this.$store.getters.isLoading
-    }
+    isLoading() {
+      return this.$store.getters.isLoading;
+    },
   },
   methods: {
     setFilter(filterBy) {
-      this.$store.commit({ type: "updateFilterBy", filter: _.cloneDeep(filterBy) });
+      this.$store.commit({
+        type: "updateFilterBy",
+        filter: _.cloneDeep(filterBy),
+      });
       this.$store.dispatch({ type: "loadEventos" });
     },
     removeEvento(eventoId) {
-      this.$store.dispatch({type: 'removeEvento', eventoId});
-    }
+      this.$store.dispatch({ type: "removeEvento", eventoId });
+    },
   },
   components: {
     eventoList,
-    eventoFilter
+    eventoFilter,
   },
   created() {
     this.$store.dispatch({ type: "loadEventos" });
     this.setFilter = _.debounce(this.setFilter, 500);
-  }
+  },
 };
 </script>
 
-<style>
-</style>
+<style scoped>
+  img {
+    margin: 0 auto;
+  }
+</style>>

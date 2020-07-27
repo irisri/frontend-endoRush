@@ -15,7 +15,6 @@
         <el-input type="text" v-model="signupCred.fullName" placeholder="Fullname" />
         <el-input type="text" v-model="signupCred.userName" placeholder="Username" />
         <el-input type="text" v-model="signupCred.password" placeholder="Password" />
-        <!-- <el-input type="file" @change="onUploadImg" /> -->
         <div class="img-upload">
           <label for="upload" class="custom-file-upload">Upload image</label>
           <input type="file" @change="onUploadImg" id="upload" />

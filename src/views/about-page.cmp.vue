@@ -7,6 +7,7 @@
       <div class="tm-dit">
         <h4>Ofra Bargad</h4>
         <p class="text-dark">Web developer</p>
+        <span class="material-icons" @click="emailMe('ofra.bargad@gmail.com')">email</span>
       </div>
       <div class="tm-desc flex align-center">
         <p class="large text-dark about-description">
@@ -30,9 +31,6 @@
           class="large text-dark about-description"
         >I currenty live in Tel-Aviv and I'm looking for a job as a junior web developer.</p>
       </div>
-      <!-- <div class="email">
-        <span class="material-icons" @click="emailMe('irisrifold.gmail.com')">email</span>
-      </div> -->
     </div>
     <hr />
     <div class="team-member flex justify-center">
@@ -42,14 +40,14 @@
       <div class="tm-dit">
         <h4>Lee Dror</h4>
         <p class="text-dark">Web developer</p>
-         <span class="material-icons" @click="emailMe('leedror33.gmail.com')">email</span>
+        <span class="material-icons" @click="emailMe('leedror33.gmail.com')">email</span>
       </div>
       <div class="tm-desc flex align-center">
-        <p class="large text-dark about-description">
-          B.Sc. Industrial Engineering and Management, major in Information Systems.
-          Project manager in the field of ERP systems.
-          Looking for a full stack developer position.
-        </p>
+        <div class="large text-dark about-description">
+          <p>B.Sc. Industrial Engineering and Management, major in Information Systems.</p>
+          <p>Project manager in the field of ERP systems.</p>
+          <p>Looking for a full stack developer position.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -58,11 +56,6 @@
 <script>
 export default {
   name: "about-page",
-  data() {
-    return {
-      isOpen: false,
-    };
-  },
   methods: {
     emailMe(email) {
       window.open(`mailto: ${email}`);

@@ -3,7 +3,7 @@
     <div class="home-img-container full">
       <div class="parallax flex align-center justify-center">
         <div class="on-picture">
-          <h2>Create and manage your workout activitys with others</h2>
+          <h2>Join your next workout</h2>
           <div class="search flex align-center justify-center">
             <el-input
               placeholder="Try 'Triathlon'"

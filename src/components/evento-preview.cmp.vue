@@ -58,15 +58,7 @@ export default {
   },
   computed: {
     timeToShow() {
-      const nextWeek = new Date();
-      nextWeek.setDate(nextWeek.getDate() + 7);
-      const nextYear = new Date();
-      nextYear.setDate(nextYear.getDate() + 365);
-      if (this.evento.startTime < nextWeek)
-        return moment(this.evento.startTime).fromNow();
-      if (this.evento.startTime > nextYear)
-        return moment(this.evento.startTime).format("MMM Do YY");
-      else return moment(this.evento.startTime).format("LL");
+      return moment(this.evento.startTime).format("l");
     },
     rateAvg() {
       const avg =
