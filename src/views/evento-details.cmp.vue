@@ -1,7 +1,10 @@
 <template>
   <div v-if="evento" class="evento-details main-container">
     <evento-details-header :evento="evento" v-if="owner.reviews" :reviews="owner.reviews" />
-
+  <!-- <div v-if="this.userJoined || (this.loggedInUser && this.loggedInUser._id === this.evento.owner._id)">
+        <evento-chat :eventoId="this.evento._id">
+        </evento-chat>
+    </div> -->
     <div class="details-content flex">
       <div class="info">
         <evento-details-info
@@ -15,6 +18,7 @@
         <p v-else>Be the first to comment..</p>
       </div>
 
+
         <evento-join
           :evento="evento"
           v-if="owner"
@@ -24,10 +28,7 @@
         />
     </div>
 
-    <div v-if="this.userJoined || (this.loggedInUser && this.loggedInUser._id === this.evento.owner._id)">
-        <evento-chat :eventoId="this.evento._id">
-        </evento-chat>
-    </div>
+  
 
   </div>
 </template>
@@ -81,6 +82,7 @@ export default {
     SocketService.emit("of evento", this.evento._id);
     SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("sentMsg", (_msg) => {
+      console.log('sent join',_msg)
       if (!this.isJoined) {
         toastService.resetToast(this);
         this.payload = { msg: _msg + "xx", icon: "how_to_reg" };

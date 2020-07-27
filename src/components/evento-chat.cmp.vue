@@ -43,16 +43,20 @@ export default {
     // })
 
     SocketService.emit('chat join', {user: this.user, eventoId: this.eventoId});
+
+    // SocketService.emit('chat join', {eventoId: this.eventoId});
+
+    console.log('cre user',this.eventoId)
     
     SocketService.on('chat newMsg', (msg)=>{
- 
+    console.log('msg',msg)      
         this.messages.push(msg);
         console.log('msg',msg)
-        setTimeout(() => {
-            if (this.$refs.msgsList) {
-                this.$refs.msgsList.scrollTo({top: this.$refs.msgsList.scrollHeight, behavior: 'smooth'});
-            }
-        }, 20);
+        // setTimeout(() => {
+        //     if (this.$refs.msgsList) {
+        //         this.$refs.msgsList.scrollTo({top: this.$refs.msgsList.scrollHeight, behavior: 'smooth'});
+        //     }
+        // }, 20);
     });
   },
 
