@@ -17,7 +17,7 @@
       <p>Category: {{evento.category}}</p>
       <div>
         Tags:
-        <el-tag class="tags-list flex" v-for="(tag,index) in evento.tags" :key="index">{{tag}}</el-tag>
+        <el-tag class="tags-list" v-for="(tag,index) in evento.tags" :key="index">{{tag}}</el-tag>
       </div>
     </div>
   </div>
