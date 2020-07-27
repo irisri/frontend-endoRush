@@ -46,8 +46,5 @@ export default {
 };
 </script>
 
-<style scoped>
-  img {
-    margin: 0 auto;
-  }
+<style>
 </style>>

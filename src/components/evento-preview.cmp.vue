@@ -9,7 +9,7 @@
       <div class="owner-rate flex space-between">
         <div class="owner flex">
           <img :src="ownerUsr.imgUrl" />
-          <p>{{ ownerUsr.userName }}</p>
+          <p>{{ ownerUsr.fullName }}</p>
         </div>
         <div class="rate flex align-center" v-if="ownerUsr.reviews">
           <p class="star">
