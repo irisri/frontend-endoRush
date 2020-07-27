@@ -1,10 +1,6 @@
 <template>
   <div v-if="evento" class="evento-details main-container">
     <evento-details-header :evento="evento" v-if="owner.reviews" :reviews="owner.reviews" />
-  <!-- <div v-if="this.userJoined || (this.loggedInUser && this.loggedInUser._id === this.evento.owner._id)">
-        <evento-chat :eventoId="this.evento._id">
-        </evento-chat>
-    </div> -->
     <div class="details-content flex">
       <div class="info">
         <evento-details-info
@@ -14,22 +10,18 @@
           @removeEvento="removeEvento()"
         />
         <member-list :members="evento.members" :capacity="evento.capacity"></member-list>
-        <review-list v-if="owner.reviews" :reviews="owner.reviews" @addReview="addReview"></review-list>
-        <p v-else>Be the first to comment..</p>
+        <review-list :reviews="owner.reviews" @addReview="addReview"></review-list>
+        <p v-if="!owner.reviews" >Be the first to comment..</p>
       </div>
 
-
-        <evento-join
-          :evento="evento"
-          v-if="owner"
-          :owner="owner"
-          :loggedInUser="loggedInUser"
-          @addMember="addMember()"
-        />
+      <evento-join
+        :evento="evento"
+        v-if="owner"
+        :owner="owner"
+        :loggedInUser="loggedInUser"
+        @addMember="addMember()"
+      />
     </div>
-
-  
-
   </div>
 </template>
 
@@ -52,7 +44,7 @@ export default {
       loggedInUser: "",
       msg: "",
       isJoined: false,
-      userJoined:""
+      userJoined: "",
     };
   },
   computed: {
@@ -82,7 +74,7 @@ export default {
     SocketService.emit("of evento", this.evento._id);
     SocketService.emit("to user", this.evento.owner._id);
     SocketService.on("sentMsg", (_msg) => {
-      console.log('sent join',_msg)
+      console.log("sent join", _msg);
       if (!this.isJoined) {
         toastService.resetToast(this);
         this.payload = { msg: _msg + "xx", icon: "how_to_reg" };
@@ -94,37 +86,15 @@ export default {
   methods: {
     addMember() {
       const user = this.loggedInUser;
-      this.userJoined = this.loggedInUser
-      // if (!user) {
-      //   this.payload.msg = "Please log in";
-      //   this.payload.icon = "block";
-      //   toastService.toastMsg(this, this.payload);
-      //   return setTimeout(() => this.$router.push(`/login`), 1000);
-      // }
-      // if (this.evento.members.find((member) => member._id === user._id)) {
-      //   this.payload.msg = "You are already registered for the event";
-      //   this.payload.icon = "how_to_reg";
-      //   console.log("already");
-      //   return toastService.toastMsg(this, this.payload);
-      // }
-      // if (!this.evento.members.find((member) => member._id === user._id)) {
-      //   if (this.spotsLeft === "No") {
-      //     this.payload.msg = "No spots left";
-      //     this.payload.icon = "block";
-      //     toastService.toastMsg(this, this.payload);
-      //   } else {
-          this.isJoined = true;
-          this.evento.members.push(user);
-          this.$store.dispatch({ type: "addMember", evento: this.evento });
-          this.payload.msg = "You have successfully registered for this event";
-          this.payload.icon = "how_to_reg";
-          toastService.toastMsg(this, this.payload);
-
-          var sentMsg = `${user.userName} just joined: ${this.evento.title} `;
-          this.sendMsg(sentMsg);
-      //   }
-      //   return;
-      // }
+      this.userJoined = this.loggedInUser;
+      this.isJoined = true;
+      this.evento.members.push(user);
+      this.$store.dispatch({ type: "addMember", evento: this.evento });
+      this.payload.msg = "You have successfully registered for this event";
+      this.payload.icon = "how_to_reg";
+      toastService.toastMsg(this, this.payload);
+      var sentMsg = `${user.userName} just joined: ${this.evento.title} `;
+      this.sendMsg(sentMsg);
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -158,10 +128,7 @@ export default {
     eventoJoin,
     eventoDetailsInfo,
     eventoDetailsHeader,
-    eventoChat
+    eventoChat,
   },
 };
 </script>
-
-<style>
-</style>

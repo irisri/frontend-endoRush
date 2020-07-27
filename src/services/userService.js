@@ -1,5 +1,4 @@
 import HttpService from './HttpService'
-import axios from 'axios';
 
 export const userService = {
     login,

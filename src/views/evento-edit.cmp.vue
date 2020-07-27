@@ -57,7 +57,6 @@ export default {
       this.$router.push("/");
     },
     removeImg(imgUrl) {
-      // imgService.deleteImg(imgUrl)
       const index = this.evento.imgUrls.findIndex(img => img === imgUrl);
       this.evento.imgUrls.splice(index, 1);
     }

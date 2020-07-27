@@ -76,12 +76,8 @@ export default {
           this.$emit("addMember");
         }
         if (payload.msg) toastService.toastMsg(this, payload);
-        // return setTimeout(() => this.$router.push(`/evento`), 1000);
       }
     },
-  },
-  async created() {
-    console.log(this.loggedInUser);
   },
 };
 </script>

@@ -9,13 +9,13 @@
       <div class="owner-rate flex space-between">
         <div class="owner flex">
           <img :src="ownerUsr.imgUrl" />
-          <p>{{ ownerUsr.userName }}</p>
+          <p>{{ ownerUsr.fullName }}</p>
         </div>
         <div class="rate flex align-center" v-if="ownerUsr.reviews">
           <p class="star">
             <i class="el-icon-star-on"></i>
           </p>
-          <p class="avg">{{rateAvg}}</p>
+          <p class="avg" v-if="this.ownerUsr.reviews">{{rateAvg}}</p>
           <p class="count">&nbsp;({{ownerUsr.reviews.length}})</p>
         </div>
       </div>
@@ -47,13 +47,13 @@ export default {
   props: {
     evento: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       img: this.evento.imgUrls[0],
-      ownerUsr: ""
+      ownerUsr: "",
     };
   },
   computed: {
@@ -61,6 +61,7 @@ export default {
       return moment(this.evento.startTime).format("l");
     },
     rateAvg() {
+      if (!this.ownerUsr.reviews) return 0;
       const avg =
         this.ownerUsr.reviews.reduce((a, b) => a + b.rate, 0) /
         this.ownerUsr.reviews.length;
@@ -68,7 +69,7 @@ export default {
     },
     spotsLeft() {
       return this.evento.capacity - this.evento.members.length;
-    }
+    },
   },
   async created() {
     const userId = this.evento.owner._id;
@@ -79,7 +80,7 @@ export default {
     }
   },
   components: {
-    imgCarouselLazy
-  }
+    imgCarouselLazy,
+  },
 };
 </script>

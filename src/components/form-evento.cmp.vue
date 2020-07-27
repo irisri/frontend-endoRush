@@ -77,7 +77,12 @@
 <script>
 export default {
   name: "title-description",
-  props: ["evento"],
+  props: {
+    evento: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       inputVisible: false,
