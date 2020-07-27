@@ -11,8 +11,7 @@
       </div>
       <div class="tm-desc flex align-center">
         <p class="large text-dark about-description">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut
-          eaque, laboriosam veritatis, quos non quis ad perspiciatis.
+          Full-stack web developer and experienced coder. Live in Givat Shmuel.     
         </p>
       </div>
     </div>
