@@ -48,7 +48,7 @@ export default {
       this.userToShow = this.$store.getters.user;
       SocketService.setup();
       SocketService.emit("to user", this.userToShow._id);
-      SocketService.on("chat addMsg", (_msg) => {
+      SocketService.on("sentMsg", (_msg) => {
         const payload = { msg: _msg, icon: "how_to_reg" };
         toastService.toastMsg(this, payload);
         return this.userToShow;
@@ -56,7 +56,7 @@ export default {
     }
   },
     destroyed() {
-    SocketService.off("chat addMsg", this.addMsg);
+    SocketService.off("sentMsg", this.addMsg);
     SocketService.terminate();
   },
   components: {
