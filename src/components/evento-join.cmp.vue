@@ -1,21 +1,23 @@
 <template>
-  <div>
-    <p>
-      <i class="el-icon-date"></i>
-      &nbsp;&nbsp;{{ evento.startTime | moment("dddd, MMMM Do YYYY") }}
-    </p>
-    <p>
-      <i class="el-icon-time"></i>
-      &nbsp;&nbsp;{{ evento.startTime | moment("h:mm a") }}
-    </p>
-    <p>
-      <i class="el-icon-map-location"></i>
-      {{ evento.location.name }}
-    </p>
-    <p v-if="owner.reviews">
-      <i class="el-icon-star-on"></i>
-      {{rateAvg}} ({{owner.reviews.length}})
-    </p>
+  <div class="join">
+    <div class="join-details">
+      <p>
+        <i class="el-icon-date"></i>
+        &nbsp;&nbsp;{{ evento.startTime | moment("dddd, MMMM Do YYYY") }}
+      </p>
+      <p>
+        <i class="el-icon-time"></i>
+        &nbsp;&nbsp;{{ evento.startTime | moment("h:mm a") }}
+      </p>
+      <p>
+        <i class="el-icon-map-location"></i>
+        {{ evento.location.name }}
+      </p>
+      <p v-if="owner.reviews">
+        <i class="el-icon-star-on"></i>
+        {{rateAvg}} ({{owner.reviews.length}})
+      </p>
+    </div>
     <button @click="addMember">I want to join</button>
   </div>
 </template>

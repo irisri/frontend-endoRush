@@ -1,6 +1,6 @@
 <template class="main-layout">
   <div class="evento-app main-container">
-    <filter-and-add @setFilter="setFilter"></filter-and-add>
+    <evento-filter @setFilter="setFilter"></evento-filter>
     <evento-list v-if="!isLoading" :eventos="eventos" @removeEvento="removeEvento"></evento-list>
      <img v-else src="https://1.bp.blogspot.com/-yIhXlQfYN1E/WMksG192LLI/AAAAAAAAA9w/txsqdQfykVksDEFshayeN54c0Gu6C3AAwCLcB/s1600/glow.gif" alt="Loading...">
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 import eventoList from "../components/evento-list.cmp.vue";
-import filterAndAdd from "../components/filter-and-add.cmp.vue";
+import eventoFilter from "../components/evento-filter.cmp.vue";
 
 export default {
   computed: {
@@ -25,13 +25,12 @@ export default {
       this.$store.dispatch({ type: "loadEventos" });
     },
     removeEvento(eventoId) {
-      console.log({ type: "removeEvento", eventoId });
       this.$store.dispatch({type: 'removeEvento', eventoId});
     }
   },
   components: {
     eventoList,
-    filterAndAdd
+    eventoFilter
   },
   created() {
     this.$store.dispatch({ type: "loadEventos" });

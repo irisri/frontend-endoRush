@@ -15,7 +15,6 @@
         <p v-else>Be the first to comment..</p>
       </div>
 
-      <div class="join">
         <evento-join
           :evento="evento"
           v-if="owner"
@@ -23,7 +22,6 @@
           :loggedInUser="loggedInUser"
           @addMember="addMember()"
         />
-      </div>
     </div>
 
     <div v-if="this.userJoined || (this.loggedInUser && this.loggedInUser._id === this.evento.owner._id)">

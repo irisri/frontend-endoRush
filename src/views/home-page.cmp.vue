@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <h3>Chack out our top trending events</h3>
+    <h2>Chack out our top trending events</h2>
     <evento-list v-if="topThree" :eventos="topThree"></evento-list>
   </section>
 </template>

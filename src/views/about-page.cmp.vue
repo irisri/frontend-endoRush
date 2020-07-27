@@ -23,15 +23,16 @@
       <div class="tm-dit">
         <h4>Iris Rifold</h4>
         <p class="text-dark">Web developer</p>
+        <span class="material-icons" @click="emailMe('irisrifold.gmail.com')">email</span>
       </div>
       <div class="tm-desc flex align-center">
         <p
           class="large text-dark about-description"
         >I currenty live in Tel-Aviv and I'm looking for a job as a junior web developer.</p>
       </div>
-      <div class="email">
+      <!-- <div class="email">
         <span class="material-icons" @click="emailMe('irisrifold.gmail.com')">email</span>
-      </div>
+      </div> -->
     </div>
     <hr />
     <div class="team-member flex justify-center">
@@ -41,20 +42,20 @@
       <div class="tm-dit">
         <h4>Lee Dror</h4>
         <p class="text-dark">Web developer</p>
+         <span class="material-icons" @click="emailMe('leedror33.gmail.com')">email</span>
       </div>
       <div class="tm-desc flex align-center">
         <p class="large text-dark about-description">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut
-          eaque, laboriosam veritatis, quos non quis ad perspiciatis.
+          B.Sc. Industrial Engineering and Management, major in Information Systems.
+          Project manager in the field of ERP systems.
+          Looking for a full stack developer position.
         </p>
       </div>
     </div>
-
   </section>
 </template>
 
 <script>
-
 export default {
   name: "about-page",
   data() {
@@ -67,7 +68,6 @@ export default {
       window.open(`mailto: ${email}`);
     },
   },
-  
 };
 </script>
 
