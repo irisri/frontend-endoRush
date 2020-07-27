@@ -13,7 +13,6 @@
     <span class="btn-menu material-icons" @click.stop="toggleMenu">menu</span>
     <nav class="main-nav" @click.stop="isOpenMenu= false">
       <router-link v-if="user" class="new-event" to="/evento/edit">Create new event</router-link>
-      <!-- <span v-if="user">|</span> -->
       <router-link to="/evento">Events</router-link>
       <span>|</span>
       <router-link to="/about">About</router-link>
@@ -70,5 +69,3 @@ export default {
 };
 </script>
 
-<style>
-</style>
