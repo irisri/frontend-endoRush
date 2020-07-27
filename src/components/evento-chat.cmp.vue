@@ -47,7 +47,7 @@ export default {
     SocketService.on('chat newMsg', (msg)=>{
  
         this.messages.push(msg);
-       console.log('msg',msg)
+        console.log('msg',msg)
         setTimeout(() => {
             if (this.$refs.msgsList) {
                 this.$refs.msgsList.scrollTo({top: this.$refs.msgsList.scrollHeight, behavior: 'smooth'});
