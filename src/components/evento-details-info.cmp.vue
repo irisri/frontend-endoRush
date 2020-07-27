@@ -45,7 +45,7 @@ export default {
     isOwner() {
       const user = this.$store.getters.loggedInUser;
       console.log(user);
-      if (user) return;
+      if (!user) return;
       return this.evento.owner._id === user._id;
     },
   },
