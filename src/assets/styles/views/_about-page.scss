@@ -44,15 +44,12 @@
                     color: $clr3;
                 }
             }
+            span {
+                cursor: pointer;
+            }
         }
         .tm-desc {
             max-width: 50%;
-        }
-    }
-    .email {
-        margin-left: 20px;
-        span {
-            cursor: pointer;
         }
     }
 }

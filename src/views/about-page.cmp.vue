@@ -6,7 +6,7 @@
       </div>
       <div class="tm-dit">
         <h4>Ofra Bargad</h4>
-        <p class="text-dark">Web developer</p>
+        <p class="text-dark">Full stack developer</p>
         <span class="material-icons" @click="emailMe('ofra.bargad@gmail.com')">email</span>
       </div>
       <div class="tm-desc flex align-center">
@@ -22,13 +22,13 @@
       </div>
       <div class="tm-dit">
         <h4>Iris Rifold</h4>
-        <p class="text-dark">Web developer</p>
+        <p class="text-dark">Full stack developer</p>
         <span class="material-icons" @click="emailMe('irisrifold.gmail.com')">email</span>
       </div>
       <div class="tm-desc flex align-center">
         <p
           class="large text-dark about-description"
-        >I currenty live in Tel-Aviv and I'm looking for a job as a junior web developer.</p>
+        >I currenty live in Tel-Aviv and I'm looking for a job as a junior full developer.</p>
       </div>
     </div>
     <hr />
@@ -38,7 +38,7 @@
       </div>
       <div class="tm-dit">
         <h4>Lee Dror</h4>
-        <p class="text-dark">Web developer</p>
+        <p class="text-dark">Full stack developer</p>
         <span class="material-icons" @click="emailMe('leedror33.gmail.com')">email</span>
       </div>
       <div class="tm-desc flex align-center">
