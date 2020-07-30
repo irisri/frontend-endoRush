@@ -58,17 +58,17 @@ function _getParams(filterBy) {
     if (filterBy.category !== "All") queryParams.set('category', filterBy.category);
     if (filterBy.tags) queryParams.set('tags', filterBy.tags);
     if (filterBy.location) queryParams.set(location, filterBy.location)
-    if (filterBy.timeAndDate) {
-        if (filterBy.timeAndDate === 'Any day') {
-            queryParams.set('timeAndDate', 'all');
-        } else if (filterBy.timeAndDate === 'Today') {
-            queryParams.set('timeAndDate', 'Today');
-        } else if (filterBy.timeAndDate === 'Tomorrow') {
-            queryParams.set('timeAndDate', 'Tomorrow');
-        } else if (filterBy.timeAndDate === 'This week') {
-            queryParams.set('timeAndDate', 'This week');
-        } else if (filterBy.timeAndDate === 'Next week') {
-            queryParams.set('timeAndDate', 'Next week');
+    if (filterBy.date) {
+        if (filterBy.date === 'Any day') {
+            queryParams.set('date', 'all');
+        } else if (filterBy.date === 'Today') {
+            queryParams.set('date', 'Today');
+        } else if (filterBy.date === 'Tomorrow') {
+            queryParams.set('date', 'Tomorrow');
+        } else if (filterBy.date === 'This week') {
+            queryParams.set('date', 'This week');
+        } else if (filterBy.date === 'Next week') {
+            queryParams.set('date', 'Next week');
         }
     }
     return queryParams;

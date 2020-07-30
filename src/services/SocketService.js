@@ -9,7 +9,7 @@ export default {
     terminate,
     on,
     off,
-    emit    
+    emit,
 }
 
 function setup() {
@@ -20,14 +20,14 @@ function terminate() {
     socket = null;
 }
 
-function on(eventName, cb) {
-    socket.on(eventName, cb)
+function on(trigger, cb) {
+    socket.on(trigger, cb)
 }
 
-function off(eventName, cb) {
-    socket.off(eventName, cb)
+function off(trigger, cb) {
+    socket.off(trigger, cb)
 }
 
-function emit(eventName, data) {
-    socket.emit(eventName, data)
+function emit(trigger, data) {
+    socket.emit(trigger, data)
 }

@@ -5,11 +5,7 @@
         <div class="on-picture">
           <h2>Join your next workout</h2>
           <div class="search flex align-center justify-center">
-            <el-input
-              placeholder="Try 'Triathlon'"
-              size="small"
-              v-model="filterBy.title"
-            />
+            <el-input placeholder="Try 'Triathlon'" size="small" v-model="filterBy.title" />
             <el-button icon="el-icon-search" @click="setFilter"></el-button>
           </div>
           <el-tag
@@ -47,8 +43,8 @@ export default {
         title: "",
         location: "",
         tags: [],
-        timeAndDate: "Any day",
-        category: null,
+        date: "Any day",
+        category: "",
       },
       topThree: null,
     };
@@ -58,7 +54,7 @@ export default {
       title: "",
       location: "",
       tags: "",
-      timeAndDate: "",
+      date: "",
       category: "",
     };
     this.$store.commit({ type: "updateFilterBy", filter: cleanFilter });
@@ -69,7 +65,7 @@ export default {
     setFilter() {
       this.$store.commit({
         type: "updateFilterBy",
-        filter: _.cloneDeep(this.filterBy),
+        filter: this.filterBy,
       });
       this.$router.push(`/evento`);
     },

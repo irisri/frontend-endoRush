@@ -10,15 +10,15 @@ export default {
       title: "",
       location: "",
       tags: [],
-      timeAndDate: "",
-      category: ""
+      date: "",
+      category: "",
     },
   },
 
   getters: {
     isLoading(state) {
       return state.isLoading;
-  },
+    },
     eventos(state) {
       return state.eventos;
     },
@@ -36,14 +36,14 @@ export default {
       return new Set(tags);
     },
     getFilterBy(state) {
-      return state.filterBy
-    }
+      return state.filterBy;
+    },
   },
 
   mutations: {
     setIsLoading(state, { isLoading }) {
-      state.isLoading = isLoading
-  },
+      state.isLoading = isLoading;
+    },
     setEventos(state, { eventos }) {
       state.eventos = eventos;
     },
@@ -67,7 +67,7 @@ export default {
     },
     setFilterByCategory(state, { category }) {
       state.filterBy.category = category;
-    }
+    },
   },
 
   actions: {
@@ -79,7 +79,7 @@ export default {
     async saveEvento({ commit }, { evento }) {
       if (evento._id) {
         return await eventoService.update(evento);
-     } else {
+      } else {
         return await eventoService.save(evento);
       }
     },
@@ -88,9 +88,9 @@ export default {
       commit({ type: "setCurrEvento", evento });
     },
     async loadEventos({ commit, state }) {
-      commit({ type: 'setIsLoading', isLoading: true })
+      commit({ type: "setIsLoading", isLoading: true });
       const eventos = await eventoService.query(state.filterBy);
-      commit({ type: 'setIsLoading', isLoading: false })
+      commit({ type: "setIsLoading", isLoading: false });
       commit({ type: "setEventos", eventos });
     },
     async removeEvento(context, { eventoId }) {
@@ -100,7 +100,6 @@ export default {
     async addMember(context, { evento }) {
       await eventoService.update(evento);
       context.commit({ type: "updateEvento", evento });
-    }
-    
+    },
   },
 };

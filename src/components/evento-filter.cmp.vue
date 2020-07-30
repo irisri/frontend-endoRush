@@ -17,7 +17,7 @@
       >
         <el-option v-for="item in categories" :key="item" :label="item" :value="item"></el-option>
       </el-select>
-      <el-select v-model="filterBy.time" @change="setFilter" placeholder="Day">
+      <el-select v-model="filterBy.date" @change="setFilter" placeholder="Day">
         <el-option v-for="item in dates" :key="item" :label="item" :value="item"></el-option>
       </el-select>
     </div>
@@ -32,7 +32,7 @@ export default {
         title: "",
         location: "",
         tags: [],
-        timeAndDate: "Any day",
+        date: "Any day",
         category: null,
       },
       categories: [
