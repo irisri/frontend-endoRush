@@ -8,7 +8,6 @@ export default {
     setup,
     terminate,
     on,
-    off,
     emit,
 }
 
@@ -24,10 +23,7 @@ function on(trigger, cb) {
     socket.on(trigger, cb)
 }
 
-function off(trigger, cb) {
-    socket.off(trigger, cb)
-}
-
 function emit(trigger, data) {
     socket.emit(trigger, data)
 }
+

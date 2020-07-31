@@ -11,7 +11,7 @@
         />
         <member-list :members="evento.members" :capacity="evento.capacity"></member-list>
         <review-list :reviews="owner.reviews" @addReview="addReview"></review-list>
-        <p v-if="!owner.reviews" >Be the first to comment..</p>
+        <p v-if="!owner.reviews">Be the first to comment..</p>
       </div>
 
       <evento-join
@@ -40,11 +40,7 @@ export default {
     return {
       evento: null,
       owner: "",
-      payload: {},
       loggedInUser: "",
-      msg: "",
-      isJoined: false,
-      userJoined: "",
     };
   },
   computed: {
@@ -62,39 +58,39 @@ export default {
     const eventoId = this.$route.params.id;
     await this.$store.dispatch({ type: "getById", eventoId });
     this.evento = _.cloneDeep(this.$store.getters.evento);
+    
     // loggedInUser
     this.loggedInUser = this.$store.getters.loggedInUser;
+    
     // reviews by owner
     const userId = this.evento.owner._id;
     await this.$store.dispatch({ type: "getUserById", userId });
     this.owner = _.cloneDeep(this.$store.getters.user);
     this.title = this.evento.title;
+    
     // socket
     SocketService.setup();
-    SocketService.emit("of evento", this.evento._id);
-    SocketService.emit("to user", this.evento.owner._id);
-    SocketService.on("sentMsg", (_msg) => {
-      console.log("sent join", _msg);
-      if (!this.isJoined) {
-        toastService.resetToast(this);
-        this.payload = { msg: _msg + "xx", icon: "how_to_reg" };
-        toastService.toastMsg(this, this.payload);
-        this.isJoined = false;
-      }
+    SocketService.on("notify new register", (msg) => {
+      const toastPayload = {msg, icon: "how_to_reg"}
+      toastService.toastMsg(this, toastPayload);
     });
   },
   methods: {
     addMember() {
-      const user = this.loggedInUser;
-      this.userJoined = this.loggedInUser;
-      this.isJoined = true;
-      this.evento.members.push(user);
+      console.log('hihi');
+      const loggedInUser = this.loggedInUser;
+      this.evento.members.push(loggedInUser);
       this.$store.dispatch({ type: "addMember", evento: this.evento });
-      this.payload.msg = "You have successfully registered for this event";
-      this.payload.icon = "how_to_reg";
-      toastService.toastMsg(this, this.payload);
-      var sentMsg = `${user.userName} just joined: ${this.evento.title} `;
-      this.sendMsg(sentMsg);
+
+      //socket to evento page
+      const miniEvento = {_id: this.evento._id, title: this.evento.title}
+      const payload = {user: loggedInUser, evento: miniEvento};
+      SocketService.emit("user register to evento", payload);
+
+      //socket to owner page
+      payload.ownerId = this.owner._id;
+      payload.registerTime = Date.now();
+      SocketService.emit("notification to evento owner", payload);
     },
     removeEvento(eventoId) {
       this.$store.dispatch({
@@ -111,15 +107,8 @@ export default {
       this.owner.reviews.push(newReview);
       this.$store.dispatch({ type: "addReview", user: this.owner });
     },
-    sendMsg(sentMsg) {
-      setTimeout(function () {
-        SocketService.emit("newMsg", sentMsg);
-        this.payload = {};
-      }, 500);
-    },
   },
   destroyed() {
-    SocketService.off("sentMsg", this.addMsg);
     SocketService.terminate();
   },
   components: {

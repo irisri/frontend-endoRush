@@ -1,13 +1,13 @@
 
 <template>
-  <section v-if="userToShow" class="user-details main-container flex">
+  <section v-if="userPageToShow" class="user-details main-container flex">
     <div class="right">
-      <h1>{{ userToShow.fullName }}</h1>
-      <img :src="userToShow.imgUrl" />
-      <h4>{{ userToShow.bio }}</h4>
+      <h1>{{ userPageToShow.fullName }}</h1>
+      <img :src="userPageToShow.imgUrl" />
+      <h4>{{ userPageToShow.bio }}</h4>
     </div>
     <div class="left">
-      <review-list v-if="userToShow.reviews" :reviews="userToShow.reviews" :isOwner="isOwner" @addReview="addReview"></review-list>
+      <review-list v-if="userPageToShow.reviews" :reviews="userPageToShow.reviews" :isOwner="isOwner" @addReview="addReview"></review-list>
     </div>
   </section>
 </template>
@@ -21,22 +21,22 @@ export default {
   name: "user-details",
   data() {
     return {
-      userToShow: "",
+      userPageToShow: "",
     };
   },
   computed: {
     isOwner() {
-      const user = this.$store.getters.loggedInUser;
-      if (!user) return;
-      return this.userToShow._id === user._id;
+      const loggedInUser = this.$store.getters.loggedInUser;
+      if (!loggedInUser) return;
+      return this.userPageToShow._id === loggedInUser._id;
     },
   },
   methods: {
     addReview(newReview) {
-      const user = this.$store.getters.loggedInUser;
-      newReview.userId = user._id;
-      newReview.userName = user.userName;
-      newReview.imgUrl = user.imgUrl;
+      const loggedInUser = this.$store.getters.loggedInUser;
+      newReview.userId = loggedInUser._id;
+      newReview.userName = loggedInUser.userName;
+      newReview.imgUrl = loggedInUser.imgUrl;
       this.owner.reviews.push(newReview);
       this.$store.dispatch({ type: "addReview", user: this.owner });
     }
@@ -45,18 +45,21 @@ export default {
     const userId = this.$route.params.id;
     if (userId) {
       await this.$store.dispatch({ type: "getUserById", userId });
-      this.userToShow = this.$store.getters.user;
-      SocketService.setup();
-      SocketService.emit("to user", this.userToShow._id);
-      SocketService.on("sentMsg", (_msg) => {
-        const payload = { msg: _msg, icon: "how_to_reg" };
-        toastService.toastMsg(this, payload);
-        return this.userToShow;
-      });
+      this.userPageToShow = this.$store.getters.user;
+      if (this.isOwner) {
+        SocketService.setup();
+  
+        const payload = {ownerId: this.userPageToShow._id}
+        SocketService.emit("notification to evento owner", payload);
+
+        SocketService.on("notify owner", (msg) => {
+          const payload = { msg, icon: "how_to_reg" };
+          toastService.toastMsg(this, payload);
+        });
+      }
     }
   },
     destroyed() {
-    SocketService.off("sentMsg", this.addMsg);
     SocketService.terminate();
   },
   components: {

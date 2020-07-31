@@ -53,12 +53,12 @@ export default {
       this.isOpenMenu = false;
     },
   },
-  async created() {
-    SocketService.setup();
-    SocketService.on("chat addMsg", (_msg) => {
-      this.msg = _msg;
-    });
-  },
+  // async created() {
+    // SocketService.setup();
+    // SocketService.on("chat addMsg", (_msg) => {
+    //   this.msg = _msg;
+    // });
+  // },
   computed: {
     classObject() {
       return {

@@ -4,7 +4,7 @@
       <h2>Login</h2>
       <form class="form flex column align-center">
         <el-input type="text" v-model="loginCred.userName" placeholder="Username" />
-        <el-input type="text" v-model="loginCred.password" placeholder="Password" />
+        <el-input type="password" v-model="loginCred.password" placeholder="Password" />
         <el-button @click.prevent="doLogin">Login</el-button>
       </form>
       <el-button @click="signUp=!signUp">Signup</el-button>
@@ -14,7 +14,7 @@
       <form class="form flex column align-center">
         <el-input type="text" v-model="signupCred.fullName" placeholder="Fullname" />
         <el-input type="text" v-model="signupCred.userName" placeholder="Username" />
-        <el-input type="text" v-model="signupCred.password" placeholder="Password" />
+        <el-input type="password" v-model="signupCred.password" placeholder="Password" />
         <div class="img-upload">
           <label for="upload" class="custom-file-upload">Upload image</label>
           <input type="file" @change="onUploadImg" id="upload" />
